@@ -4,7 +4,7 @@
 
 #### Members: 
 
-- fill...
+- Nikolaos Stamatopoulos (el19020)
 -
 - Natalia Bourdi (el19031)
 - Athina Mavrommati (el19120)
