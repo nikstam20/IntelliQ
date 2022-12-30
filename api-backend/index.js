@@ -26,7 +26,7 @@ const webserver = https.createServer(/*{ key, cert },*/ webapp);
 
 // API WEB SERVER
 app.get(baseurl, (req,res) => {
-	res.end('DIODE IS UP!');
+	res.end('InteliQ IS UP!');
 });
 
 server.listen(PORT, () => {
@@ -41,17 +41,17 @@ webserver.listen(80, () => {
 	console.log('Web-server is up and runing at: https://localhost:80');
 });
 
-const adminhealth = require('../admin/healthcheck'),
-	questionnaireupd = require('../admin/questionnaire_upd'),
-	resetall = require('../admin/resetall'),
-	resetq = require('../admin/resetq'),
-    login = require('../admin/usermod'),
-    logout = require('../admin/users'),
-	questionnaire = require('../questionnaire'),
-	question = require('../question'),
-	doanswer = require('../doanswer'),
-	getsessionanswers = require('../getsessionanswers'),
-	getquestionanswers = require('../getquestionanswers');
+const adminhealth = require('./admin-endpoints/healthcheck'),
+	questionnaireupd = require('./admin-endpoints/questionnaire_upd'),
+	resetall = require('./admin-endpoints/resetall'),
+	resetq = require('./admin-endpoints/resetq'),
+    login = require('./admin-endpoints/usermod'),
+    logout = require('./admin-endpoints/users'),
+	questionnaire = require('./functional-endpoints/questionnaire'),
+	question = require('./functional-endpoints/question'),
+	doanswer = require('./functional-endpoints/doanswer'),
+	getsessionanswers = require('./functional-endpoints/getsessionanswers'),
+	getquestionanswers = require('./functional-endpoints/getquestionanswers');
 const { homedir } = require('os');
 
 // RESTFUL API ROUTES
@@ -66,6 +66,9 @@ app.use(baseurl+'/question', question);
 app.use(baseurl+'/doanswer', doanswer);
 app.use(baseurl+'/getsessionanswers', getsessionanswers);
 app.use(baseurl+'/getquestionanswers', getquestionanswers);
+/*
+
+Αυτά αφορούν Front-End οπότε για την ώρα τα αφήνουμε
 
 // ROUTES FOR FRONTEND
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
@@ -76,4 +79,5 @@ webapp.use("/chargesby", require('./routes/ChargesBy.routes.js'));
 webapp.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
 webapp.use("/passesperstation", require('./routes/PassesPerStation.routes.js'));
 
+*/
 module.exports = router;
