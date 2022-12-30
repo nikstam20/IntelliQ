@@ -1,9 +1,9 @@
 // TODO: require paths should be updated, waiting on the files & locations
 
 
-import { Router } from '../express';
+const { Router } = require('../node_modules/express');
 const router = Router();
-import { connect } from '../connect';
+const { connect } = require('../connect');
 
 router.post('/:questionnaireID/:questionID', function(req, res) {
     const { questionnaireID, questionID } = req.params;
@@ -44,4 +44,4 @@ router.post('/:questionnaireID/:questionID', function(req, res) {
 	});
 });
 
-export default router;
+module.exports = router;

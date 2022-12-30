@@ -1,7 +1,7 @@
 const mysql_db = require('mysql');
 require('dotenv').config();
 
-const con = mysql_db.createConnection({
+const connect = mysql_db.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "",
@@ -9,9 +9,9 @@ const con = mysql_db.createConnection({
 	port: '3306'
 });
 
-con.connect(function(err) {
+connect.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected!");
 });
 
-module.exports = con;
+module.exports = connect;
