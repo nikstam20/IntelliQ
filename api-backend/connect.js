@@ -1,15 +1,17 @@
-const pg = require('pg');
+const mysql_db = require('mysql');
 require('dotenv').config();
 
-const config = {
-  	user: "root",
+const con = mysql_db.createConnection({
 	host: "localhost",
-  	database: "mydb",
-  	password: "",
-  	port: 3306,
-	idleTimeoutMillis: 30000,
-  	connectionTimeoutMillis: 2000,
-}
+	user: "root",
+	password: "",
+	database: 'mydb',
+	port: '3306'
+});
 
-const pool = new pg.Pool(config);
-module.exports = pool;
+con.connect(function(err) {
+	if (err) throw err;
+	console.log("Connected!");
+});
+
+module.exports = con;
