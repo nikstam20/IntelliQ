@@ -1,7 +1,7 @@
 // TODO: require paths should be updated, waiting on the files & locations
 
 
-const express = require('../express');
+const express = require('../node_modules/express');
 const router = express.Router();
 const pool = require('../connect');
 
