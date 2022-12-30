@@ -13,7 +13,7 @@ router.post('/:questionnaireID', function(req, res) {
 				console.log("connection failed", err);
 		}
         // TODO: test the query/make it right??? -nat
-		client.query("DELETE * FROM Session WHERE Questionnaire_questionnaire_id = [questionnaireID]", function(err) 
+		client.query("DELETE * FROM Session WHERE Questionnaire_questionnaire_id = $1", [questionnaireID], function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Couldn't delete answers"});
