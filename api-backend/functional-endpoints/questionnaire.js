@@ -26,8 +26,9 @@ router.post('/:questionnaireID', function(req, res) {
 			}
 			else {
                 // TODO: does this work and is it a json list
+		// result is an array of objects i believe , we can turn it into a json list like so: - nikolas
 				const keywords = result;
-
+				const keywordsJSON = JSON.stringify(keywords);
         	}
    		});
         // TODO: needs to be tested + ordered by dec -nat
@@ -38,21 +39,34 @@ router.post('/:questionnaireID', function(req, res) {
                 console.log(err);
 			}
 			else {
+				//make array of questions in questionnaire
+   				const questions = [];
+    				for (const row of result.rows) {
+      					const question = { qID: row.question_id };
+      					questions.push(question);
+    				}
+				
+				//generate response
+				const response = {
+						"questionnaireID":questionnaireID,
+						"questionnaireTitle":title, //edw eixe questionID anti gia title, unless im missing something 8a prepe na nai title -nikolas
+						"keywords": keywords,
+						"questions": questions
+						/*"questions": {
+                            				"qID": result.question_id,       // ...?
+                       				}*/
+					}	
 				if(req.query.format === "csv") {
-					// TODO: csv
+					const csvHeader = ['questionnaireID,questionnaireTitle,keywords,questions'];
+					const csvObj = { csvHeader };
+					var csvData = parse(response, data_opts);
+					res.status(200).send(csvData);
+					console.log("Questionnaire info OK.");
 				}
 				else {
                     // JSON response: default if no query format specified.
                     // TODO: result.[] ?, test -nat
-					const response = {
-						"questionnaireID":questionnaireID,
-						"questionnaireTitle":questionID,
-						"keywords": keywords,
-						"questions": {
-                            "qID": result.question_id,       // ...?
-                        }
-
-					}	
+					
 					res.status(200).json(response);
 					console.log("Questionnaire info OK.");
 				}
