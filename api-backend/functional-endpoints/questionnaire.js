@@ -26,13 +26,15 @@ router.post('/:questionnaireID', function(req, res) {
 			}
 			else {
                 // TODO: does this work and is it a json list
-		// result is an array of objects i believe , we can turn it into a json list like so: - nikolas
+		// result is an array of objects i believe , we can turn it into a json list like so: 
+				//const keywordsJSON = JSON.stringify(keywords);
+		//but i don't think we have to , response should contain arrays not json lists. then response is sent as a json list at the end - nikolas
 				const keywords = result;
-				const keywordsJSON = JSON.stringify(keywords);
+				
         	}
    		});
         // TODO: needs to be tested + ordered by dec -nat
-		client.query("select questionnaire_id, title from Questionnaire where questionnaire_id = $1;", [questionnaireID], function(err) 
+		client.query("select questionnaire_id, title from Questionnaire where questionnaire_id = $1 order by question_id desc;", [questionnaireID], function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Error getting questionnaire information."});
