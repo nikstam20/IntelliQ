@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
   `Question_question_id` INT(3) NOT NULL,
   `Question_Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`option_id`, `Question_question_id`, `Question_Questionnaire_questionnaire_id`),
-  INDEX `fk_Option_Question2_idx` (`Question_question_id1` ASC, `Question_Questionnaire_questionnaire_id1` ASC) VISIBLE,
+  INDEX `fk_Option_Question2_idx` (`Question_nextquestion_id` ASC, `Question_Questionnaire_questionnaire_id1` ASC) VISIBLE,
   INDEX `fk_Option_Question1_idx` (`Question_question_id` ASC, `Question_Questionnaire_questionnaire_id` ASC) VISIBLE,
   CONSTRAINT `fk_Option_Question2`
-    FOREIGN KEY (`Question_question_id1` , `Question_Questionnaire_questionnaire_id1`)
+    FOREIGN KEY (`Question_nextquestion_id` , `Question_Questionnaire_questionnaire_id1`)
     REFERENCES `mydb`.`Question` (`question_id` , `Questionnaire_questionnaire_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
