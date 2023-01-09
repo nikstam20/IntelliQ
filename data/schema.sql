@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
   `type` ENUM('question', 'profile') NULL DEFAULT 'question',
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`question_id`, `Questionnaire_questionnaire_id`),
-  INDEX `fk_Question_Questionnaire1_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
+  -- INDEX `fk_Question_Questionnaire1_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
   CONSTRAINT `fk_Question_Questionnaire1`
     FOREIGN KEY (`Questionnaire_questionnaire_id`)
     REFERENCES `mydb`.`Questionnaire` (`questionnaire_id`)
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
   `Question_question_id` INT(3) NOT NULL,
   `Question_Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`option_id`, `Question_question_id`, `Question_Questionnaire_questionnaire_id`),
-  INDEX `fk_Option_Question2_idx` (`Question_nextquestion_id` ASC, `Question_Questionnaire_questionnaire_id1` ASC) VISIBLE,
-  INDEX `fk_Option_Question1_idx` (`Question_question_id` ASC, `Question_Questionnaire_questionnaire_id` ASC) VISIBLE,
+ -- INDEX `fk_Option_Question2_idx` (`Question_nextquestion_id` ASC, `Question_Questionnaire_questionnaire_id1` ASC) VISIBLE,
+  -- INDEX `fk_Option_Question1_idx` (`Question_question_id` ASC, `Question_Questionnaire_questionnaire_id` ASC) VISIBLE,
   CONSTRAINT `fk_Option_Question2`
     FOREIGN KEY (`Question_nextquestion_id` , `Question_Questionnaire_questionnaire_id1`)
     REFERENCES `mydb`.`Question` (`question_id` , `Questionnaire_questionnaire_id`)
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Session` (
   `session_id` CHAR(4) NOT NULL,
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`session_id`),
-  INDEX `fk_Session_Questionnaire1_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
+ -- INDEX `fk_Session_Questionnaire1_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
   CONSTRAINT `fk_Session_Questionnaire1`
     FOREIGN KEY (`Questionnaire_questionnaire_id`)
     REFERENCES `mydb`.`Questionnaire` (`questionnaire_id`)
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
   `Option_option_id` INT(3) NOT NULL,
   `Session_session_id` CHAR(4) NOT NULL,
   PRIMARY KEY (`answer_id`),
-  INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
-  INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,
+ -- INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
+ -- INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,
   CONSTRAINT `fk_Answer_Option1`
     FOREIGN KEY (`Option_option_id`)
     REFERENCES `mydb`.`Option` (`option_id`)
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Keyword` (
   `keyword_text` VARCHAR(45) NULL,
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`keyword_id`),
-  INDEX `fk_Keyword_Questionnaire_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
+--  INDEX `fk_Keyword_Questionnaire_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
   CONSTRAINT `fk_Keyword_Questionnaire`
     FOREIGN KEY (`Questionnaire_questionnaire_id`)
     REFERENCES `mydb`.`Questionnaire` (`questionnaire_id`)
