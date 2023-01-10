@@ -57,6 +57,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
                     // JSON response: default if no query format specified.
                     // TODO: result.[] ?, test -nat						
 					res.status(200).json(response);
+					//console.log("hi");
 					console.log("Question info OK.");
 				}
 
