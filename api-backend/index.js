@@ -25,21 +25,25 @@ const server = https.createServer(/*{ key, cert },*/ app);
 const webserver = https.createServer(/*{ key, cert },*/ webapp);
 
 // API WEB SERVER
-app.get(baseurl, (req,res) => {
+app.get('/', (req,res) => {
 	res.end('InteliQ IS UP!');
 });
 
-server.listen(PORT, () => {
-	console.log(`app listening at: https://localhost:${PORT}${baseurl}`);
+app.listen(PORT, () => {
+	console.log(`app listening at: http://localhost:${PORT}${baseurl}`);
+});
+
+app.get(baseurl, function (req,res) {
+	res.send("hello world!");
 });
 
 // MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
 app.use(cors());
 
 // WEB SERVER (for frontend)
-webserver.listen(80, () => {
-	console.log('Web-server is up and runing at: https://localhost:80');
-});
+// webserver.listen(80, () => {
+// 	console.log('Web-server is up and runing at: https://localhost:80');
+// });
 
 const adminhealth = require('./admin-endpoints/healthcheck'),
 	questionnaireupd = require('./admin-endpoints/questionnaire_upd'),
