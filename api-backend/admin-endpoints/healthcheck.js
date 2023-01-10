@@ -5,7 +5,7 @@ const router = express.Router();
 const pool = require('../connect');
 
 router.get('/', function(req, res) {
-	pool.connect(function(err, client, release) {
+	pool.getConnection(function(err, client, release) {
 		if(err) {
 		        res.status(500).json({status:"failed", "dbconnection":"mysql://root:password@localhost:port/intelliq"});
                         console.log("Connection could not be established.", err);
