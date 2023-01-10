@@ -4,7 +4,7 @@
 const express = require('../node_modules/express');
 const router = express.Router();
 const pool  = require('../connect');
-//const { parse } = require('../api-backend/node_modules/json2csv');
+const { parse } = require('../node_modules/json2csv');
 
 router.get('/:questionnaireID/:questionID', function(req, res) {
 	
@@ -20,8 +20,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
         // TODO: needs to be tested + ordered by dec -nat
 		else{
 		q = `select Question.question_text, required, Question.type, Option.option_id, Option.option_text, Option.Question_nextquestion_id from Question inner join Option ON Question.question_id = Option.Question_question_id where (Question.Questionnaire_questionnaire_id = ${questionnaireID} AND Question.question_id = ${questionID})`;	
-		pool.query(q, function(err, result) {
-
+		pool.query(q, function(err, result, release) {
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Error getting question information."});
                 console.log(err);
@@ -49,7 +48,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 				if(req.query.format === "csv") {
 					const csvHeader = ['questionnaireID,qID,qtext,required,type,options'];
 					const csvObj = { csvHeader };
-					var csvData = parse(response, data_opts);
+					var csvData = parse(response, csvObj);
 					res.status(200).send(csvData);
 					console.log("Question info OK.");
 				}
@@ -59,11 +58,12 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 					console.log("Question info OK.");
 				}
 
-        	}
+        	}	
    		});
 	}
-		//release();
+
 	});
+
 });
 
 module.exports = router;
