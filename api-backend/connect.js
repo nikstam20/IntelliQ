@@ -1,7 +1,8 @@
 const mysql_db = require('mysql');
 require('dotenv').config();
 
-const connect = mysql_db.createConnection({
+const connect = mysql_db.createPool({
+	connectionLimit: 5,
 	host: "127.0.0.1",
 	user: "root",
 	password: "",
