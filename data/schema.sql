@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
   `question_id` INT(3) NOT NULL,
   `question_text` VARCHAR(255) NOT NULL,
-  `required` BIT NULL DEFAULT 1,
+  `required` ENUM('true', 'false') NULL DEFAULT 'true',
   `type` ENUM('question', 'profile') NULL DEFAULT 'question',
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`question_id`, `Questionnaire_questionnaire_id`),
