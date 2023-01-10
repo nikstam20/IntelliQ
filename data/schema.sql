@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+-- hello
 -- -----------------------------------------------------
 -- Table `mydb`.`Session`
 -- -----------------------------------------------------
