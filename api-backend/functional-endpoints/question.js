@@ -11,7 +11,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
     const { questionnaireID, questionID } = req.params;
 	//res.send(questionnaireID+" "+questionID);
 	pool.getConnection(function(err, connection) {
-
+//fasfwaf
 		if(err) {
 			res.status(500).json({status:"failed", reason: "connection to database not established."});
 			console.log(err);
@@ -62,7 +62,6 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
                     var csvData = parse(csv_input, csvObj);
                     res.status(200).send(csvData);
                     console.log("Question info OK.");
-
 				}
 				else {
 					const input = {
