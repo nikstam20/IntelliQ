@@ -1,23 +1,21 @@
-// TODO: require paths should be updated, waiting on the files & locations
-
 const express = require('../node_modules/express');
 const router = express.Router();
 const pool = require('../connect');   
 
-router.post('/', function(req, res) {
-	pool.connect(function(err, client, release) {
+router.post('/', function(res) {
+	pool.getConnection(function(err, connection) {
 		if(err) {
 			res.status(500).json({status:"failed"});
 				console.log("connection failed", err);
 		}
-        client.query("SET FOREIGN_KEY_CHECKS=0;", function(err)
+        connection.query("SET FOREIGN_KEY_CHECKS=0;", function(err)
         {
             if(err) {
                 res.status(500).json({status:"failed", reason: "Could not turn off foreign key checks."});
                 console.log(err);
             }
         })
-		client.query("TRUNCATE TABLE User", function(err) 
+		connection.query("TRUNCATE TABLE User", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table User not truncated"});
@@ -28,7 +26,7 @@ router.post('/', function(req, res) {
                 console.log("Table User truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Keyword", function(err) 
+        connection.query("TRUNCATE TABLE Keyword", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Keyword not truncated"});
@@ -39,7 +37,7 @@ router.post('/', function(req, res) {
                 console.log("Table Keyword truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Answer", function(err) 
+        connection.query("TRUNCATE TABLE Answer", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Answer not truncated"});
@@ -50,7 +48,7 @@ router.post('/', function(req, res) {
                 console.log("Table Answer truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Session", function(err) 
+        connection.query("TRUNCATE TABLE Session", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Session not truncated"});
@@ -61,7 +59,7 @@ router.post('/', function(req, res) {
                 console.log("Table Session truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Option", function(err) 
+        connection.query("TRUNCATE TABLE Option", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Option not truncated"});
@@ -72,7 +70,7 @@ router.post('/', function(req, res) {
                 console.log("Table Option truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Question", function(err) 
+        connection.query("TRUNCATE TABLE Question", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Question not truncated"});
@@ -83,7 +81,7 @@ router.post('/', function(req, res) {
                 console.log("Table Question truncated");
 			}
 		})
-        client.query("TRUNCATE TABLE Questionnaire", function(err) 
+        connection.query("TRUNCATE TABLE Questionnaire", function(err) 
 		{
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Table Questionnaire not truncated"});
@@ -94,7 +92,7 @@ router.post('/', function(req, res) {
                 console.log("Table Questionnaire truncated");
 			}
 		})
-        client.query("SET FOREIGN_KEY_CHECKS=1;", function(err)
+        connection.query("SET FOREIGN_KEY_CHECKS=1;", function(err)
         {
             if(err) {
                 res.status(500).json({status:"failed", reason: "Could not turn foreign key checks back on."});
@@ -102,7 +100,7 @@ router.post('/', function(req, res) {
             }
         })
         ;
-		release();
+		connection.release();
 	});
 });
 
