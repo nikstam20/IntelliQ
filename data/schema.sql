@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+-- push comment
 -- -----------------------------------------------------
 -- Table `mydb`.`Keyword`
 -- -----------------------------------------------------
