@@ -2,7 +2,7 @@ const express = require('../node_modules/express');
 const router = express.Router();
 const pool = require('../connect');   
 
-router.post('/', function(res) {
+router.post('/', function(req, res) {
 	pool.getConnection(function(err, connection) {
 		if(err) {
 			res.status(500).json({status:"failed"});
@@ -22,7 +22,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table User truncated");
 			}
 		})
@@ -33,7 +32,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table Keyword truncated");
 			}
 		})
@@ -44,7 +42,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table Answer truncated");
 			}
 		})
@@ -55,7 +52,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table Session truncated");
 			}
 		})
@@ -66,7 +62,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table Option truncated");
 			}
 		})
@@ -77,7 +72,6 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
                 console.log("Table Question truncated");
 			}
 		})
@@ -88,16 +82,20 @@ router.post('/', function(res) {
                 console.log(err);
 			}
 			else {
-				res.status(200).json({status:"OK"});
+				// res.status(200).json({status:"OK"});
                 console.log("Table Questionnaire truncated");
 			}
 		})
         connection.query("SET FOREIGN_KEY_CHECKS=1;", function(err)
         {
             if(err) {
-                res.status(500).json({status:"failed", reason: "Could not turn foreign key checks back on."});
+                res.status(500).json({status:"failed", reason: "Could not turn foreign key checks back on."}); //put a var that gets the reason depending
                 console.log(err);
             }
+			else {
+				res.status(200).json({status:"OK"});
+                console.log("All tables trunctated successfully.");
+			}
         })
         ;
 		connection.release();

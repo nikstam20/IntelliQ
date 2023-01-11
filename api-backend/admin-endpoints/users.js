@@ -24,7 +24,7 @@ router.get('/:username', function(req, res) {
 
                 if(result.length == 0) {
                     // Empty set response.
-                    res.status(402).json({status:"failed", reason: "No data for user."});
+                    res.status(204).json({status:"failed", reason: "No data for user."});
                         console.log("No user is registered under the requested username.");
                 }
                 
