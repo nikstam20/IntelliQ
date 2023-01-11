@@ -8,15 +8,13 @@ const { parse } = require('../node_modules/json2csv');
 router.get('/:questionnaireID/:questionID', function(req, res) {
 	
     const { questionnaireID, questionID } = req.params;
-	//res.send(questionnaireID+" "+questionID);
 	pool.getConnection(function(err, connection) {
-//fasfwaf
 		if(err) {
 			res.status(500).json({status:"failed", reason: "connection to database not established."});
 			console.log(err);
 		}
 
-        // TODO: needs to be tested + ordered by dec -nat
+        // TODO: needs to be ordered by dec -nat
 		else{
 		q = `select Question.question_text, Question.required, Question.type, Option.option_id, Option.option_text, Option.Question_nextquestion_id from Question inner join Option ON Question.question_id = Option.Question_question_id where (Question.Questionnaire_questionnaire_id = ${questionnaireID} AND Question.question_id = ${questionID})`;	
 		connection.query(q, function(err, result) {
@@ -52,7 +50,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
                      		"optID": row.option_id.toString(),
 							"opttxt": row.option_text,
 							"nextqID": row.Question_nextquestion_id.toString()
-					}//comment for push
+					}
 					csv_input.push(inputty)
 				}
 
