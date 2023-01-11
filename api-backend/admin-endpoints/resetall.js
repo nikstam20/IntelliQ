@@ -82,7 +82,6 @@ router.post('/', function(req, res) {
                 console.log(err);
 			}
 			else {
-				// res.status(200).json({status:"OK"});
                 console.log("Table Questionnaire truncated");
 			}
 		})

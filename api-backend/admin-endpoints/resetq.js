@@ -7,7 +7,6 @@ const { parse } = require('../node_modules/json2csv');
 // TODO: query, all else works
 router.post('/:questionnaireID', function(req, res) {
 	const { questionnaireID } = req.params;
-	// console.log("in resetq")
 	pool.getConnection(function(err, connection) {
 		if(err) {
 			res.status(500).json({status:"failed"});

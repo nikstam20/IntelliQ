@@ -30,7 +30,6 @@ router.get('/:username', function(req, res) {
                 
                 else {
                     // User exists in the database.
-                    
                     if(req.query.format === "csv") {
                         const csv_input = [];
                         for (const row of result) {
