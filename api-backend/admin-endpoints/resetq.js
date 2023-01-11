@@ -13,7 +13,7 @@ router.post('/:questionnaireID', function(req, res) {
 				console.log("Connection failed", err);
 		}
         // WARNING:::: wrong query! just for testing 
-		q = `truncate table User`; 
+		q = `delete from Answers where Answer.Option_questionnaire_id = ${questionnaireID};`; 
 		connection.query(q, function(err, result) {
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Couldn't delete answers"});

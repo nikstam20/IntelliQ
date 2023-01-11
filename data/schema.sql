@@ -101,10 +101,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
  -- INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
  -- INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,
   CONSTRAINT `fk_Answer_Option1`
-    FOREIGN KEY (`Option_option_id`, `Option_questionnaire_id`,`Option_question_id` )
-    REFERENCES `mydb`.`Option` (`option_id`, `Question_Questionnaire_questionnaire_id`,`Question_question_id` )
+    FOREIGN KEY (`Option_option_id` )
+    REFERENCES `mydb`.`Option` (`option_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Answer_Question1`
+    FOREIGN KEY ( `Option_question_id` )
+    REFERENCES `mydb`.`Question` ( `question_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Answer_Questionnaire1`
+    FOREIGN KEY ( `Option_questionnaire_id` )
+    REFERENCES `mydb`.`Questionnaire` (`questionnaire_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,  
   CONSTRAINT `fk_Answer_Session1`
     FOREIGN KEY (`Session_session_id`)
     REFERENCES `mydb`.`Session` (`session_id`)
