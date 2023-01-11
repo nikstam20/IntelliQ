@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Question`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
-  `question_id` INT(3) NOT NULL,
+  `question_id` INT(3) NOT NULL AUTO_INCREMENT,
   `question_text` VARCHAR(255) NOT NULL,
   `required` ENUM('True', 'False')  NULL DEFAULT 'True',
   `type` ENUM('question', 'profile') NULL DEFAULT 'question',
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Option`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
-  `option_id` INT(3) NOT NULL,
+  `option_id` INT(3) NOT NULL AUTO_INCREMENT,
   `option_text` VARCHAR(255) NULL,
   `Question_nextquestion_id` INT(3) NOT NULL,
   `Question_Questionnaire_questionnaire_id1` INT NOT NULL,
@@ -127,7 +127,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Keyword`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Keyword` (
-  `keyword_id` INT NOT NULL,
+  `keyword_id` INT NOT NULL AUTO_INCREMENT,
   `keyword_text` VARCHAR(45) NULL,
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`keyword_id`),
