@@ -91,16 +91,18 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Answer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
-  `answer_id` INT(3) NOT NULL,
+  `answer_id` INT(3) NOT NULL AUTO_INCREMENT,
   `answer_text` VARCHAR(255) NULL,
   `Option_option_id` INT(3) NOT NULL,
+  `Option_questionnaire_id` INT(3) NOT NULL,
+  `Option_question_id` INT(3) NOT NULL,
   `Session_session_id` INT(3) NOT NULL,
   PRIMARY KEY (`answer_id`),
  -- INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
  -- INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,
   CONSTRAINT `fk_Answer_Option1`
-    FOREIGN KEY (`Option_option_id`)
-    REFERENCES `mydb`.`Option` (`option_id`)
+    FOREIGN KEY (`Option_option_id`, `Option_questionnaire_id`,`Option_question_id` )
+    REFERENCES `mydb`.`Option` (`option_id`, `Question_Questionnaire_questionnaire_id`,`Question_question_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Answer_Session1`
