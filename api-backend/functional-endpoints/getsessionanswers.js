@@ -3,6 +3,10 @@ const router = express.Router();
 const pool  = require('../connect');
 const { parse } = require('../node_modules/json2csv');
 
+router.get('/:questionnaireID', function(req, res) {
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
+
 router.get('/:questionnaireID/:session', function(req, res) {
 	
     const { questionnaireID, session } = req.params;
@@ -22,6 +26,9 @@ router.get('/:questionnaireID/:session', function(req, res) {
                 console.log(err);
 			}
 			else {
+				if(result == null)
+				//needs a fix.
+				res.status(402).json({status:"failed", reason: "No data."});
    				const answers = [];
     			for (const row of result) {
       				const answer = { qid: row.Question_question_id, ans: row.answer_id };
@@ -57,6 +64,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
                		const response = JSON.parse(json, (key, val) => (
                     	typeof val !== 'object' && val !== null ? String(val) : val
                   ));
+					
                     // JSON response: default if no query format specified.					
 					res.status(200).json(response);
 					console.log("Question info OK.");
