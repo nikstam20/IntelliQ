@@ -43,7 +43,7 @@ router.get('/', function(req, res){
                     for (let i = 0; i < keywords.length; i++) {
 
                         q = `INSERT INTO Keyword (keyword_text, Questionnaire_questionnaire_id) VALUES ("${keywords[i]}", ${questionnaireID});`
-                        connection.query(q, function(result) {
+                        connection.query(q, function(err, result) {
 
                             if(err) {
                                 res.status(500).json({status:"failed", reason: "Error when executing query."});
@@ -57,7 +57,7 @@ router.get('/', function(req, res){
 
                         q = `INSERT INTO Question (question_id, question_text, required, type, Questionnaire_questionnaire_id) 
                         VALUES (${questions[i].qID}, "${questions[i].qtext}", "${questions[i].required}", "${questions[i].type}", ${questionnaireID});`
-                        connection.query(q, function(result) {
+                        connection.query(q, function(err, result) {
 
                             if(err) {
                                 res.status(500).json({status:"failed", reason: "Error when executing query."});
@@ -67,17 +67,19 @@ router.get('/', function(req, res){
                     }    
 
                     for (let i = 0; i < questions.length; i++) {      
-                    for (let j = 0; j < questions[i].options.length; j++) {
-                        const option = questions[i].options[j];
-                        q = `INSERT INTO Option (option_text, Question_nextquestion_id, Question_Questionnaire_questionnaire_id1, Question_question_id, Question_Questionnaire_questionnaire_id)
-                        VALUES ("${option.opttxt}", ${option.nextqID}, ${questionnaireID}, ${questions[i].qID}, ${questionnaireID});`
-                        connection.query(q, function(result) {
-                        });
-                    }      
-                    if(err) {
-                        res.status(500).json({status:"failed", reason: "Error when executing query."});
-                        console.log(err);
-                    }  
+                        for (let j = 0; j < questions[i].options.length; j++) {
+                            const option = questions[i].options[j];
+                            q = `INSERT INTO Option (option_text, Question_nextquestion_id, Question_Questionnaire_questionnaire_id1, Question_question_id, Question_Questionnaire_questionnaire_id)
+                            VALUES ("${option.opttxt}", ${option.nextqID}, ${questionnaireID}, ${questions[i].qID}, ${questionnaireID});`
+                            connection.query(q, function(err, result) {
+
+                                if(err) {
+                                    res.status(500).json({status:"failed", reason: "Error when executing query."});
+                                    console.log(err);
+                                }  
+
+                            });
+                        }      
                     }
                 }
             });

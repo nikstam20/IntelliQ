@@ -51,7 +51,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
   `option_id` INT(3) NOT NULL AUTO_INCREMENT,
   `option_text` VARCHAR(255) NULL,
-  `Question_nextquestion_id` INT(3) NOT NULL,
+  `Question_nextquestion_id` INT(3) NULL,
   `Question_Questionnaire_questionnaire_id1` INT NOT NULL,
   `Question_question_id` INT(3) NOT NULL,
   `Question_Questionnaire_questionnaire_id` INT NOT NULL,

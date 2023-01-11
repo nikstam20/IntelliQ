@@ -183,7 +183,7 @@
                 },
                 {
                     "opttxt": "Οχι",
-                    "nextqID": "NULL"
+                    "nextqID": "null"
                 }
             ]
         },
@@ -195,11 +195,11 @@
             "options": [
                 {
                     "opttxt": "Θερινή",
-                    "nextqID": "NULL"
+                    "nextqID": "null"
                 },
                 {
                     "opttxt": "Χειμερινή",
-                    "nextqID": "NULL"
+                    "nextqID": "null"
                 }
             ]
         }
