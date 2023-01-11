@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
   `question_id` INT(3) NOT NULL,
   `question_text` VARCHAR(255) NOT NULL,
-  `required` ENUM('true', 'false') NULL DEFAULT 'true',
+  `required` ENUM('True', 'False')  NULL DEFAULT 'True',
   `type` ENUM('question', 'profile') NULL DEFAULT 'question',
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`question_id`, `Questionnaire_questionnaire_id`),
@@ -70,12 +70,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Option` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- hello
+
 -- -----------------------------------------------------
 -- Table `mydb`.`Session`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Session` (
-  `session_id` CHAR(4) NOT NULL,
+  `session_id` INT(3) NOT NULL,
   `Questionnaire_questionnaire_id` INT NOT NULL,
   PRIMARY KEY (`session_id`),
  -- INDEX `fk_Session_Questionnaire1_idx` (`Questionnaire_questionnaire_id` ASC) VISIBLE,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
   `answer_id` INT(3) NOT NULL,
   `answer_text` VARCHAR(255) NULL,
   `Option_option_id` INT(3) NOT NULL,
-  `Session_session_id` CHAR(4) NOT NULL,
+  `Session_session_id` INT(3) NOT NULL,
   PRIMARY KEY (`answer_id`),
  -- INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
  -- INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,

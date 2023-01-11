@@ -3,79 +3,96 @@
 ερωτηματολογίου με αναγνωριστικό questionnaireID, ταξινομημένες ως προς το αναγνωριστικό της
 ερώτησης. */
 
-// TODO: require paths should be updated, waiting on the files & locations
-// TODO: needs a lot of work
+const express = require('../node_modules/express');
+const router = express.Router();
+const pool  = require('../connect');
+const { parse } = require('../node_modules/json2csv');
 
-const { Router } = require('../node_modules/express');
-const router = Router();
-const { connect } = require('../connect');
-
-router.post('/:questionnaireID', function(req, res) {
+router.get('/:questionnaireID', function(req, res) {
+	
     const { questionnaireID } = req.params;
-	connect(function(err, client, release) {
+
+	pool.getConnection(function(err, connection) {
+//fasfwaf
 		if(err) {
-			res.status(500).json({status:"failed", reason: "connection to database failed"});
-				console.log(err);
+			res.status(500).json({status:"failed", reason: "connection to database not established."});
+			console.log(err);//order by question_id desc)
 		}
-        var keywords;
-        client.query("select keyword_text from Keyword where Questionnaire_questionnaire_id = $1", [questionnaireID], function(err) 
-		{
-        	if(err) {
-				res.status(500).json({status:"failed", reason: "Error getting keyword information."});
-                console.log(err);
-			}
-			else {
-                // TODO: does this work and is it a json list
-		// result is an array of objects i believe , we can turn it into a json list like so: 
-				//const keywordsJSON = JSON.stringify(keywords);
-		//but i don't think we have to , response should contain arrays not json lists. then response is sent as a json list at the end - nikolas
-				const keywords = result;
-				
-        	}
-   		});
-        // TODO: needs to be tested + ordered by dec -nat
-		client.query("select questionnaire_id, title from Questionnaire where questionnaire_id = $1 order by question_id desc;", [questionnaireID], function(err) 
-		{
+		else{
+			//
+            q = `select Questionnaire.title, Keyword.keyword_text, Question.question_id, Question.question_text, Question.required, Question.type from Questionnaire inner join Keyword ON Questionnaire.questionnaire_id = Keyword.Questionnaire_questionnaire_id inner join  Question ON Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id where (Questionnaire.questionnaire_id= ${questionnaireID}) ORDER BY Question.question_id`;		
+            connection.query(q, function(err, result) {
+
         	if(err) {
 				res.status(500).json({status:"failed", reason: "Error getting questionnaire information."});
                 console.log(err);
 			}
 			else {
-				//make array of questions in questionnaire
    				const questions = [];
-    				for (const row of result.rows) {
-      					const question = { qID: row.question_id };
+				const keywords = [];
+				var  qid_last = -1;
+				var i = 0;
+    			for (const row of result) {
+					if(row.question_id != qid_last){
+      					const question = { qid: row.question_id, qtext: row.question_text, required: row.required, type: row.type };
       					questions.push(question);
-    				}
+						title = row.title;
+						qid_last=row.question_id;
+					}
+    			}
+				for (const row of result) {
+					if(i == questions.length) break;
+					const keyword = {keyword: row.keyword_text};
+					keywords.push(keyword);
+					kwrd_last=row.keyword_text;
+					i++;
+				}
 				
-				//generate response
-				const response = {
-						"questionnaireID":questionnaireID,
-						"questionnaireTitle":title, //edw eixe questionID anti gia title, unless im missing something 8a prepe na nai title -nikolas
-						"keywords": keywords,
-						"questions": questions
-						/*"questions": {
-                            				"qID": result.question_id,       // ...?
-                       				}*/
-					}	
 				if(req.query.format === "csv") {
-					const csvHeader = ['questionnaireID,questionnaireTitle,keywords,questions'];
-					const csvObj = { csvHeader };
-					var csvData = parse(response, data_opts);
-					res.status(200).send(csvData);
-					console.log("Questionnaire info OK.");
+					const csv_input = [];
+					for (const row of result) {
+						const inputty = {
+							"questionnaireID":questionnaireID.toString(),
+							"questionnaireTitle":row.title.toString(),
+							"keywords":row.keyword_text,
+							"qid":row.question_id.toString(),
+							"qtext":row.question_text,
+							"required":row.required,
+							"type":row.type
+					}
+					csv_input.push(inputty)
+				}
+
+					const csvHeader = ['questionnaireID,questionnaireTitle,keywords,qid, qtext, required, type'];
+                    const csvObj = { csvHeader };
+                    var csvData = parse(csv_input, csvObj);
+                    res.status(200).send(csvData);
+                    console.log("Question info OK.");
 				}
 				else {
-                    // JSON response: default if no query format specified.
-                    // TODO: result.[] ?, test -nat
-					
-					res.status(200).json(response);
-					console.log("Questionnaire info OK.");
+					const input = {
+						"questionnaireID":questionnaireID.toString(),
+						"questionnaireTitle":title,
+						"keywords":keywords,
+						"questions":questions
 				}
-        	}
+					const json = JSON.stringify(input);
+               		const response = JSON.parse(json, (key, val) => (
+                    	typeof val !== 'object' && val !== null ? String(val) : val
+                  ));
+           
+                    // JSON response: default if no query format specified.					
+					res.status(200).json(response);
+					console.log("Question info OK.");
+				}
+
+        	}	
    		});
-		release();
+	}
+	connection.release();
 	});
+
 });
+
 
 module.exports = router;
