@@ -67,7 +67,7 @@ router.get('/:questionnaireID', function(req, res) {
                     const csvObj = { csvHeader };
                     var csvData = parse(csv_input, csvObj);
                     res.status(200).send(csvData);
-                    console.log("Question info OK.");
+                    console.log("Questionnaire info OK.");
 				}
 				else {
 					const input = {
@@ -83,7 +83,7 @@ router.get('/:questionnaireID', function(req, res) {
            
                     // JSON response: default if no query format specified.					
 					res.status(200).json(response);
-					console.log("Question info OK.");
+					console.log("Questionnaire info OK.");
 				}
 
         	}	
