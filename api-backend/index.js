@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express'),
  app = express(),
  webapp = express(),
-//  port = 9103,
  router = express.Router();
 const https = require('https');
 const fs = require('fs');
@@ -26,7 +25,7 @@ const webserver = https.createServer(/*{ key, cert },*/ webapp);
 
 // API WEB SERVER
 app.get('/', (req,res) => {
-	res.end('InteliQ IS UP!');
+	res.send('InteliQ IS UP!');
 });
 
 app.listen(PORT, () => {
@@ -34,7 +33,7 @@ app.listen(PORT, () => {
 });
 
 app.get(baseurl, function (req,res) {
-	res.send("hello world!");
+	res.send("InteliQ IS UP!");
 });
 
 // MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
@@ -49,8 +48,8 @@ const adminhealth = require('./admin-endpoints/healthcheck'),
 	questionnaireupd = require('./admin-endpoints/questionnaire_upd'),
 	resetall = require('./admin-endpoints/resetall'),
 	resetq = require('./admin-endpoints/resetq'),
-    login = require('./admin-endpoints/usermod'),
-    logout = require('./admin-endpoints/users'),
+    // login = require('./admin-endpoints/usermod'),
+    // logout = require('./admin-endpoints/users'),
 	questionnaire = require('./functional-endpoints/questionnaire'),
 	question = require('./functional-endpoints/question'),
 	doanswer = require('./functional-endpoints/doanswer'),
@@ -63,8 +62,8 @@ app.use(baseurl+'/admin/healthcheck', adminhealth);
 app.use(baseurl+'/admin/questionnaire_upd', questionnaireupd);
 app.use(baseurl+'/admin/resetall', resetall);
 app.use(baseurl+'/admin/resetq', resetq);
-app.use(baseurl+'/admin/usermod', login)
-app.use(baseurl+'/admin/users', logout)
+// app.use(baseurl+'/admin/usermod', login)
+// app.use(baseurl+'/admin/users', logout)
 app.use(baseurl+'/questionnaire', questionnaire);
 app.use(baseurl+'/question', question);
 app.use(baseurl+'/doanswer', doanswer);

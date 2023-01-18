@@ -9,10 +9,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
@@ -141,14 +137,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `mydb`.`User` - FOR USER AUTHENTICATION
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
-  `username` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `admin` BIT NULL DEFAULT 0,
-  PRIMARY KEY (`username`))
-ENGINE = InnoDB;
+-- CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+--   `username` VARCHAR(30) NOT NULL,
+--   `password` VARCHAR(45) NOT NULL,
+--   `admin` BIT NULL DEFAULT 0,
+--   PRIMARY KEY (`username`))
+-- ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
