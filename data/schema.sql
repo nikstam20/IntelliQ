@@ -26,7 +26,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Question`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Question` (
-  `question_id` INT(3) NOT NULL AUTO_INCREMENT,
+  `question_id` INT(3) NOT NULL,
   `question_text` VARCHAR(255) NOT NULL,
   `required` ENUM('True', 'False')  NULL DEFAULT 'True',
   `type` ENUM('question', 'profile') NULL DEFAULT 'question',

@@ -15,16 +15,16 @@ router.post('/', function(req, res) {
                 console.log(err);
             }
         })
-		connection.query("TRUNCATE TABLE User", function(err) 
-		{
-        	if(err) {
-				res.status(500).json({status:"failed", reason: "Table User not truncated"});
-                console.log(err);
-			}
-			else {
-                console.log("Table User truncated");
-			}
-		})
+		// connection.query("TRUNCATE TABLE User", function(err) 			we do not use users anymore.
+		// {
+        // 	if(err) {
+		// 		res.status(500).json({status:"failed", reason: "Table User not truncated"});
+        //         console.log(err);
+		// 	}
+		// 	else {
+        //         console.log("Table User truncated");
+		// 	}
+		// })
         connection.query("TRUNCATE TABLE Keyword", function(err) 
 		{
         	if(err) {

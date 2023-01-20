@@ -4,14 +4,14 @@ const pool = require('../connect');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 //push comment
-router.get('/', function(req, res){
+router.post('/', function(req, res){
     pool.getConnection(function(err, connection) {
 		if(err) {
 			res.status(500).json({status:"failed"});
 				console.log("connection failed", err);
 		}
         else{
-            const rawdata = fs.readFileSync('./admin-endpoints/import_questionnaires/example_questionnaire.json');
+            const rawdata = fs.readFileSync('../api-backend/admin-endpoints/import_questionnaires/example_questionnaire.json');
             const questionnaire_json = JSON.parse(rawdata);
             //console.log(questionnaire_json.questions);
 
