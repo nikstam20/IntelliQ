@@ -76,16 +76,16 @@ program // needs work
 // se2213 questionnaire_upd --source <path>
 
 program  // needs work!
-    .command('quetionnaire_upd')
+    .command('questionnaire_upd')
     .description('Add a questionnaire to the database')
-    .requiredOption('--source <path>', 'The path to the json file to upload')
+    //.requiredOption('--source <path>', 'The path to the json file to upload')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/admin/questionnaire_upd`;
         axios.post(url);
     });
 
 
-// se2213 resetq --quesitonnaire_id <id>
+// se2213 resetq --questionnaire_id <id>
 
 program 
     .command('resetq')
@@ -141,7 +141,7 @@ program
         axios.post(url);
     });
 
-// se2213 getsessionanswers --quesitonnaire_id <id> --session_id <id> --format <json|csv>
+// se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --format <json|csv>
 
 program
     .command('getsessionanswers')
