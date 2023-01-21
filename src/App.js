@@ -6,7 +6,6 @@ function App() {
   //QUESTIONNAIRE 
   const [qids, setQids] = useState([]);
   const [qstnre, setQstnre] = useState([]);
-  let hasNext = true;
 
   useEffect(() => {
     axios.get('http://localhost:9103/inteliq_api/questionnaire/1')
