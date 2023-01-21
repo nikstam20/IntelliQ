@@ -23,7 +23,6 @@ function App() {
   const [qstion, setQstion] = useState([]);
 
   useEffect(() => {
-    console.log(currentQuestionIndex);
     let url=`http://localhost:9103/inteliq_api/question/1/${currentQuestionIndex}`;
     axios.get(url)
     .then(response => {
@@ -38,7 +37,6 @@ function App() {
     let newQids = [];
     {qstnre.questions?.map(q => newQids.push(q.qid))}
     setQids(newQids);
-    console.log(qids);
     setCurrentQuestionIndex(qids.shift());
   },[qstnre]);
 
@@ -83,7 +81,6 @@ function App() {
     }, {}));
 }, []);
 
-//switch(currentQuestionIndex){
   if(currentQuestionIndex != null){
     return(       
       <div className="wrapper">
