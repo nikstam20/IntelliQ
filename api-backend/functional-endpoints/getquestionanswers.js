@@ -78,7 +78,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
             });
         }
 
-
+    connection.release();
     });
 });
 
