@@ -65,7 +65,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 						"questionnaireID":questionnaireID.toString(),
 						"qID":questionID.toString(),
 						"qtext":question_text.toString(),
-						//"required":required,
+						"required":required,
 						"type":type,
                         "options":options
 				}
