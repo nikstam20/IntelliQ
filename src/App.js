@@ -39,6 +39,7 @@ function App() {
     setCurrentQuestionIndex(qids.shift());
   },[qstnre]);
 
+
   const opts = [];
   const optids = [];
   const optnexts = [];
@@ -64,12 +65,19 @@ function App() {
 
   const handleOnClick = (e) => {
     e.preventDefault();
+    let selectedNextQID;
     handleChange(e);
-    const selectedOpt = Object.keys(options).find(key => options[key] === true);
-    let selectedOptID = optids[selectedOpt];
-    let url=`http://localhost:9103/inteliq_api/doanswer/1/${currentQuestionIndex}/1/${selectedOptID}`;
-    axios.post(url);
-    let selectedNextQID = optnexts[selectedOpt];
+    if(hasClicked){
+      const selectedOpt = Object.keys(options).find(key => options[key] === true);
+      let selectedOptID = optids[selectedOpt];
+      let url=`http://localhost:9103/inteliq_api/doanswer/1/${currentQuestionIndex}/1/${selectedOptID}`;
+      axios.post(url);
+      selectedNextQID = optnexts[selectedOpt];
+    }
+    else{
+      selectedNextQID = parseInt(currentQuestionIndex)+1;
+      if(qids.length < selectedNextQID) selectedNextQID = null;
+    }
     setCurrentQuestionIndex(selectedNextQID);
   }
 
@@ -80,6 +88,8 @@ function App() {
     }, {}));
 }, []);
 
+
+
   if(currentQuestionIndex != null){
     return(       
       <div className="wrapper">
@@ -89,7 +99,7 @@ function App() {
         <form>
           <fieldset>
             <label>
-              <p><strong>{qstion.qtext}</strong></p>
+              <p><strong>{qstion.required === "True" ? <label>*</label> : null}{qstion.qtext}</strong></p>
             </label>
           </fieldset>
 
@@ -108,12 +118,12 @@ function App() {
                 </fieldset>
               ))}
             </div>
-            <button disabled = {hasClicked ? false : true} onClick={(e) => handleOnClick(e)}>Next </button>
+            <button disabled = {(hasClicked || qstion.required === "False") ? false : true} onClick={(e) => handleOnClick(e)}>Next </button>
         </form>
       </div>
       );}
   else
-  return(<div>Thank you for submitting!</div>)
+    return(<div>Thank you for submitting!</div>)
 
 
   }
