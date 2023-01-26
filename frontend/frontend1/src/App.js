@@ -17,6 +17,9 @@ function App() {
     });
   }, []);
 
+  const keywrds = [];
+  {qstnre.keywords?.map(kwrd => keywrds.push(kwrd.keyword+" "))}
+
   //QUESTION  
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState([]);
   const [qstion, setQstion] = useState([]);
@@ -95,6 +98,7 @@ function App() {
       <div className="wrapper">
         <h1 key={qstnre.questionnaireTitle}><strong>{qstnre.questionnaireTitle}</strong>
         </h1>
+        <h3><strong>Keywords: </strong>{opts.map((opt, idx) => (keywrds[idx]))} </h3>
 
         <form>
           <fieldset>
