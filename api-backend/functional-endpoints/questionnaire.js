@@ -20,7 +20,7 @@ router.get('/:questionnaireID', function(req, res) {
 		}
 		else{
 			//
-            q = `select Questionnaire.title, Keyword.keyword_text, Question.question_id, Question.question_text, Question.required, Question.type from Questionnaire inner join Keyword ON Questionnaire.questionnaire_id = Keyword.Questionnaire_questionnaire_id inner join  Question ON Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id where (Questionnaire.questionnaire_id= ${questionnaireID}) ORDER BY Question.question_id`;		
+            q = `select Questionnaire.title, Keyword.keyword_text, Question.question_id, Question.question_text, Question.required, Question.type from Questionnaire inner join Keyword ON Questionnaire.questionnaire_id = Keyword.Questionnaire_questionnaire_id inner join  Question ON Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id where (Questionnaire.questionnaire_id= ${questionnaireID}) ORDER BY Question.question_id, keyword_text;`;		
             connection.query(q, function(err, result) {
 
         	if(err) {
@@ -31,7 +31,8 @@ router.get('/:questionnaireID', function(req, res) {
    				const questions = [];
 				const keywords = [];
 				var  qid_last = -1;
-				var i = 0;
+				var kwrd_first = result[0].keyword_text;
+				var passed = false;
     			for (const row of result) {
 					if(row.question_id != qid_last){
       					const question = { qid: row.question_id, qtext: row.question_text, required: row.required, type: row.type };
@@ -41,11 +42,10 @@ router.get('/:questionnaireID', function(req, res) {
 					}
     			}
 				for (const row of result) {
-					if(i == questions.length) break;
-					const keyword = {keyword: row.keyword_text};
-					keywords.push(keyword);
-					kwrd_last=row.keyword_text;
-					i++;
+					if(row.keyword_text == kwrd_first && passed) break;
+					const keyw = {keyword: row.keyword_text};
+					keywords.push(keyw);
+					passed = true;
 				}
 				
 				if(req.query.format === "csv") {
