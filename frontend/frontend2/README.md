@@ -1,3 +1,10 @@
+RUN in terminal: 
+
+npm install
+npm install victory
+npm install chroma-js
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
