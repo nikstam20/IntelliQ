@@ -16,7 +16,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 
         // TODO: needs to be ordered by dec -nat
 		else{
-		q = `select Question.question_text, Question.required, Question.type, Option.option_id, Option.option_text, Option.Question_nextquestion_id from Question inner join Option ON Question.question_id = Option.Question_question_id where (Question.Questionnaire_questionnaire_id = ${questionnaireID} AND Question.question_id = ${questionID})`;	
+		q = `select Question.question_text, Question.required, Question.type, Option.option_id, Option.option_text, Option.Question_nextquestion_id from Question inner join Option ON Question.question_id = Option.Question_question_id where (Question.Questionnaire_questionnaire_id = ${questionnaireID} AND Question.question_id = ${questionID} AND Option.Question_Questionnaire_questionnaire_id = ${questionnaireID})`;	
 		connection.query(q, function(err, result) {
 
         	if(err) {
