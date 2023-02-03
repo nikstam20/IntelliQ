@@ -11,14 +11,14 @@ router.post('/', function(req, res) {
         connection.query("SET FOREIGN_KEY_CHECKS=0;", function(err)
         {
             if(err) {
-                res.status(500).json({status:"failed", reason: "Could not turn off foreign key checks."});
+                res.status(400).json({status:"failed", reason: "Could not turn off foreign key checks."});
                 console.log(err);
             }
         })
 		connection.query("TRUNCATE TABLE User", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table User not truncated"});
+				res.status(400).json({status:"failed", reason: "Table User not truncated"});
                 console.log(err);
 			}
 			else {
@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
         connection.query("TRUNCATE TABLE Keyword", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table Keyword not truncated"});
+				res.status(400).json({status:"failed", reason: "Table Keyword not truncated"});
                 console.log(err);
 			}
 			else {
@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
         connection.query("TRUNCATE TABLE Answer", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table Answer not truncated"});
+				res.status(400).json({status:"failed", reason: "Table Answer not truncated"});
                 console.log(err);
 			}
 			else {
@@ -48,7 +48,7 @@ router.post('/', function(req, res) {
         connection.query("TRUNCATE TABLE Session", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table Session not truncated"});
+				res.status(400).json({status:"failed", reason: "Table Session not truncated"});
                 console.log(err);
 			}
 			else {
@@ -58,7 +58,7 @@ router.post('/', function(req, res) {
         connection.query("TRUNCATE TABLE Option", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table Option not truncated"});
+				res.status(400).json({status:"failed", reason: "Table Option not truncated"});
                 console.log(err);
 			}
 			else {
@@ -68,7 +68,7 @@ router.post('/', function(req, res) {
         connection.query("TRUNCATE TABLE Question", function(err) 
 		{
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Table Question not truncated"});
+				res.status(400).json({status:"failed", reason: "Table Question not truncated"});
                 console.log(err);
 			}
 			else {
