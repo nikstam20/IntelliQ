@@ -22,8 +22,12 @@ router.get('/:questionnaireID/:questionID', function(req, res){
             order by Answer.answer_id ASC;`;
             connection.query(q, function(err, result){
                 if(err) {
-                    res.status(500).json({status:"failed", reason: "Error getting question information."});
+                    res.status(400).json({status:"failed", reason: "Error getting question information."});
                     console.log(err);
+                }
+                else if(result==0) {
+                    res.status(402).json({status:"failed", reason: " no data for this query"});
+                    console.log("getquestionanswers query no data");
                 }
                 else{
                     const answers = [];
