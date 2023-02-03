@@ -20,10 +20,15 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 		connection.query(q, function(err, result) {
 
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Error getting question information."});
+				res.status(400).json({status:"failed", reason: "Error getting question information."});
                 console.log(err);
 			}
-			else {
+			else if(result==0) {
+				res.status(402).json({status:"failed", reason: " This question does not exist "});
+                console.log("question query no data");
+			}
+			
+			else if (result) {
    				const options = [];
     			for (const row of result) {
       				const option = { optID: row.option_id, opttxt: row.option_text, nextqID: row.Question_nextquestion_id };
