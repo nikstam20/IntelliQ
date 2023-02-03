@@ -1,8 +1,4 @@
 .gitignore
-<<<<<<< HEAD
-node_modules
-=======
 
 api-backend/node_modules
 cli/node_modules
->>>>>>> a61712a44b35c6509c8f895960610a0d6ae95ed3
