@@ -36,17 +36,21 @@ router.get('/', function(req, res){
             connection.query(q, function(err, result) {
 
                 if(err) {
-                    res.status(500).json({status:"failed", reason: "Error when executing query."});
+                    res.status(400).json({status:"failed", reason: "Error when executing query."});
                     console.log(err);
                 }
-                else{
+                else if(result==0) {
+                    res.status(402).json({status:"failed", reason: " No data "});
+                    console.log("no data");
+                }
+                else if (result){
                     for (let i = 0; i < keywords.length; i++) {
 
                         q = `INSERT INTO Keyword (keyword_text, Questionnaire_questionnaire_id) VALUES ("${keywords[i]}", ${questionnaireID});`
                         connection.query(q, function(err, result) {
 
                             if(err) {
-                                res.status(500).json({status:"failed", reason: "Error when executing query."});
+                                res.status(400).json({status:"failed", reason: "Error when executing query."});
                                 console.log(err);
                             }
         
@@ -60,7 +64,7 @@ router.get('/', function(req, res){
                         connection.query(q, function(err, result) {
 
                             if(err) {
-                                res.status(500).json({status:"failed", reason: "Error when executing query."});
+                                res.status(400).json({status:"failed", reason: "Error when executing query."});
                                 console.log(err);
                             }
                         });
@@ -74,7 +78,7 @@ router.get('/', function(req, res){
                             connection.query(q, function(err, result) {
 
                                 if(err) {
-                                    res.status(500).json({status:"failed", reason: "Error when executing query."});
+                                    res.status(400).json({status:"failed", reason: "Error when executing query."});
                                     console.log(err);
                                 }  
 
