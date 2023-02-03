@@ -16,7 +16,7 @@ router.post('/:questionnaireID', function(req, res) {
 		q = `delete from Answers where Answer.Option_questionnaire_id = ${questionnaireID};`; 
 		connection.query(q, function(err, result) {
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Couldn't delete answers"});
+				res.status(400).json({status:"failed", reason: "Couldn't delete answers"});
                 console.log(err);
 			}
 			else {
