@@ -22,13 +22,14 @@ router.get('/:questionnaireID/:session', function(req, res) {
             connection.query(q, function(err, result) {
 
         	if(err) {
-				res.status(500).json({status:"failed", reason: "Error getting question information."});
+				res.status(400).json({status:"failed", reason: "Error getting question information."});
                 console.log(err);
 			}
-			else {
-				if(result == null)
-				//needs a fix.
-				res.status(402).json({status:"failed", reason: "No data."});
+			else if(result==0) {
+				res.status(402).json({status:"failed", reason: " This session does not exist "});
+                console.log("getsessionanswers query no data");
+			}
+			else if (result) {
    				const answers = [];
     			for (const row of result) {
       				const answer = { qid: row.Question_question_id, ans: row.answer_id };
