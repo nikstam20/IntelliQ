@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -6,8 +6,11 @@ function App() {
   //QUESTIONNAIRE 
   const [qids, setQids] = useState([]);
   const [qstnre, setQstnre] = useState([]);
+  const isMounted = useRef(false);
+  const isMounted2 = useRef(false);
 
   useEffect(() => {
+    console.log('qstnre setting up');
     axios.get('http://localhost:9103/inteliq_api/questionnaire/1')
     .then(response => {
       setQstnre(response.data);
@@ -25,22 +28,40 @@ function App() {
   const [qstion, setQstion] = useState([]);
 
   useEffect(() => {
-    let url=`http://localhost:9103/inteliq_api/question/1/${currentQuestionIndex}`;
-    axios.get(url)
-    .then(response => {
-      setQstion(response.data);
-      })
-    .catch(error => {
-      console.log(error);
-    });
-}, [currentQuestionIndex]);
+    if(isMounted.current){
+      console.log('QIDS setting up');
+      console.log('qstnre has: ', qstnre);
+      let newQids = [];
+      {qstnre.questions?.map(q => newQids.push(q.qid))}
+      console.log("newQid = ", newQids[0]);
+      setQids(newQids);}
+    else isMounted.current=true;
+  },[qstnre]);
 
   useEffect(() => {
-    let newQids = [];
-    {qstnre.questions?.map(q => newQids.push(q.qid))}
-    setQids(newQids);
-    setCurrentQuestionIndex(qids.shift());
-  },[qstnre]);
+    if (qids) {
+      setCurrentQuestionIndex(qids.shift());
+    }
+  }, [qids]);
+
+  useEffect(() => {
+    if(isMounted2.current) {
+      console.log('QUESTION setting up');
+      console.log('qstnre has: 2 ', qstnre);
+      console.log('currQuestindex is ', currentQuestionIndex)
+      let url=`http://localhost:9103/inteliq_api/question/1/${currentQuestionIndex}`;
+      axios.get(url)
+      .then(response => {
+        setQstion(response.data);
+        })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+    else isMounted2.current=true;
+}, [currentQuestionIndex]);
+
+
 
 
   const opts = [];
