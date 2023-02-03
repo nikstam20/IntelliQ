@@ -11,12 +11,12 @@ const PORT = 9103;
 const baseurl = '/inteliq_api';
 
 // TEMPLATE INHERITANCE
-const nunjucks = require('nunjucks');	// templating framework
+// const nunjucks = require('nunjucks');	// templating framework
 
-nunjucks.configure(['../frontend/templates/'], {
-	autoescape: false,
-	express: webapp
-})
+// nunjucks.configure(['../frontend/templates/'], {
+// 	autoescape: false,
+// 	express: webapp
+// })
 
 //const key = fs.readFileSync('./certificates/localhost.decrypted.key');
 //const cert = fs.readFileSync('./certificates/localhost.crt');
@@ -24,9 +24,6 @@ const server = https.createServer(/*{ key, cert },*/ app);
 const webserver = https.createServer(/*{ key, cert },*/ webapp);
 
 // API WEB SERVER
-app.get('/', (req,res) => {
-	res.send('InteliQ IS UP!');
-});
 
 app.listen(PORT, () => {
 	console.log(`app listening at: http://localhost:${PORT}${baseurl}`);
@@ -40,9 +37,13 @@ app.get(baseurl, function (req,res) {
 app.use(cors());
 
 // WEB SERVER (for frontend)
-// webserver.listen(80, () => {
-// 	console.log('Web-server is up and runing at: https://localhost:80');
-// });
+webapp.listen(80, () => {
+ 	console.log('Web-server is up and runing at: http://localhost:80');
+ });
+
+webapp.get("/", function (req,res) {
+	res.send("Webserver IS UP!");
+});
 
 const adminhealth = require('./admin-endpoints/healthcheck'),
 	questionnaireupd = require('./admin-endpoints/questionnaire_upd'),
@@ -69,18 +70,16 @@ app.use(baseurl+'/question', question);
 app.use(baseurl+'/doanswer', doanswer);
 app.use(baseurl+'/getsessionanswers', getsessionanswers);
 app.use(baseurl+'/getquestionanswers', getquestionanswers);
-/*
 
-Αυτά αφορούν Front-End οπότε για την ώρα τα αφήνουμε
 
 // ROUTES FOR FRONTEND
-webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
-webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles/dist"));
 
-webapp.use("/", require('./routes/Home.routes.js'));
-webapp.use("/chargesby", require('./routes/ChargesBy.routes.js'));
-webapp.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
-webapp.use("/passesperstation", require('./routes/PassesPerStation.routes.js'));
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend1/build"));
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend2/build"));
 
-*/
+//webserver.use("/", require('./routes/Home.routes.js'));
+webapp.use("/questionnaire", require('./routes/routes_questionnaire.js'));
+//webserver.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
+
+
 module.exports = router;
