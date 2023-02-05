@@ -13,7 +13,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
 			console.log(err);
 		}
         else{
-            = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id, Option.option_text 
+            q = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id, Option.option_text 
             from Option join Answer on (Option.option_id = Answer.Option_option_id)
             join Question on (Option.Question_question_id = Question.question_id)
             join Questionnaire on (Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id)
