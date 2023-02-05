@@ -13,7 +13,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
 			console.log(err);
 		}
         else{
-            q = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id, Option.option_text 
+            = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id, Option.option_text 
             from Option join Answer on (Option.option_id = Answer.Option_option_id)
             join Question on (Option.Question_question_id = Question.question_id)
             join Questionnaire on (Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id)
@@ -26,7 +26,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                     console.log(err);
                 }
                 else if(result==0) {
-                    res.status(402).json({status:"failed", reason: " no data for this query"});
+                    res.status(204).json({status:"failed", reason: " no data for this query"});
                     console.log("getquestionanswers query no data");
                 }
                 else{
@@ -77,7 +77,6 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                         res.status(200).json(response);
                         console.log("Question info OK.");
                     }
-//test user commit
                 }
             });
         }
