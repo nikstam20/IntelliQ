@@ -3,7 +3,6 @@ const commander = require("commander");
 const axios = require ('axios');
 const program = new commander.Command();
 
-'use strict;'
 
 /* 
  * All commands - administrative and functional, using 
@@ -27,21 +26,33 @@ program
     .description('Test the connection to the database server')
     .action(function(){
         let url='http://localhost:9103/inteliq_api/admin/healthcheck';
-        axios.get(url).then( res =>{
+        axios.get(url)  
+        .then( res=>{
             console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 // se2213 resetall
 
-program // OK
+program 
     .command('resetall')
     .description('Truncate all tables in the database')
     .action(function(){
         let url='http://localhost:9103/inteliq_api/admin/resetall';
-        axios.post(url).then( res=>{
+        axios.post(url)  
+        .then( res=>{
             console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 
@@ -81,7 +92,15 @@ program  // needs work!
     .requiredOption('--source <path>', 'The path to the json file to upload')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/admin/questionnaire_upd`;
-        axios.post(url);
+        axios.post(url)  
+        .then( res=>{
+            console.log(res.data);
+        })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 
@@ -93,7 +112,15 @@ program
     .requiredOption('--questionnaire_id <id>', 'Specify the questionnaire')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/admin/resetq/${options.questionnaire_id}`;
-        axios.post(url);
+        axios.post(url)  
+        .then( res=>{
+            console.log(res.data);
+        })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 // se2213 questionnaire --questionnaire_id <id> --format <format>
@@ -104,10 +131,19 @@ program
     .requiredOption('--questionnaire_id <id>', 'Specify the questionnaire')
     .requiredOption('--format <format>', 'Choose between JSON and csv')
     .action((options) => {
+        let id = options.questionnaire_id;
         let url=`http://localhost:9103/inteliq_api/questionnaire/${options.questionnaire_id}?format=${options.format}`;
-        axios.get(url).then( res=>{
-            console.log(res.data);
+        axios.get(url)  
+        .then( 
+            res=>{
+                if(res.data == 0) console.log('Questionnaire with questionnaire_id = ', id, 'does not exist in the database.');
+                else console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     }
     );
 
@@ -122,9 +158,17 @@ program
     .requiredOption('--format <format>', 'Choose between JSON and csv')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/question/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
-        axios.get(url).then( res=>{
-            console.log(res.data);
+        axios.get(url)  
+        .then( 
+            res=>{
+                if(res.data == 0) console.log('No question with the given parameter values exists in the database.');
+                else console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 // se2213 doanswer --questionnaire_id <id> --question_id <id> --session_id <id> --option_id <id> 
@@ -138,7 +182,15 @@ program
     .requiredOption('--option_id <option_id>', 'The option chosen')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/doanswer/${options.questionnaire_id}/${options.question_id}/${options.session_id}/${options.option_id}`;
-        axios.post(url);
+        axios.post(url)  
+        .then( res=>{
+            console.log(res.data);
+        })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 // se2213 getsessionanswers --quesitonnaire_id <id> --session_id <id> --format <json|csv>
@@ -151,9 +203,17 @@ program
     .requiredOption('--format <format>')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/getsessionanswers/${options.questionnaire_id}/${options.session_id}?format=${options.format}`;
-        axios.get(url).then( res=>{
-            console.log(res.data);
+        axios.get(url)  
+        .then( 
+            res=>{
+                if(res.data == 0) console.log('No answers for the session in the database.');
+                else console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 // se2213 getquesitonanswers --quesitonnaire_id <id> --question_id <id> --format <json|csv>
@@ -167,9 +227,17 @@ program
     .helpOption('-h, --help', 'Display help for command')
     .action((options) => {
         let url=`http://localhost:9103/inteliq_api/getquestionanswers/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
-        axios.get(url).then( res => {
-            console.log(res.data);
+        axios.get(url)  
+        .then( 
+            res=>{
+                if(res.data == 0) console.log('No answers for the requested values exist in the database.');
+                else console.log(res.data);
         })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            } 
+        });
     });
 
 
