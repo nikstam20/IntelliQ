@@ -1,21 +1,35 @@
-import React, { useReducer, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './App.css';
+import './index.css';
 
-function App() {
+function Questionnaire() {
   //QUESTIONNAIRE 
   const [qids, setQids] = useState([]);
   const [qstnre, setQstnre] = useState([]);
+  const isMounted = useRef(false);
+  const isMounted2 = useRef(false);
+  const isMounted0 = useRef(false);
+
+  const [questionnaireID, setQuestionnaireID] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:9103/inteliq_api/questionnaire/1')
+    const queryParameters = new URLSearchParams(window.location.search)
+    setQuestionnaireID(parseInt(queryParameters.get("QuestionnaireID"), 10));
+  }, []);
+
+  useEffect(() => {
+    if(isMounted0.current){
+    console.log('QuestionnaireID is ', questionnaireID)
+    console.log('qstnre setting up');
+    axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
     })
     .catch(error => {
       console.log(error);
-    });
-  }, []);
+    });}
+    else isMounted0.current=true;
+  }, [questionnaireID]);
 
   const keywrds = [];
   {qstnre.keywords?.map(kwrd => keywrds.push(kwrd.keyword+" "))}
@@ -25,22 +39,42 @@ function App() {
   const [qstion, setQstion] = useState([]);
 
   useEffect(() => {
-    let url=`http://localhost:9103/inteliq_api/question/1/${currentQuestionIndex}`;
-    axios.get(url)
-    .then(response => {
-      setQstion(response.data);
-      })
-    .catch(error => {
-      console.log(error);
-    });
-}, [currentQuestionIndex]);
+
+    if(isMounted.current){
+      console.log('QIDS setting up');
+      console.log('qstnre has: ', qstnre);
+      let newQids = [];
+      {qstnre.questions?.map(q => newQids.push(q.qid))}
+      console.log("newQid = ", newQids[0]);
+      setQids(newQids);}
+    else isMounted.current=true;
+  },[qstnre]);
 
   useEffect(() => {
-    let newQids = [];
-    {qstnre.questions?.map(q => newQids.push(q.qid))}
-    setQids(newQids);
-    setCurrentQuestionIndex(qids.shift());
-  },[qstnre]);
+    if (qids) {
+      setCurrentQuestionIndex(qids.shift());
+    }
+  }, [qids]);
+
+  useEffect(() => {
+
+  if(isMounted2.current) {
+      console.log('QUESTION setting up');
+      console.log('qstnre has: 2 ', qstnre);
+      console.log('currQuestindex is ', currentQuestionIndex)
+      let url=`http://localhost:9103/inteliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
+      axios.get(url)
+      .then(response => {
+        setQstion(response.data);
+        })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+    else isMounted2.current=true;
+}, [currentQuestionIndex]);
+
+
 
 
   const opts = [];
@@ -73,7 +107,7 @@ function App() {
     if(hasClicked){
       const selectedOpt = Object.keys(options).find(key => options[key] === true);
       let selectedOptID = optids[selectedOpt];
-      let url=`http://localhost:9103/inteliq_api/doanswer/1/${currentQuestionIndex}/1/${selectedOptID}`;
+      let url=`http://localhost:9103/inteliq_api/doanswer/${questionnaireID}/${currentQuestionIndex}/1/${selectedOptID}`;
       axios.post(url);
       selectedNextQID = optnexts[selectedOpt];
     }
@@ -132,4 +166,4 @@ function App() {
 
   }
 
-export default App;
+export default Questionnaire;
