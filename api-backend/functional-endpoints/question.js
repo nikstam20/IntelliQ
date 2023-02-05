@@ -1,5 +1,3 @@
-// TODO: require paths should be updated, waiting on the files & locations
-
 const express = require('../node_modules/express');
 const router = express.Router();
 const pool  = require('../connect');
@@ -13,8 +11,6 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
 			res.status(500).json({status:"failed", reason: "connection to database not established."});
 			console.log(err);
 		}
-
-        // TODO: needs to be ordered by dec -nat
 		else{
 		q = `select Question.question_text, Question.required, Question.type, Option.option_id, Option.option_text, Option.Question_nextquestion_id from Question inner join Option ON Question.question_id = Option.Question_question_id where (Question.Questionnaire_questionnaire_id = ${questionnaireID} AND Question.question_id = ${questionID} AND Option.Question_Questionnaire_questionnaire_id = ${questionnaireID})`;	
 		connection.query(q, function(err, result) {
@@ -24,7 +20,7 @@ router.get('/:questionnaireID/:questionID', function(req, res) {
                 console.log(err);
 			}
 			else if(result==0) {
-				res.status(402).json({status:"failed", reason: " This question does not exist "});
+				res.status(204).json({status:"failed", reason: " This question does not exist "});
                 console.log("question query no data");
 			}
 			
