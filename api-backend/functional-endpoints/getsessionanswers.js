@@ -26,7 +26,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
                 console.log(err);
 			}
 			else if(result==0) {
-				res.status(402).json({status:"failed", reason: " This session does not exist "});
+				res.status(204).json({status:"failed", reason: " This session does not exist "});
                 console.log("getsessionanswers query no data");
 			}
 			else if (result) {
