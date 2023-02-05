@@ -1,27 +1,25 @@
 const express = require('../node_modules/express');
 const router = express.Router();
 const pool = require('../connect');
-const { parse } = require('../node_modules/json2csv');
 
-
-// TODO: query, all else works
 router.post('/:questionnaireID', function(req, res) {
 	const { questionnaireID } = req.params;
 	pool.getConnection(function(err, connection) {
 		if(err) {
+			console.log("Connection failed", err);
 			res.status(500).json({status:"failed"});
-				console.log("Connection failed", err);
+				
 		}
-        // WARNING:::: wrong query! just for testing 
-		q = `delete from Answers where Answer.Option_questionnaire_id = ${questionnaireID};`; 
+		q = `delete from Answer where Answer.Option_questionnaire_id = ${questionnaireID};`; 
 		connection.query(q, function(err, result) {
         	if(err) {
-				res.status(400).json({status:"failed", reason: "Couldn't delete answers"});
-                console.log(err);
+				console.log(err);
+				return res.status(400).json({status:"failed", reason: "Couldn't delete answers"});
+                
 			}
 			else {
+				console.log("Answers for questionnaire deleted.");
 				res.status(200).json({status:"OK"});
-                console.log("Answers for questionnaire deleted.");
 			}
 		});
 		connection.release();
