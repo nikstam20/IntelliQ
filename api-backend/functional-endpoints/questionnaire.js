@@ -13,14 +13,12 @@ router.get('/:questionnaireID', function(req, res) {
     const { questionnaireID } = req.params;
 
 	pool.getConnection(function(err, connection) {
-//fasfwaf
 		if(err) {
 			res.status(500).json({status:"failed", reason: "connection to database not established."});
-			console.log(err);//order by question_id desc)
+			console.log(err);
 		}
 		
 		else{
-			//
             q = `select Questionnaire.title, Keyword.keyword_text, Question.question_id, Question.question_text, Question.required, Question.type from Questionnaire inner join Keyword ON Questionnaire.questionnaire_id = Keyword.Questionnaire_questionnaire_id inner join  Question ON Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id where (Questionnaire.questionnaire_id= ${questionnaireID}) ORDER BY Question.question_id, keyword_text;`;		
             connection.query(q, function(err, result) {
 
@@ -28,8 +26,9 @@ router.get('/:questionnaireID', function(req, res) {
 				res.status(400).json({status:"failed", reason: "Error getting questionnaire information."});
                 console.log(err);
 			}
-			else if(result==0) {
-				res.status(402).json({status:"failed", reason: " This questionnaire does not exist "});
+			else if(result == 0) {
+				//res.setHeader('Status-Message', 'Nodata' )
+				res.status(204);
                 console.log("questionnaire query no data");
 			}
 			else if (result) {
