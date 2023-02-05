@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './App.css';
+import './index.css';
 import { VictoryPie, VictoryChart, VictoryGroup, VictoryBar, VictoryTheme, VictoryHistogram, VictoryAxis } from 'victory';
 import chroma from "chroma-js";
 
@@ -11,25 +11,55 @@ function generateColorScale(n) {
 
 export default function MyPieChart() {
 
+  const isMounted = useRef(false);
+  const isMounted2 = useRef(false);
+  const isMounted0 = useRef(false);
+
   //QUESTIONNAIRE 
   const [qids, setQids] = useState([]);
   const [qstnre, setQstnre] = useState([]);
 
+  const [questionnaireID, setQuestionnaireID] = useState([]);
+
   useEffect(() => {
-    axios.get('http://localhost:9103/inteliq_api/questionnaire/1')
+    const queryParameters = new URLSearchParams(window.location.search)
+    setQuestionnaireID(parseInt(queryParameters.get("QuestionnaireID"), 10));
+  }, []);
+
+  useEffect(() => {
+    if(isMounted0.current){
+    axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
     })
     .catch(error => {
       console.log(error);
-    });
-  }, []);
+    });}
+    else isMounted0.current=true;
+  }, [questionnaireID]);
   //QUESTION  
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState([1]);
   const [qstion, setQstion] = useState([]);
 
   useEffect(() => {
-    let url=`http://localhost:9103/inteliq_api/getquestionanswers/1/${currentQuestionIndex}`;
+    if(isMounted2.current){
+      console.log(qstnre);
+    let newQids = [];
+    {qstnre.questions?.map(q => newQids.push(q.qid))}
+    console.log(newQids);
+    setQids(newQids);
+    console.log(qids);
+    setCurrentQuestionIndex(qids.shift());
+    console.log(currentQuestionIndex[0]);
+    console.log("hi");}
+    else isMounted2.current=true;
+  },[qstnre]);
+
+  useEffect(() => {
+    if(isMounted.current){
+    console.log(qids);
+    console.log(currentQuestionIndex);
+    let url=`http://localhost:9103/inteliq_api/getquestionanswers/${questionnaireID}/${currentQuestionIndex}`;
     axios.get(url)
     .then(response => {
       setQstion(response.data);
@@ -37,15 +67,9 @@ export default function MyPieChart() {
     .catch(error => {
       console.log(error);
     });
+  }
+    else isMounted.current=true;
 }, [currentQuestionIndex]);
-  
-
-  useEffect(() => {
-    let newQids = [];
-    {qstnre.questions?.map(q => newQids.push(q.qid))}
-    setQids(newQids);
-    setCurrentQuestionIndex(qids.shift());
-  },[qstnre]);
 
   const answrs = [];
   {qstion.answers?.map(ans => answrs.push(ans.answer_txt))}
