@@ -38,7 +38,7 @@ export default function MyPieChart() {
     else isMounted0.current=true;
   }, [questionnaireID]);
   //QUESTION  
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState([1]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState([]);
   const [qstion, setQstion] = useState([]);
 
   useEffect(() => {
@@ -48,12 +48,15 @@ export default function MyPieChart() {
     {qstnre.questions?.map(q => newQids.push(q.qid))}
     console.log(newQids);
     setQids(newQids);
-    console.log(qids);
-    setCurrentQuestionIndex(qids.shift());
-    console.log(currentQuestionIndex[0]);
     console.log("hi");}
     else isMounted2.current=true;
   },[qstnre]);
+
+  useEffect(() => {
+    if (qids) {
+      setCurrentQuestionIndex(qids.shift());
+    }
+  }, [qids]);
 
   useEffect(() => {
     if(isMounted.current){
