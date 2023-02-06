@@ -1,169 +1,83 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import './index.css';
+const express = require('../node_modules/express');
+const router = express.Router();
+const pool  = require('../connect');
+const { parse } = require('../node_modules/json2csv');
 
-function Questionnaire() {
-  //QUESTIONNAIRE 
-  const [qids, setQids] = useState([]);
-  const [qstnre, setQstnre] = useState([]);
-  const isMounted = useRef(false);
-  const isMounted2 = useRef(false);
-  const isMounted0 = useRef(false);
+router.get('/:questionnaireID', function(req, res) {
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
 
-  const [questionnaireID, setQuestionnaireID] = useState([]);
+router.get('/:questionnaireID/:session', function(req, res) {
+	
+    const { questionnaireID, session } = req.params;
 
-  useEffect(() => {
-    const queryParameters = new URLSearchParams(window.location.search)
-    setQuestionnaireID(parseInt(queryParameters.get("QuestionnaireID"), 10));
-  }, []);
+	pool.getConnection(function(err, connection) {
+//fasfwaf
+		if(err) {
+			res.status(500).json({status:"failed", reason: "connection to database not established."});
+			console.log(err);
+		}
+		else{
+            q = `select Answer.answer_id, Option.Question_question_id from Answer inner join mydb.Option ON Answer.Option_option_id = mydb.Option.option_id where (Option.Question_Questionnaire_questionnaire_id= ${questionnaireID} AND Answer.Session_session_id = "${session}")`;		
+            connection.query(q, function(err, result) {
 
-  useEffect(() => {
-    if(isMounted0.current){
-    console.log('QuestionnaireID is ', questionnaireID)
-    console.log('qstnre setting up');
-    axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
-    .then(response => {
-      setQstnre(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });}
-    else isMounted0.current=true;
-  }, [questionnaireID]);
+        	if(err) {
+				res.status(400).json({status:"failed", reason: "Error getting question information."});
+                console.log(err);
+			}
+			else if(result==0) {
+				res.status(402).json({status:"failed", reason: " This session does not exist "});
+                console.log("getsessionanswers query no data");
+			}
+			else if (result) {
+   				const answers = [];
+    			for (const row of result) {
+      				const answer = { qid: row.Question_question_id, ans: row.answer_id };
+      				answers.push(answer);
+    			}
+				console.log(answers);
 
-  const keywrds = [];
-  {qstnre.keywords?.map(kwrd => keywrds.push(kwrd.keyword+" "))}
+				if(req.query.format === "csv") {
+					const csv_input = [];
+					for (const row of result) {
+						const inputty = {
+							"questionnaireID":questionnaireID.toString(),
+							"session":session.toString(),
+							"qid":row.Question_question_id.toString(),
+							"ans":row.answer_id.toString(),
+					}
+					csv_input.push(inputty)
+				}
 
-  //QUESTION  
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState([]);
-  const [qstion, setQstion] = useState([]);
+					const csvHeader = ['questionnaireID,session,qid,ans'];
+                    const csvObj = { csvHeader };
+                    var csvData = parse(csv_input, csvObj);
+                    res.status(200).send(csvData);
+                    console.log("Question info OK.");
+				}
+				else {
+					const input = {
+						"questionnaireID":questionnaireID.toString(),
+						"session":session.toString(),
+						"answers":answers
+				}
+					const json = JSON.stringify(input);
+               		const response = JSON.parse(json, (key, val) => (
+                    	typeof val !== 'object' && val !== null ? String(val) : val
+                  ));
+					
+                    // JSON response: default if no query format specified.					
+					res.status(200).json(response);
+					console.log("Question info OK.");
+				}
 
-  useEffect(() => {
+        	}	
+   		});
+	}
+	connection.release();
+	});
 
-    if(isMounted.current){
-      console.log('QIDS setting up');
-      console.log('qstnre has: ', qstnre);
-      let newQids = [];
-      {qstnre.questions?.map(q => newQids.push(q.qid))}
-      console.log("newQid = ", newQids[0]);
-      setQids(newQids);}
-    else isMounted.current=true;
-  },[qstnre]);
-
-  useEffect(() => {
-    if (qids) {
-      setCurrentQuestionIndex(qids.shift());
-    }
-  }, [qids]);
-
-  useEffect(() => {
-
-  if(isMounted2.current) {
-      console.log('QUESTION setting up');
-      console.log('qstnre has: 2 ', qstnre);
-      console.log('currQuestindex is ', currentQuestionIndex)
-      let url=`http://localhost:9103/inteliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
-      axios.get(url)
-      .then(response => {
-        setQstion(response.data);
-        })
-      .catch(error => {
-        console.log(error);
-      });
-    }
-    else isMounted2.current=true;
-}, [currentQuestionIndex]);
-
-
-
-
-  const opts = [];
-  const optids = [];
-  const optnexts = [];
-  {qstion.options?.map(op => opts.push(op.opttxt))}
-  {qstion.options?.map(op => optids.push(op.optID))}
-  {qstion.options?.map(op => optnexts.push(op.nextqID))}
-
-  const [hasClicked, setHasClicked] = useState(false);
-  //OPTIONS
-  const [options, setOptions] = useState([]);
-  const handleChange = (e) => {
-    const newOptions = {...options};
-    Object.keys(newOptions).forEach(key => {
-      if (key !== e.target.name) {
-        newOptions[key] = false;
-      }
-    });
-    newOptions[e.target.name] = e.target.checked;
-    if(e.target.checked === true) setHasClicked(true);
-    else setHasClicked(false);
-    setOptions(newOptions);
-  };
-
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    let selectedNextQID;
-    handleChange(e);
-    if(hasClicked){
-      const selectedOpt = Object.keys(options).find(key => options[key] === true);
-      let selectedOptID = optids[selectedOpt];
-      let url=`http://localhost:9103/inteliq_api/doanswer/${questionnaireID}/${currentQuestionIndex}/1/${selectedOptID}`;
-      axios.post(url);
-      selectedNextQID = optnexts[selectedOpt];
-    }
-    else{
-      selectedNextQID = parseInt(currentQuestionIndex)+1;
-      if(qids.length < selectedNextQID) selectedNextQID = null;
-    }
-    setCurrentQuestionIndex(selectedNextQID);
-  }
-
-  useEffect(() => {
-    setOptions(optids.reduce((acc, curr) => {
-        acc[curr] = false;
-        return acc;
-    }, {}));
-}, []);
+});
 
 
-
-  if(currentQuestionIndex != null){
-    return(       
-      <div className="wrapper">
-        <h1 key={qstnre.questionnaireTitle}><strong>{qstnre.questionnaireTitle}</strong>
-        </h1>
-        <h3><strong>Keywords: </strong>{opts.map((opt, idx) => (keywrds[idx]))} </h3>
-
-        <form>
-          <fieldset>
-            <label>
-              <p><strong>{qstion.required === "True" ? <label>*</label> : null}{qstion.qtext}</strong></p>
-            </label>
-          </fieldset>
-
-          <div>
-              {opts.map((opt, idx) => (
-                <fieldset>
-                <label key={idx}>
-                  <input
-                    type="checkbox"
-                    name={idx}
-                    onChange={handleChange}
-                    checked={options[idx] || false}
-                  />
-                  {opt}
-                </label>
-                </fieldset>
-              ))}
-            </div>
-            <button disabled = {(hasClicked || qstion.required === "False") ? false : true} onClick={(e) => handleOnClick(e)}>Next </button>
-        </form>
-      </div>
-      );}
-  else
-    return(<div>Thank you for submitting!</div>)
-
-
-  }
-
-export default Questionnaire;
+module.exports = router;
