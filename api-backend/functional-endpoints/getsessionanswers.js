@@ -18,7 +18,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
 			console.log(err);
 		}
 		else{
-            q = `select Answer.answer_id, Option.Question_question_id from Answer inner join mydb.Option ON Answer.Option_option_id = mydb.Option.option_id where (Option.Question_Questionnaire_questionnaire_id= ${questionnaireID} AND Answer.Session_session_id = ${session})`;		
+            q = `select Answer.answer_id, Option.Question_question_id from Answer inner join mydb.Option ON Answer.Option_option_id = mydb.Option.option_id where (Option.Question_Questionnaire_questionnaire_id= ${questionnaireID} AND Answer.Session_session_id = "${session}")`;		
             connection.query(q, function(err, result) {
 
         	if(err) {
@@ -26,7 +26,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
                 console.log(err);
 			}
 			else if(result==0) {
-				res.status(204).json({status:"failed", reason: " This session does not exist "});
+				res.status(204).json({status:"failed", reason: "This session does not exist."});
                 console.log("getsessionanswers query no data");
 			}
 			else if (result) {
