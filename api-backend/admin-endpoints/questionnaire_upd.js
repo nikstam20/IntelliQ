@@ -3,17 +3,21 @@ const router = express.Router();
 const pool = require('../connect');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-//push comment
-router.get('/', function(req, res){
+//const multer = require(multer);
+//const upload = multer();
+var fileupload = require("express-fileupload");
+
+
+
+router.post('/', function(req, res){
     pool.getConnection(function(err, connection) {
 		if(err) {
-			res.status(500).json({status:"failed"});
+			return res.status(500).json({status:"failed"});
 				console.log("connection failed", err);
 		}
         else{
-            const rawdata = fs.readFileSync('./admin-endpoints/import_questionnaires/example_questionnaire.json');
-            const questionnaire_json = JSON.parse(rawdata);
-            //console.log(questionnaire_json.questions);
+            // converting the buffer to Json 
+            const questionnaire_json = JSON.parse(req.files.my_questionnaire.data);
 
             const questionnaireID = questionnaire_json.questionnaireID;
             const questionnaire_title = questionnaire_json.questionnaireTitle;
@@ -26,22 +30,22 @@ router.get('/', function(req, res){
               }
             const keywords = questionnaire_json.keywords;
             
-            console.log(questionnaireID);
-            console.log(questionnaire_title);
-            console.log(questions);
-            console.log(options);
-            console.log(keywords);
+            // console.log(questionnaireID);
+            // console.log(questionnaire_title);
+            // console.log(questions);
+            // console.log(options);
+            // console.log(keywords);
 
             q = `INSERT INTO Questionnaire (questionnaire_ID, title) VALUES (${questionnaireID}, "${questionnaire_title}");`
             connection.query(q, function(err, result) {
 
                 if(err) {
-                    res.status(400).json({status:"failed", reason: "Error when executing query."});
+                    return res.status(400).json({status:"failed", reason: "Error when executing query. Could be duplicate"});
                     console.log(err);
                 }
                 else if(result==0) {
-                    res.status(402).json({status:"failed", reason: " No data "});
-                    console.log("no data");
+                    console.log("no rows inserted");
+                    return res.status(204);
                 }
                 else if (result){
                     for (let i = 0; i < keywords.length; i++) {
@@ -50,7 +54,7 @@ router.get('/', function(req, res){
                         connection.query(q, function(err, result) {
 
                             if(err) {
-                                res.status(400).json({status:"failed", reason: "Error when executing query."});
+                                return res.status(400).json({status:"failed", reason: "Error when executing query."});
                                 console.log(err);
                             }
         
@@ -64,7 +68,7 @@ router.get('/', function(req, res){
                         connection.query(q, function(err, result) {
 
                             if(err) {
-                                res.status(400).json({status:"failed", reason: "Error when executing query."});
+                                return res.status(400).json({status:"failed", reason: "Error when executing query."});
                                 console.log(err);
                             }
                         });
@@ -78,16 +82,17 @@ router.get('/', function(req, res){
                             connection.query(q, function(err, result) {
 
                                 if(err) {
-                                    res.status(400).json({status:"failed", reason: "Error when executing query."});
+                                    return res.status(400).json({status:"failed", reason: "Error when executing query."});
                                     console.log(err);
-                                }  
+                                }
 
                             });
                         }      
                     }
+                    res.status(200).json({status:"OK"});
                 }
             });
-            res.status(200).json({status:"OK"});
+            
         }
         connection.release();
     });    
