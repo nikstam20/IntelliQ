@@ -18,7 +18,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
             join Question on (Option.Question_question_id = Question.question_id)
             join Questionnaire on (Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id)
             join Session on (Answer.Session_session_id = Session.session_id)
-            where (Questionnaire.questionnaire_id = ${questionnaireID} and Question.question_id = ${questionID})
+            where (Questionnaire.questionnaire_id = ${questionnaireID} and Question.question_id = ${questionID} and Option.Question_Questionnaire_questionnaire_id = ${questionnaireID})
             order by Answer.answer_id ASC;`;
             connection.query(q, function(err, result){
                 if(err) {
