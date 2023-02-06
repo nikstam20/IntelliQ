@@ -130,9 +130,8 @@ function Questionnaire() {
     }, {}));
 }, []);
 
-
-
-  if(currentQuestionIndex != null){
+  if(isNaN(questionnaireID)) return(<div>Welcome to intelliQ!</div>);
+  else  if(currentQuestionIndex != null){
     return(       
       <div className="wrapper">
         <h1 key={qstnre.questionnaireTitle}><strong>{qstnre.questionnaireTitle}</strong>
@@ -167,8 +166,6 @@ function Questionnaire() {
       );}
   else
     return(<div>Thank you for submitting!</div>)
-
-
   }
 
 export default Questionnaire;
