@@ -2,7 +2,9 @@
 const commander = require("commander");
 const axios = require ('axios');
 const program = new commander.Command();
-
+const fs = require('fs');
+const FormData = require('form-data');
+const form = new FormData();
 
 /* 
  * All commands - administrative and functional, using 
@@ -86,13 +88,23 @@ program // needs work
 
 // se2213 questionnaire_upd --source <path>
 
-program  // needs work!
-    .command('quetionnaire_upd')
+program  
+    .command('questionnaire_upd')
     .description('Add a questionnaire to the database')
     .requiredOption('--source <path>', 'The path to the json file to upload')
     .action((options) => {
+        if (fs.existsSync(options.source)) {
+            console.log('Found file');
+            form.append('my_questionnaire', fs.createReadStream(options.source));
+        }
+        else {
+            console.log('File not found!');
+            return;
+        }
         let url=`http://localhost:9103/inteliq_api/admin/questionnaire_upd`;
-        axios.post(url)  
+
+        // console.log(form);
+        axios.post(url, form, { headers: { "Content-Type": "multipart/form-data" } })
         .then( res=>{
             console.log(res.data);
         })
