@@ -6,6 +6,9 @@ const express = require('express'),
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
+const fileupload = require("express-fileupload");
+
+
 
 const PORT = 9103;
 const baseurl = '/inteliq_api';
@@ -36,6 +39,9 @@ app.get(baseurl, function (req,res) {
 // MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
 app.use(cors());
 
+
+app.use(fileupload());
+app.use(express.urlencoded({ extended: true }));
 // WEB SERVER (for frontend)
 webapp.listen(80, () => {
  	console.log('Web-server is up and runing at: http://localhost:80');
