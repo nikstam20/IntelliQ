@@ -81,11 +81,8 @@ app.use(baseurl+'/getquestionanswers', getquestionanswers);
 // ROUTES FOR FRONTEND
 
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend1/build"));
-webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend2/build"));
 
-//webserver.use("/", require('./routes/Home.routes.js'));
 webapp.use("/questionnaire", require('./routes/routes_questionnaire.js'));
-//webserver.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
 
 
 module.exports = router;
