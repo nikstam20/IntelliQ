@@ -6,14 +6,12 @@ const express = require('express'),
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
-const fileupload = require("express-fileupload");
-
-
 
 const PORT = 9103;
 const baseurl = '/inteliq_api';
 
 // TEMPLATE INHERITANCE
+// const nunjucks = require('nunjucks');	// templating framework
 // const nunjucks = require('nunjucks');	// templating framework
 
 // nunjucks.configure(['../frontend/templates/'], {
@@ -39,12 +37,9 @@ app.get(baseurl, function (req,res) {
 // MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
 app.use(cors());
 
-
-app.use(fileupload());
-app.use(express.urlencoded({ extended: true }));
 // WEB SERVER (for frontend)
 webapp.listen(80, () => {
- 	console.log('Web-server is up and runing at: http://localhost:80');
+ 	console.log('Web-server is up and runing at: http://www.inteliQ.com');
  });
 
 webapp.get("/", function (req,res) {
@@ -81,8 +76,11 @@ app.use(baseurl+'/getquestionanswers', getquestionanswers);
 // ROUTES FOR FRONTEND
 
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend1/build"));
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/frontend2/build"));
 
+//webserver.use("/", require('./routes/Home.routes.js'));
 webapp.use("/questionnaire", require('./routes/routes_questionnaire.js'));
+//webserver.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
 
 
 module.exports = router;
