@@ -12,7 +12,7 @@ pool.getConnection(function(err, connection) {
 			console.log("Failed to connect to database.", err);
 		}
         //paizei na exei themataki to post gt den tou dinoume timi sto answer_id
-		connection.query(`insert into Answer(answer_id,Option_option_id,Option_questionnaire_id,Option_question_id, Session_session_id) values ('${id}''${optionID}', '${questionnaireID}','${questionID}','${session}','${optionID}')`, function(err, result) 
+		connection.query(`insert into Answer(Option_option_id,Option_questionnaire_id,Option_question_id, Session_session_id) values ('${optionID}', '${questionnaireID}','${questionID}','${session}')`, function(err, result) 
 		{
 			if(err) {
 				res.status(400).json({status:"failed"});
