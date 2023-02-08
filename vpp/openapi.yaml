@@ -1,0 +1,616 @@
+openapi: 3.0.3
+info:
+  title: IntelliQ
+  version: 1.0.0
+servers:
+- url: http://localhost:9103/inteliq_api
+paths:
+  /admin/healthcheck:
+    get:
+      summary: Συνδεση με την βάση
+      description: Διαχειριστικό endpoint που επιβεβαιώνει τη συνδεσιμότητα (end-to-end
+        connectivity) μεταξύ του χρήστη της εφαρμογής και της βάσης δεδομένων.
+      operationId: healthcheck
+      responses:
+        200:
+          description: Σε περίπτωση επικοινωνίας μεταξύ χρήστη και βάσης δεδομένων
+            επιστρέφεται JSON με την επιβεβαίωση και περιγραφή (connection string)
+            της σύνδεσης.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/healthcheck'
+              example: "{\r\n   \"status\" : \"OK\",\r\n   \"dbconnection\" : \"mysql://root:password@localhost:9103/intelliq\"\
+                \r\n}"
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorDescription'
+  /admin/questionnaire_upd:
+    post:
+      summary: Ανέβασμα δεδομένων ερωτηματολογίου
+      description: Διαχειριστικό endpoint που επιτρέπει το ανέβασμα (προσθήκη) δεδομένων
+        νέου ερωτηματολογίου στην βάση. Το ερωτηματολόγιο με τα πλήρη στοιχεία του
+        δίνεται σε μορφή JSON object.
+      operationId: upload_Questionnaire
+      x-codegen-request-body-name: questionnaire
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/questionnaire'
+            example: "{\r\n    \"questionnaireID\": \"1\",\r\n    \"questionnaireTitle\"\
+              : \"My first research questionnaire\",\r\n    \"keywords\": [\r\n  \
+              \      \"footbal\",\r\n        \"islands\",\r\n        \"timezone\"\r\
+              \n    ],\r\n    \"questions\": [\r\n        {\r\n            \"qID\"\
+              : \"1\",\r\n            \"qtext\": \"Ποιο είναι το mail σας;\",\r\n\
+              \            \"required\": \"False\",\r\n            \"type\": \"profile\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"<open string>\",\r\n                    \"nextqID\"\
+              : \"2\"\r\n                }\r\n            ]\r\n        },\r\n    \
+              \    {\r\n            \"qID\": \"2\",\r\n            \"qtext\": \"Πο\
+              ια είναι η ηλικία σας;\",\r\n            \"required\": \"True\",\r\n\
+              \            \"type\": \"profile\",\r\n            \"options\": [\r\n\
+              \                {\r\n                    \"opttxt\": \"<30\",\r\n \
+              \                   \"nextqID\": \"3\"\r\n                },\r\n   \
+              \             {\r\n                    \"opttxt\": \"30-50\",\r\n  \
+              \                  \"nextqID\": \"3\"\r\n                },\r\n    \
+              \            {\r\n                    \"opttxt\": \"50-70\",\r\n   \
+              \                 \"nextqID\": \"3\"\r\n                },\r\n     \
+              \           {\r\n                    \"opttxt\": \">70\",\r\n      \
+              \              \"nextqID\": \"3\"\r\n                }\r\n         \
+              \   ]\r\n        },\r\n        {\r\n            \"qID\": \"3\",\r\n\
+              \            \"qtext\": \"Ποιο είναι το αγαπημένο σας χρώμα;\",\r\n\
+              \            \"required\": \"True\",\r\n            \"type\": \"question\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"Πράσινο\",\r\n                    \"nextqID\"\
+              : \"4\"\r\n                },\r\n                {\r\n             \
+              \       \"opttxt\":\"Κόκκινο\",\r\n                    \"nextqID\":\
+              \ \"4\"\r\n                },\r\n                {\r\n             \
+              \       \"opttxt\": \"Κίτρινο\",\r\n                    \"nextqID\"\
+              : \"4\"\r\n                }\r\n            ]\r\n        },\r\n    \
+              \    {\r\n            \"qID\": \"4\",\r\n            \"qtext\": \"Ασ\
+              χολείστε με το ποδόσφαιρο;\",\r\n            \"required\": \"True\"\
+              ,\r\n            \"type\": \"question\",\r\n            \"options\"\
+              : [\r\n                {\r\n                    \"opttxt\": \"Ναι\"\
+              ,\r\n                    \"nextqID\": \"5\"\r\n                },\r\n\
+              \                {\r\n                    \"opttxt\": \"Οχι\",\r\n \
+              \                   \"nextqID\": \"6\"\r\n                }\r\n    \
+              \        ]\r\n        },\r\n        {\r\n            \"qID\": \"5\"\
+              ,\r\n            \"qtext\": \"Τι ομάδα είστε;\",\r\n            \"required\"\
+              : \"True\",\r\n            \"type\": \"question\",\r\n            \"\
+              options\": [\r\n                {\r\n                    \"opttxt\"\
+              : \"Παναθηναϊκός\",\r\n                    \"nextqID\": \"6\"\r\n  \
+              \              },\r\n                {\r\n                    \"opttxt\"\
+              : \"Ολυμπιακός\",\r\n                    \"nextqID\": \"6\"\r\n    \
+              \            },\r\n                {\r\n                    \"opttxt\"\
+              : \"ΑΕΚ\",\r\n                    \"nextqID\": \"6\"\r\n           \
+              \     }\r\n            ]\r\n        },\r\n        {\r\n            \"\
+              qID\": \"6\",\r\n            \"qtext\": \"Έχετε ζήσει σε νησί;\",\r\n\
+              \            \"required\": \"True\",\r\n            \"type\": \"question\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"Ναι\",\r\n                    \"nextqID\": \"\
+              7\"\r\n                },\r\n                {\r\n                 \
+              \   \"opttxt\": \"Οχι\",\r\n                    \"nextqID\": \"8\"\r\
+              \n                }\r\n            ]\r\n        },\r\n        {\r\n\
+              \            \"qID\": \"7\",\r\n            \"qtext\": \"Με δεδομένο\
+              \ ότι απαντήσατε [*Q04A1] στην ερώτηση [*Q04]: Ποια η σχέση σας με τ\
+              ο θαλάσσιο σκι;\",\r\n            \"required\": \"True\",\r\n      \
+              \      \"type\": \"question\",\r\n            \"options\": [\r\n   \
+              \             {\r\n                    \"opttxt\": \"Καμία\",\r\n  \
+              \                  \"nextqID\": \"9\"\r\n                },\r\n    \
+              \            {\r\n                    \"opttxt\": \"Μικρή\",\r\n   \
+              \                 \"nextqID\": \"9\"\r\n                },\r\n     \
+              \           {\r\n                    \"opttxt\": \"Μεγάλη\",\r\n   \
+              \                 \"nextqID\": \"9\"\r\n                }\r\n      \
+              \      ]\r\n        },\r\n        {\r\n            \"qID\": \"8\",\r\
+              \n            \"qtext\": \"Είστε χειμερινός κολυμβητής\",\r\n      \
+              \      \"required\": \"True\",\r\n            \"type\": \"question\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"Ναι\",\r\n                    \"nextqID\": \"\
+              9\"\r\n                },\r\n                {\r\n                 \
+              \   \"opttxt\": \"Οχι\",\r\n                    \"nextqID\": \"9\"\r\
+              \n                }\r\n            ]\r\n        },\r\n        {\r\n\
+              \            \"qID\": \"9\",\r\n            \"qtext\": \"Κάνετε χειμ\
+              ερινό σκι;\",\r\n            \"required\": \"True\",\r\n           \
+              \ \"type\": \"question\",\r\n            \"options\": [\r\n        \
+              \        {\r\n                    \"opttxt\": \"Σπάνια - καθόλου\",\r\
+              \n                    \"nextqID\": \"10\"\r\n                },\r\n\
+              \                {\r\n                    \"opttxt\": \"Περιστασιακά\
+              \",\r\n                    \"nextqID\": \"10\"\r\n                },\r\
+              \n                {\r\n                    \"opttxt\": \"Τακτικά\",\r\
+              \n                    \"nextqID\": \"10\"\r\n                }\r\n \
+              \           ]\r\n        },\r\n        {\r\n            \"qID\": \"\
+              10\",\r\n            \"qtext\": \"Συμφωνείτε να αλλάζει η ώρα κάθε χ\
+              ρόνο;\",\r\n            \"required\": \"True\",\r\n            \"type\"\
+              : \"question\",\r\n            \"options\": [\r\n                {\r\
+              \n                    \"opttxt\": \"Ναι\",\r\n                    \"\
+              nextqID\": \"11\"\r\n                },\r\n                {\r\n   \
+              \                 \"opttxt\": \"Οχι\",\r\n                    \"nextqID\"\
+              : \"null\"\r\n                }\r\n            ]\r\n        },\r\n \
+              \       {\r\n            \"qID\": \"11\",\r\n            \"qtext\":\
+              \ \"Με δεδομένο ότι απαντήσατε [*23] στην ερώτηση [*10]: Προτιμάτε τ\
+              η θερινή ή την χειμερινή ώρα;\",\r\n            \"required\": \"True\"\
+              ,\r\n            \"type\": \"question\",\r\n            \"options\"\
+              : [\r\n                {\r\n                    \"opttxt\": \"Θερινή\
+              \",\r\n                    \"nextqID\": \"null\"\r\n               \
+              \ },\r\n                {\r\n                    \"opttxt\": \"Χειμε\
+              ρινή\",\r\n                    \"nextqID\": \"null\"\r\n           \
+              \     }\r\n            ]\r\n        }\r\n    ]\r\n}"
+        required: false
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuestionnaireUploaded'
+              example: '{status:"OK"}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdBadRequest'
+              example: '{status:"failed", reason: "Error when executing query. Could
+                be duplicate"}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdInternalError'
+              example: '{status:"failed", reason: "connection to database"}'
+  /admin/resetall:
+    post:
+      summary: Διαγραφή όλων των δεδομένων της βάσης.
+      description: Διαχειριστικό endpoint που υποστηρίζει την διαγραφή όλων των ερωτηματολογίων,
+        απαντήσεων και χρηστών από τη βάση.
+      operationId: reset_All
+      responses:
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Reset_AllBad'
+              example: '{status:"failed", reason: "Table Answer not truncated"}'
+        500:
+          description: Σε περίπτωση αποτυχίας αδειάσματος της βάσης επιστρέφεται JSON
+            object με status failed και την αιτία αποτυχίας.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Reset_AllError'
+              example: "{\r\n\t\"status\":\"failed\", \r\n\t\"reason\":\"internal\
+                \ server error\"\r\n}"
+  /admin/resetq/{questionnaireID}:
+    post:
+      summary: Διαγραφή απαντήσεων σε ερώτηση
+      description: Διαχειριστικό endpoint για την διαγραφή όλων των καταγεγραμμένων
+        απαντήσεων  στις ερωτήσεις του ερωτηματολογίου με αναγνωριστικό questionnaireID.
+      operationId: reset_Question
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου προς διαγραφή.
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 203
+      responses:
+        200:
+          description: Σε περίπτωση επιτυχίας της διαγραφής των απαντήσεων επιστρέφεται  το
+            JSON του παραδείγματος.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResetResponse'
+              example: "{ \r\n\t\"status\" : \"OK\"\r\n}"
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResetQBad'
+              example: '{status:"failed", reason: "Couldn''t delete answers"}'
+        500:
+          description: |-
+            Σε περίπτωση επιτυχίας της διαγραφής των απαντήσεων επιστρέφεται JSON
+
+             με την αιτία αποτυχίας.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: "{ \r\n\t\"status\" : \"failed\",\r\n\t\"reason\" : \"connection\
+                \ to database\"\r\n}"
+  /doanswer/{questionnaireIID/{questionID}/{session}/{optionID}:
+    post:
+      summary: Καταχώρηση απάντησης σε ερώτηση.
+      description: Endpoint για την καταχώρηση της επιλογής απάντησης με αναγνωριστικό
+        optionID κατά το γεγονός απάντησης με αναγνωριστικό session στην ερώτηση questionID
+        για το ερωτηματολόγιο questionnaireID.
+      operationId: answer_Question
+      parameters:
+      - name: questionnaireID
+        in: query
+        description: Το αναγνωριστικό του ερωτηματολογίου.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: questionID
+        in: query
+        description: Το αναγνωριστικό της ερώτησης.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: session
+        in: query
+        description: Τέσσερις τυχαίοι λατινικοί χαρακτήρες που αναγνωρίζουν μοναδικά
+          ένα γεγονός απάντησης.
+        required: true
+        schema:
+          type: char
+          format: 4
+        example: XVBI
+      - name: optionID
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Answer_QuestionResponse'
+              example: '{status:"OK"}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed"}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database"}'
+  /getquestionanswers/{questionnaireID}/{questionID}:
+    get:
+      summary: Όλες οι απαντήσεις για μία ερώτηση
+      description: Επιστρέφει JSON object με όλες τις απαντήσεις από όλα τα γεγονότα
+        απάντησης (sessions) που δότηκαν στην ερώτηση με αναγνωριστικό questionID
+        στο ερωτηματολόγιο questionnaireID, ταξινομημένες ως προς τη χρονική σειρά
+        με την οποία δόθηκαν.
+      operationId: question_Answers
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: string
+      - name: questionID
+        in: path
+        description: Το αναγνωριστικό της ερώτησης
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Question_AnswersResponse'
+              example: "{\r\n  questionnaireID: '1',\r\n  qID: '1',\r\n  questionnaire_title:\
+                \ 'Questionnairo Numero Uno',\r\n  qtext: 'Your name',\r\n  answers:\
+                \ [ { SessionID: '20', answerID: '1', answer_txt: 'Athina' } ]\r\n\
+                }"
+        204:
+          description: No Content
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: " no data for this query"}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting question information."}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /getsessionanswers/{questionnaireID}/{session}:
+    get:
+      summary: Απαντήσεις που δόθηκαν κάτα ένα γεγονός απάντησης
+      description: Επιστρέφει τις απαντήσεις που δόθηκαν σε όλες τις ερωτήσεις του
+        ερωτηματολογίου με αναγνωριστικό questionnaireID κατά το γεγονός απάντησης
+        session, ταξθνομημένες ως προς το αναγνωριστικό της ερώτησης (qID).
+      operationId: session_Answers
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: session
+        in: path
+        description: Το αναγνωριστικό του γεγονότος απάντησης
+        required: true
+        schema:
+          type: char
+          format: XXXX
+        example: AKDV
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/sessionanswers'
+              example: "{\r\n  questionnaireID: '1',\r\n  session: '20',\r\n  answers:\
+                \ [ { qid: '1', ans: '1' } ]\r\n}"
+        204:
+          description: No Content
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SessionNoData'
+              example: '{status:"failed", reason: "This session does not exist."}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /question/{questionnaireID}/{questionID}:
+    get:
+      summary: Πλήρη στοιχεία ερώτησης
+      description: Επιστρέφει τα πλήρη στοιχεία της ερώτησης questionID που ανήκει
+        στο ερωτηματολόγιο questionnaireID. Οι επιλογές-απαντήσεις της ερώτησης ταξινομούνται
+        ως προς το αναγνωριστικό της απάντησης.
+      operationId: question
+      parameters:
+      - name: questionnaireID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 345
+      - name: questionID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 4
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+              example: "{\r\n  questionnaireID: '2',\r\n  qID: '1',\r\n  qtext: 'Your\
+                \ FKPJG',\r\n  required: 'False',\r\n  type: 'question',\r\n  options:\
+                \ [\r\n    { optID: '1', opttxt: 'SKOUPA', nextqID: '2' },\r\n   \
+                \ { optID: '2', opttxt: 'SFOUGARISTRA', nextqID: '2' }\r\n  ]\r\n}"
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting question information."'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /questionnaire/{questionnaireID}:
+    get:
+      summary: Γενικά στοιχεία ερωτηματολογίου
+      description: Endpoint που επιστρέφει ένα αντικείμενο τύπου JSON με τα γεινκά
+        χαρακτηριστικά του ερωτηματολογίου με αναγνωριστικό questionnaireID.
+      operationId: questionnaire
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 3524
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuestionnaireResponse'
+              example: "{\r\n  questionnaireID: '1',\r\n  questionnaireTitle: 'Questionnairo\
+                \ Numero Uno',\r\n  keywords: [ { keyword: 'Politics' }, { keyword:\
+                \ 'Sports' } ],   \r\n  questions: [\r\n    {\r\n      qid: '1',\r\
+                \n      qtext: 'Your name',\r\n      required: 'False',\r\n      type:\
+                \ 'question'\r\n    },\r\n    { qid: '2', qtext: 'Your mum's occupation',\
+                \ required: 'True', type: 'question' },\r\n    {\r\n      qid: '3',\r\
+                \n      qtext: 'Your dad's occupation',\r\n      required: 'False',\r\
+                \n      type: 'question'\r\n    }\r\n  ]\r\n}"
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting questionnaire information."}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+components:
+  schemas:
+    Reset_AllError:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    sessionanswers:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        session:
+          type: string
+    ResetResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    questionnaire:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionnaireTitle:
+          type: string
+        keywords:
+          type: string
+    Question_AnswersResponse:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionID:
+          type: string
+    QuestionnaireUploaded:
+      type: object
+      properties:
+        status:
+          type: string
+    UpdInternalError:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    QuestionnaireResponse:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionnaireTitle:
+          type: string
+    Reset_AllBad:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    errorDescription:
+      type: object
+      properties:
+        status:
+          type: string
+        dbconnection:
+          type: string
+    healthcheck:
+      type: object
+      properties:
+        status:
+          type: string
+        dbconnection:
+          type: string
+    errorStatus:
+      type: object
+      properties:
+        attribute:
+          type: string
+        status:
+          type: string
+        reason:
+          type: string
+    SessionNoData:
+      type: object
+    UpdBadRequest:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    Answer_QuestionResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    ResetQBad:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    QuestionResponse:
+      description: Τα πλήρη στοιχεία της ερώτησης questionID που ανήκει στο ερωτηματολόγιο
+        questionnaireID.
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        qID:
+          type: string
+        qtext:
+          type: string
+        required:
+          type: string
+        type:
+          type: string

@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">SoftEng22-13 IntelliQ</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="item"><a href="Answer_Question.html">Answer Question</a></div>
+<div class="item"><a href="Healthcheck.html">Healthcheck</a></div>
+<div class="current item">Question</div>
+<div class="item"><a href="Question_Answers.html">Question Answers</a></div>
+<div class="item"><a href="Questionnaire.html">Questionnaire</a></div>
+<div class="item"><a href="Reset_All.html">Reset All</a></div>
+<div class="item"><a href="Reset_Question.html">Reset Question</a></div>
+<div class="item"><a href="Session_Answers.html">Session Answers</a></div>
+<div class="item"><a href="Upload_Questionnaire.html">Upload Questionnaire</a></div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Question</header>
+				<div class="basic-info">
+										<div><span>
+<p>
+  &#917;&#960;&#953;&#963;&#964;&#961;&#941;&#966;&#949;&#953; &#964;&#945; &#960;&#955;&#942;&#961;&#951; &#963;&#964;&#959;&#953;&#967;&#949;&#943;&#945; &#964;&#951;&#962; &#949;&#961;&#974;&#964;&#951;&#963;&#951;&#962; questionID &#960;&#959;&#965; &#945;&#957;&#942;&#954;&#949;&#953; &#963;&#964;&#959; 
+  &#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#972;&#947;&#953;&#959; questionnaireID. &#927;&#953; &#949;&#960;&#953;&#955;&#959;&#947;&#941;&#962;-&#945;&#960;&#945;&#957;&#964;&#942;&#963;&#949;&#953;&#962; &#964;&#951;&#962; &#949;&#961;&#974;&#964;&#951;&#963;&#951;&#962; 
+  &#964;&#945;&#958;&#953;&#957;&#959;&#956;&#959;&#973;&#957;&#964;&#945;&#953; &#969;&#962; &#960;&#961;&#959;&#962; &#964;&#959; &#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; &#964;&#951;&#962; &#945;&#960;&#940;&#957;&#964;&#951;&#963;&#951;&#962;.
+</p>
+</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>http://localhost:9103/inteliq_api/question/{questionnaireID}/{questionID}</div>
+
+										<div class="title">Parameters</div>
+					<table class="parameters">
+												<tr>
+						<td><div class="name">questionnaireID (Path)</div><div>
+												required
+												</div>
+						</td><td><div class="description"></div>
+												<div><span class="example-title">Type: </span><span class="example-value">int</span></div>
+																		<div><span class="example-title">Example Values: </span><span class="example-value">345</span></div>
+												</td>
+						</tr>
+												<tr>
+						<td><div class="name">questionID (Path)</div><div>
+												required
+												</div>
+						</td><td><div class="description"></div>
+												<div><span class="example-title">Type: </span><span class="example-value">int</span></div>
+																		<div><span class="example-title">Example Values: </span><span class="example-value">4</span></div>
+												</td>
+						</tr>
+											</table>
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X GET
+												"http://localhost:9103/inteliq_api/question/{questionnaireID}/{questionID}"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="empty-section">No Request Defined</div>
+									</div>
+
+				<div class="sidebar">
+					
+									</div>
+
+				<div class="content">
+																<header class="section">Response
+- Status 400
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_400_response.png"></div>
+			<a name="errorStatus"></a>
+<div class="classname">
+	errorStatus
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>attribute</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 500
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_500_response.png"></div>
+			<a name="errorStatus"></a>
+<div class="classname">
+	errorStatus
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>attribute</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 200
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_200_response.png"></div>
+			<a name="QuestionResponse"></a>
+<div class="classname">
+	QuestionResponse
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>questionnaireID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>qID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>qtext</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>required</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>type</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+				<header class="section">Related classes</header>
+		<a name="option"></a>
+<div class="classname">
+	option
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>optID</td><td>
+				String
+				</td><td><span>
+<p>
+  &#927;&#953; &#949;&#960;&#953;&#955;&#959;&#947;&#941;&#962;-&#945;&#960;&#945;&#957;&#964;&#942;&#963;&#949;&#953;&#962; &#964;&#951;&#962; &#949;&#961;&#974;&#964;&#951;&#963;&#951;&#962; (&#964;&#945;&#958;&#953;&#957;&#959;&#956;&#959;&#973;&#957;&#964;&#945;&#953; &#969;&#962; &#960;&#961;&#959;&#962; &#964;&#959; &#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; 
+  &#964;&#951;&#962; &#945;&#960;&#940;&#957;&#964;&#951;&#963;&#951;&#962;).
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>opttxt:: String</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>nextqID</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+										</div>
+
+				<div class="sidebar">
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json">{
+  questionnaireID: <span class="value">'2'</span>,
+  qID: <span class="value">'1'</span>,
+  qtext: <span class="value">'Your FKPJG'</span>,
+  required: <span class="value">'False'</span>,
+  type: <span class="value">'question'</span>,
+  options: [
+    {
+      optID: <span class="value">'1'</span>,
+      opttxt: <span class="value">'SKOUPA'</span>,
+      nextqID: <span class="value">'2'</span>
+    },
+    {
+      optID: <span class="value">'2'</span>,
+      opttxt: <span class="value">'SFOUGARISTRA'</span>,
+      nextqID: <span class="value">'2'</span>
+    }
+  ]
+}</code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Question.xml" target="_blank">Question.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>

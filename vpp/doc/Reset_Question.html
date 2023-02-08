@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">SoftEng22-13 IntelliQ</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="item"><a href="Answer_Question.html">Answer Question</a></div>
+<div class="item"><a href="Healthcheck.html">Healthcheck</a></div>
+<div class="item"><a href="Question.html">Question</a></div>
+<div class="item"><a href="Question_Answers.html">Question Answers</a></div>
+<div class="item"><a href="Questionnaire.html">Questionnaire</a></div>
+<div class="item"><a href="Reset_All.html">Reset All</a></div>
+<div class="current item">Reset Question</div>
+<div class="item"><a href="Session_Answers.html">Session Answers</a></div>
+<div class="item"><a href="Upload_Questionnaire.html">Upload Questionnaire</a></div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Reset Question</header>
+				<div class="basic-info">
+										<div><span>
+&#916;&#953;&#945;&#967;&#949;&#953;&#961;&#953;&#963;&#964;&#953;&#954;&#972; endpoint &#947;&#953;&#945; &#964;&#951;&#957; &#948;&#953;&#945;&#947;&#961;&#945;&#966;&#942; &#972;&#955;&#969;&#957; &#964;&#969;&#957; &#954;&#945;&#964;&#945;&#947;&#949;&#947;&#961;&#945;&#956;&#956;&#941;&#957;&#969;&#957; &#945;&#960;&#945;&#957;&#964;&#942;&#963;&#949;&#969;&#957; 
+&#160;&#963;&#964;&#953;&#962; &#949;&#961;&#969;&#964;&#942;&#963;&#949;&#953;&#962; &#964;&#959;&#965; &#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#959;&#947;&#943;&#959;&#965; &#956;&#949; &#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; questionnaireID.</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>http://localhost:9103/inteliq_api/admin/resetq/{questionnaireID}</div>
+
+										<div class="title">Parameters</div>
+					<table class="parameters">
+												<tr>
+						<td><div class="name">questionnaireID (Path)</div><div>
+												required
+												</div>
+						</td><td><div class="description"><span>
+<p>
+  &#932;&#959; &#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; &#964;&#959;&#965; &#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#959;&#947;&#943;&#959;&#965; &#960;&#961;&#959;&#962; &#948;&#953;&#945;&#947;&#961;&#945;&#966;&#942;.
+</p>
+</span>
+</div>
+												<div><span class="example-title">Type: </span><span class="example-value">int</span></div>
+																		<div><span class="example-title">Example Values: </span><span class="example-value">203</span></div>
+												</td>
+						</tr>
+											</table>
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X POST
+												-d ''
+												"http://localhost:9103/inteliq_api/admin/resetq/{questionnaireID}"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="empty-section">No Request Defined</div>
+									</div>
+
+				<div class="sidebar">
+					
+									</div>
+
+				<div class="content">
+											<header class="section">Response
+</header>
+<div class="description"><span>
+<p>
+  &#931;&#949; &#960;&#949;&#961;&#943;&#960;&#964;&#969;&#963;&#951; &#949;&#960;&#953;&#964;&#965;&#967;&#943;&#945;&#962; &#964;&#951;&#962; &#948;&#953;&#945;&#947;&#961;&#945;&#966;&#942;&#962; &#964;&#969;&#957; &#945;&#960;&#945;&#957;&#964;&#942;&#963;&#949;&#969;&#957; &#949;&#960;&#953;&#963;&#964;&#961;&#941;&#966;&#949;&#964;&#945;&#953; JSON
+</p>
+&#160;&#956;&#949; &#964;&#951;&#957; &#945;&#953;&#964;&#943;&#945; &#945;&#960;&#959;&#964;&#965;&#967;&#943;&#945;&#962;.</span>
+</div>
+<div class="image"><img src="img/Reset_Question_response.png"></div>
+			<a name="ResetResponse"></a>
+<div class="classname">
+	ResetResponse
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+																	<header class="section">Response
+- Status 400
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Reset_Question_400_response.png"></div>
+			<a name="ResetQBad"></a>
+<div class="classname">
+	ResetQBad
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 500
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Reset_Question_500_response.png"></div>
+			<a name="errorStatus"></a>
+<div class="classname">
+	errorStatus
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>attribute</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+										</div>
+
+				<div class="sidebar">
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json">{
+  <span class="key">"status"</span>: <span class="value">"failed"</span>,
+  <span class="key">"reason"</span>: <span class="value">"connection to database"</span>
+}</code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Reset_Question.xml" target="_blank">Reset_Question.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>
