@@ -45,9 +45,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                         for (const row of result) {
                             const inputty = {
                                 "questionnaireID":questionnaireID,
-                                "qID":questionID,
-                                "Questionnaire_title":row.title,
-                                "qtext":row.question_text,
+                                "questionID":questionID,
                                 "session": row.session_id.toString(),
                                 "ans": row.answer_id.toString(),
                             }
