@@ -48,9 +48,8 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                                 "qID":questionID,
                                 "Questionnaire_title":row.title,
                                 "qtext":row.question_text,
-                                "Session_id": row.session_id.toString(),
-                                "answer_id": row.answer_id.toString(),
-                                "answer_text": row.option_text
+                                "session": row.session_id.toString(),
+                                "ans": row.answer_id.toString(),
                             }
                             csv_input.push(inputty)
                         }
