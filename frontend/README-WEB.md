@@ -14,6 +14,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
   npm install
   ```
 * Set up the webserver. In order to occupy port:80 with XAMPP, you need to do the following actions:
+  
   1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an editor and add the following code to the bottom of it:
     <VirtualHost *:80>
         ServerName inteliQ.com
@@ -29,6 +30,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
         </Directory>
     </VirtualHost>
     
+    
     !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build 
   2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:
     127.0.0.1    www.inteliQ.com 
@@ -41,7 +43,7 @@ You can download the build directly from here or build the app yourself by going
   ```
 Once the build is deployed, the webserver will be up at localhost:80 or www.intelliQ.com while the program is running. You can then try:
 
-www.intelliQ.com/?QuestionnaireID=<insert_id_here> 
+www.intelliQ.com/?QuestionnaireID=<insert_id_here> or
 www.intelliQ.com/Graph?QuestionnaireID=<insert_id_here>
 
 
