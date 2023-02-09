@@ -5,7 +5,7 @@ Functionality tests for the command line interface using Chai and Mocha.
 
 ### Prerequisites
 
-* Install the cli globally. Go to ~/SoftEng22-13/cli and type:
+* Install the CLI globally. Go to ~/SoftEng22-13/cli and type:
   ```sh
   npm install -g
   ```
@@ -20,7 +20,7 @@ Simply type:
   mocha ./cli-tests.js
   ```
 ### What it does
-This script performs a test on intelliQ's cli calls. It performs them on a database of 5 questionnaires with ~10 questions and ~7 answer sessions each. The following things are tested:
+This script performs a test on intelliQ's CLI calls. It performs them on a database of 5 questionnaires with ~10 questions and ~7 answer sessions each. The following things are tested:
 1. (json && csv) Return status: 'OK'
 2. (json) The return object has the correct keys (i.e. if it calls /questionnaire it checks whether it contains "questionnaireID" etc.)
 3. (json) The return object has data (i.e. if it calls /questionnaire it checks whether it contains questions, if it calls /question it checks whether it contains options etc.)
