@@ -13,26 +13,30 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
   ```sh
   npm install
   ```
-* Set up the webserver. In order to occupy port:80 with XAMPP, you need to do the following actions:
- <pre>
- 1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an editor and add the following code to the bottom of it:<br>
-    <VirtualHost *:80><br>
+* Set up the webserver. In order to occupy port:80 with XAMPP, you perform to do the following actions:
+
+ 1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an 
+ editor and add the following code to the bottom of it:
+ 
+ <pre>    &ltVirtualHost *:80&gt<br>
         ServerName inteliQ.com<br>
         ServerAlias www.inteliQ.com<br>
         ServerAdmin webmaster@inteliQ.com<br>
-        DocumentRoot "Path"              <---- replace Path here<br>
-         <Directory Path>               <---- replace Path here<br>
+        DocumentRoot "Path"              <---- replace Path here <br>
+         &ltDirectory Path&gt            <---- replace Path here <br>
             Options Indexes FollowSymLinks MultiViews<br>
       AllowOverride all<br>
       Order Deny,Allow<br>
             Allow from all<br>
             Require all granted<br>
-        </Directory><br>
-    </VirtualHost><br>
+        &lt/Directory&gt<br>
+    &lt/VirtualHost&gt
+</pre>
 
     !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build <br>
-  2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:<br>
-    127.0.0.1    www.inteliQ.com 
+  2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not 
+  confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:<br>
+<pre>    127.0.0.1    www.inteliQ.com </pre>
 
 ### How to run
 
@@ -40,11 +44,11 @@ You can download the build directly from here or build the app yourself by going
   ```sh
   npm run build
   ```
-Once the build is deployed, the webserver will be up at localhost:80 or www.intelliQ.com while the program is running. You can then try:
-
-www.intelliQ.com/?QuestionnaireID=<insert_id_here> or
-www.intelliQ.com/Graph?QuestionnaireID=<insert_id_here>
-
+Once the build is deployed, the webserver will be up at localhost:80 and www.intelliQ.com while the 
+program is running. You can then try:
+<pre>
+www.intelliQ.com/?QuestionnaireID=&ltinsert_id_here&gt or
+www.intelliQ.com/Graph?QuestionnaireID=&ltinsert_id_here&gt
 </pre>
 #Γράφω οδηγίες για web-server (μη τρομαξετε ειναι διαφορα)
 
