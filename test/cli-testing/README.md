@@ -5,7 +5,6 @@ Functionality tests for the command line interface using Chai and Mocha.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * Install the cli globally. Go to ~/SoftEng22-13/cli and type:
   ```sh
   npm install -g
