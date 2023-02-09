@@ -1,3 +1,50 @@
+<!-- FRONT-END -->
+## Front-end
+
+Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response Data with Pie" made with React.
+
+### Prerequisites
+
+* Install React. Run:
+  ```sh
+  npm install react -g
+  ```
+* Install all necessary modules defined in package.json. Go to ~/SoftEng22-13/frontend/frontend1 and run:
+  ```sh
+  npm install
+  ```
+* Set up the webserver. In order to occupy port:80 with XAMPP, you need to do the following actions:
+  1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an editor and add the following code to the bottom of it:
+    <VirtualHost *:80>
+        ServerName inteliQ.com
+        ServerAlias www.inteliQ.com
+        ServerAdmin webmaster@inteliQ.com
+        DocumentRoot "Path"              <---- replace Path here
+         <Directory Path>               <---- replace Path here
+            Options Indexes FollowSymLinks MultiViews
+      AllowOverride all
+      Order Deny,Allow
+            Allow from all
+            Require all granted
+        </Directory>
+    </VirtualHost>
+    
+    !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build 
+  2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:
+    127.0.0.1    www.inteliQ.com 
+
+### How to run
+
+You can download the build directly from here or build the app yourself by going to ~SoftEng22-13/frontend/frontend1 and running:
+  ```sh
+  npm run build
+  ```
+Once the build is deployed, the webserver will be up at localhost:80 or www.intelliQ.com while the program is running. You can then try:
+
+www.intelliQ.com/?QuestionnaireID=<insert_id_here> 
+www.intelliQ.com/Graph?QuestionnaireID=<insert_id_here>
+
+
 #Γράφω οδηγίες για web-server (μη τρομαξετε ειναι διαφορα)
 
 1. Πάμε στα frontend και κάνουμε npm install react-router-dom
