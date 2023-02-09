@@ -18,5 +18,11 @@
 </VirtualHost>
 Στο Path o καθένας βάζει το path για τον δικό του φάκελο για το build του frontend1.
 3. Πάμε στο C:\Windows\System32\drivers\etc ανοίγουμε το hosts με το vscode και στο τέλος χωρίς σχόλια βάζουμε 127.0.0.1    www.inteliQ.com (το όνομα μπορουμε να το αλλάξουμε προφανώς και δεν χρειαζεται να εχει www ή .com). Κάνουμε save θα μας πεταξει ενα μήνυμα οτι πρέπει να ειμαστε administrator παταμε retry as administrator.
-4. Κάνουμε RESTART τον XAMPP (μην το ξεχασετε αλλιώς δεν δουλευει τίποτα) και πηγαινουμε στο www.my-react-app.com.
-5. Enjoy! :) (because we didn't)
+4. Στον φάκελο public στο frontend1 δημιουργούμε αρχείο .htaccess και μέσα του γράφουμε:
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
+5. Στον φάκελο package.json στο frontend1 προσθέτουμε μια γραμμή: "homepage": "http://www.inteliQ.com", κάτω από το version.
+6. Κάνουμε RESTART τον XAMPP (μην το ξεχασετε αλλιώς δεν δουλευει τίποτα) και πηγαινουμε στο www.inteliQ.com.
+7. Enjoy! :) (because we didn't)
