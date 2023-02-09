@@ -33,7 +33,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
     &lt/VirtualHost&gt
 </pre>
 
-    !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build <br>
+    !!! Replace "Path" with your computer's path to ~/SoftEng22-13/frontend/frontend1/build <br>
 ![image](https://user-images.githubusercontent.com/115226054/217953370-026873e8-16d0-4190-9c33-53a42cd409ff.png)
 
   2. Go to C:\Windows\System32\drivers\etc and open the file named 'hosts' in an editor (note: do not 
