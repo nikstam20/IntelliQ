@@ -9,7 +9,11 @@ Functionality tests for the command line interface using Chai and Mocha.
   ```sh
   npm install -g
   ```
-* Install child_process and chai. Go to ~/SoftEng22-13/test/cli-testing and type:
+ * Install Mocha. Type:
+  ```sh
+  npm install Mocha -g
+  ```
+* Install child_process and Chai. Go to ~/SoftEng22-13/test/cli-testing and type:
   ```sh
   npm child_process, chai
   ```
