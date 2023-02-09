@@ -32,7 +32,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                 else{
                     const answers = [];
     			    for (const row of result) {
-      				    const answer = { SessionID: row.session_id, answerID: row.answer_id, answer_txt: row.option_text };
+      				    const answer = { session: row.session_id, ans: row.answer_id };
       				    answers.push(answer);
                         questionnaire_title = row.title;
 					    question_text = row.question_text;
@@ -61,9 +61,7 @@ router.get('/:questionnaireID/:questionID', function(req, res){
                     else {
                         const input = {
                             "questionnaireID":questionnaireID.toString(),
-                            "qID":questionID.toString(),
-                            "questionnaire_title": questionnaire_title,
-                            "qtext":question_text.toString(),
+                            "questionID":questionID.toString(),
                             "answers": answers
                         }
                         const json = JSON.stringify(input);
