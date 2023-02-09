@@ -15,24 +15,23 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
   ```
 * Set up the webserver. In order to occupy port:80 with XAMPP, you need to do the following actions:
   
-  1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an editor and add the following code to the bottom of it:
-    <VirtualHost *:80>
-        ServerName inteliQ.com
-        ServerAlias www.inteliQ.com
-        ServerAdmin webmaster@inteliQ.com
-        DocumentRoot "Path"              <---- replace Path here
-         <Directory Path>               <---- replace Path here
-            Options Indexes FollowSymLinks MultiViews
-      AllowOverride all
-      Order Deny,Allow
-            Allow from all
-            Require all granted
-        </Directory>
-    </VirtualHost>
-    
-    
-    !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build 
-  2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:
+  1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an editor and add the following code to the bottom of it:<br>
+    <VirtualHost *:80><br>
+        ServerName inteliQ.com<br>
+        ServerAlias www.inteliQ.com<br>
+        ServerAdmin webmaster@inteliQ.com<br>
+        DocumentRoot "Path"              <---- replace Path here<br>
+         <Directory Path>               <---- replace Path here<br>
+            Options Indexes FollowSymLinks MultiViews<br>
+      AllowOverride all<br>
+      Order Deny,Allow<br>
+            Allow from all<br>
+            Require all granted<br>
+        </Directory><br>
+    </VirtualHost><br>
+
+    !!! Replace "Path" with your computers path to ~/SoftEng22-13/frontend/frontend1/build <br>
+  2. Go to C:\Windows\System32\drivers\etc and open the file names 'hosts' in an editor (note: do not confuse it with the file hosts.ics in the same file). Go to the bottom of it and add:<br>
     127.0.0.1    www.inteliQ.com 
 
 ### How to run
