@@ -13,7 +13,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
   ```sh
   npm install
   ```
-* Set up the webserver. In order to occupy port:80 with XAMPP, you perform to do the following actions:
+* Set up the webserver. In order to occupy port:80 with XAMPP, you have to perform the following actions:
 
  1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an 
  editor and add the following code to the bottom of it:
