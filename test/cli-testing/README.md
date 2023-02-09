@@ -9,7 +9,7 @@ Functionality tests for the command line interface using Chai and Mocha.
   ```sh
   npm install -g
   ```
- * Install Mocha. Type:
+* Install Mocha. Type:
   ```sh
   npm install Mocha -g
   ```
