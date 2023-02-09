@@ -18,18 +18,18 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
  1. Go to the file in C:\xampp\apache\conf\extra\httpd-vhosts.conf, open it in an 
  editor and add the following code to the bottom of it:
  
- <pre>    &ltVirtualHost *:80&gt<br>
-        ServerName inteliQ.com<br>
-        ServerAlias www.inteliQ.com<br>
-        ServerAdmin webmaster@inteliQ.com<br>
-        DocumentRoot "Path"              <---- replace Path here <br>
-         &ltDirectory Path&gt            <---- replace Path here <br>
-            Options Indexes FollowSymLinks MultiViews<br>
-      AllowOverride all<br>
-      Order Deny,Allow<br>
-            Allow from all<br>
-            Require all granted<br>
-        &lt/Directory&gt<br>
+ <pre>    &ltVirtualHost *:80&gt
+        ServerName inteliQ.com
+        ServerAlias www.inteliQ.com
+        ServerAdmin webmaster@inteliQ.com
+        DocumentRoot "Path"              <---- replace Path here 
+         &ltDirectory Path&gt            <---- replace Path here 
+            Options Indexes FollowSymLinks MultiViews
+      AllowOverride all
+      Order Deny,Allow
+            Allow from all
+            Require all granted
+        &lt/Directory&gt
     &lt/VirtualHost&gt
 </pre>
 
