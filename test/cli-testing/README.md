@@ -1,7 +1,7 @@
 <!-- CLI TESTING -->
 ## CLI Testing
 
-Functionality tests for the command line interface Chai and Mocha.
+Functionality tests for the command line interface using Chai and Mocha.
 
 ### Prerequisites
 
