@@ -1,7 +1,3 @@
--- 1st draft
--- TODO: ON DELETE ... ON UPDATE ....
--- TODO: required and open ended questions ?
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -92,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Answer` (
   `Option_option_id` INT(3) NOT NULL,
   `Option_questionnaire_id` INT(3) NOT NULL,
   `Option_question_id` INT(3) NOT NULL,
-  `Session_session_id` VARCHAR(4) NOT NULL,
+  `Session_session_id` INT(3) NOT NULL,
   PRIMARY KEY (`answer_id`),
  -- INDEX `fk_Answer_Option1_idx` (`Option_option_id` ASC) VISIBLE,
  -- INDEX `fk_Answer_Session1_idx` (`Session_session_id` ASC) VISIBLE,
