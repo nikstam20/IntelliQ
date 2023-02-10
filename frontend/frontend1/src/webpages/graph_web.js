@@ -47,22 +47,23 @@ export default function MyPieChart() {
     let newQids = [];
     {qstnre.questions?.map(q => newQids.push(q.qid))}
     console.log(newQids);
-    setQids(newQids);
-    console.log("hi");}
+    setQids(newQids);}
     else isMounted2.current=true;
   },[qstnre]);
 
   useEffect(() => {
     if (qids) {
-      setCurrentQuestionIndex(qids.shift());
+      console.log("qids: " + qids);
+      console.log("qids length is " + qids.length);
+      setCurrentQuestionIndex(qids[0]);
     }
   }, [qids]);
 
   useEffect(() => {
     if(isMounted.current){
-    console.log(qids);
-    console.log(currentQuestionIndex);
-    let url=`http://localhost:9103/inteliq_api/getquestionanswers/${questionnaireID}/${currentQuestionIndex}`;
+    console.log("Current Index is " + currentQuestionIndex);
+    let url=`http://localhost:9103/inteliq_api/getquestionanswersenhanced/${questionnaireID}/${currentQuestionIndex}`;
+    console.log(url);
     axios.get(url)
     .then(response => {
       setQstion(response.data);
@@ -81,8 +82,10 @@ export default function MyPieChart() {
     e.preventDefault();
     let selectedNextQID;
     selectedNextQID = parseInt(currentQuestionIndex)+1;
+    console.log("New qid is " + selectedNextQID + " and qids length is " + qids.length);
     if(qids.length < selectedNextQID) selectedNextQID = null;
     setCurrentQuestionIndex(selectedNextQID);
+    console.log("New current index is " + selectedNextQID);
   }
 
 //unique answertxt = key, number of times = value 
@@ -95,6 +98,7 @@ export default function MyPieChart() {
   console.log(ansData);
 
   if(currentQuestionIndex !== null){
+    console.log("We are at " + currentQuestionIndex);
     return (
       <div className="wrapper">
         <h1 key={qstnre.questionnaireTitle}><strong>{qstnre.questionnaireTitle}</strong></h1>
