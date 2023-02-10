@@ -1,6 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "http://my-react-app.com",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -34,7 +35,7 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead"
+      "not dead",
       "not op_mini all"
     ],
     "development": [
