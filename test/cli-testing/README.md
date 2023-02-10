@@ -25,7 +25,8 @@ Simply type:
   ```
 ### What it does
 This script performs a test on intelliQ's CLI calls. It performs them on a database of 5 questionnaires with ~10 questions and ~7 answer sessions each. The following things are tested:
-1. (json && csv) Return status: 'OK'
-2. (json) The return object has the correct keys (i.e. if it calls /questionnaire it checks whether it contains "questionnaireID" etc.)
-3. (json) The return object has data (i.e. if it calls /questionnaire it checks whether it contains questions, if it calls /question it checks whether it contains options etc.)
-4. (csv) The return object has the correct labels.
+1. exit code 0
+2. (json && csv) Return status: 'OK'
+3. (json) The return object has the correct keys (i.e. if it calls /questionnaire it checks whether it contains "questionnaireID" etc.)
+4. (json) The return object has data (i.e. if it calls /questionnaire it checks whether it contains questions, if it calls /question it checks whether it contains options etc.)
+5. (csv) The return object has the correct labels.
