@@ -62,6 +62,7 @@ const adminhealth = require('./admin-endpoints/healthcheck'),
 	doanswer = require('./functional-endpoints/doanswer'),
 	getsessionanswers = require('./functional-endpoints/getsessionanswers'),
 	getquestionanswers = require('./functional-endpoints/getquestionanswers');
+	getquestionanswers_enhanced = require('./functional-endpoints/getquestionanswers_enhanced');
 const { homedir } = require('os');
 
 // RESTFUL API ROUTES
@@ -76,6 +77,7 @@ app.use(baseurl+'/question', question);
 app.use(baseurl+'/doanswer', doanswer);
 app.use(baseurl+'/getsessionanswers', getsessionanswers);
 app.use(baseurl+'/getquestionanswers', getquestionanswers);
+app.use(baseurl+'/getquestionanswersenhanced', getquestionanswers_enhanced);
 
 
 // ROUTES FOR FRONTEND
