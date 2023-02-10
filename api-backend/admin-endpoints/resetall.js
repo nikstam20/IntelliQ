@@ -3,13 +3,14 @@ const router = express.Router();
 const pool = require('../connect');   
 
 router.post('/', function(req, res) {
-	pool.getConnection(function(err, connection) {
+	pool.getConnection(function(err, connection) {		//get a connection to the database from the pool
+
 		if(err) {
 			console.log("connection failed", err);
 			return res.status(500).json({status:"failed"});
 				
 		}
-        connection.query("SET FOREIGN_KEY_CHECKS=0;", function(err)
+        connection.query("SET FOREIGN_KEY_CHECKS=0;", function(err)		//first disable foreign key checks so we can empty all tables without worrying about the order
         {
             if(err) { 
 				console.log(err);
@@ -17,7 +18,7 @@ router.post('/', function(req, res) {
                
             }
         })
-		// connection.query("TRUNCATE TABLE User", function(err) 
+		// connection.query("TRUNCATE TABLE User", function(err) 							not yet implemented
 		// {
         // 	if(err) {
 		// 		return res.status(400).json({status:"failed", reason: "Table User not truncated"});
@@ -27,6 +28,9 @@ router.post('/', function(req, res) {
         //         console.log("Table User truncated");
 		// 	}
 		// })
+
+		// Then empty all tables in the database if any error happens return error 400 status failed (Bad Request)
+
         connection.query("TRUNCATE TABLE Keyword", function(err) 
 		{
         	if(err) {
@@ -87,19 +91,19 @@ router.post('/', function(req, res) {
                 console.log("Table Questionnaire truncated");
 			}
 		})
-        connection.query("SET FOREIGN_KEY_CHECKS=1;", function(err)
+        connection.query("SET FOREIGN_KEY_CHECKS=1;", function(err)			//Enable foreign key checks again
         {
             if(err) {
                 console.log(err);
 				return res.status(500).json({status:"failed", reason: "Could not turn foreign key checks back on."}); 
             }
 			else {
-				res.status(200).json({status:"OK"});
+				res.status(200).json({status:"OK"});			// and if everything worked correctly return status 200 OK
                 console.log("All tables trunctated successfully.");
 			}
         })
         ;
-		connection.release();
+		connection.release();			// finally release the connection so someone else can use it
 	});
 });
 
