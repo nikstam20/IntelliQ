@@ -43,34 +43,31 @@ export default function MyPieChart() {
 
   useEffect(() => {
     if(isMounted2.current){
-      console.log(qstnre);
-    let newQids = [];
-    {qstnre.questions?.map(q => newQids.push(q.qid))}
-    console.log(newQids);
-    setQids(newQids);}
+      let newQids = [];
+      {qstnre.questions?.map(q => newQids.push(q.qid))}
+      console.log(newQids);
+      setQids(newQids);}
     else isMounted2.current=true;
   },[qstnre]);
 
   useEffect(() => {
     if (qids) {
-      console.log("qids: " + qids);
-      console.log("qids length is " + qids.length);
       setCurrentQuestionIndex(qids[0]);
     }
   }, [qids]);
 
   useEffect(() => {
     if(isMounted.current){
-    console.log("Current Index is " + currentQuestionIndex);
-    let url=`http://localhost:9103/inteliq_api/getquestionanswersenhanced/${questionnaireID}/${currentQuestionIndex}`;
-    console.log(url);
-    axios.get(url)
-    .then(response => {
-      setQstion(response.data);
-      })
-    .catch(error => {
-      console.log(error);
-    });
+      console.log("Current Index is " + currentQuestionIndex);
+      let url=`http://localhost:9103/inteliq_api/getquestionanswersenhanced/${questionnaireID}/${currentQuestionIndex}`;
+      console.log(url);
+      axios.get(url)
+      .then(response => {
+        setQstion(response.data);
+        })
+      .catch(error => {
+        console.log(error);
+      });
   }
     else isMounted.current=true;
 }, [currentQuestionIndex]);
@@ -108,7 +105,7 @@ export default function MyPieChart() {
           </label>
         </fieldset>
 
-        <div style={{width: '200px', height: '200px', overflow: 'hidden'}}>
+        <div style={{width: '1000px', height: '200px', overflow: 'hidden'}}>
           <VictoryPie
             animate={{
               duration: 1000
@@ -118,12 +115,6 @@ export default function MyPieChart() {
             data={ansData}
           />
         </div>
-        <div style={{width: '200px', height: '200px', overflow: 'hidden'}}>
-          <VictoryHistogram
-            data={ansData}
-          />
-        </div>
-
         <button  onClick={(e) => handleOnClick(e)}>Next </button>
         </div>
     );
