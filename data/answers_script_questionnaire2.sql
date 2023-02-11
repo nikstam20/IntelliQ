@@ -1,3 +1,5 @@
+use mydb;
+
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
 values ('aaah',2);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
