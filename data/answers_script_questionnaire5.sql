@@ -1,3 +1,5 @@
+use mydb;
+
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
 values ('abaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
@@ -75,9 +77,3 @@ insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id
 values (20, 5, 6, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (25, 5, 7, 'afaa');
-
-
-
-
-
-
