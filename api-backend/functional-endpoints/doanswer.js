@@ -4,6 +4,17 @@ const pool = require('../connect');
 var id = 1;
 
 
+router.post('/:questionnaireID/:questionID/:session', function(req, res) {  // if there is a bad request ( here less parameters than required ) return status 400
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
+
+router.post('/:questionnaireID/:questionID', function(req, res) {  // if there is a bad request ( here less parameters than required ) return status 400
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
+router.post('/:questionnaireID', function(req, res) {  // if there is a bad request ( here less parameters than required ) return status 400
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
+
 router.post('/:questionnaireID/:questionID/:session/:optionID', function (req, res) { 
 	const { questionnaireID, questionID, session, optionID } = req.params;
 	pool.getConnection(function (err, connection) {                   //get a connection to the database from the pool
