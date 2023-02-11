@@ -43,3 +43,6 @@ The order of calls aims to simulate normal operation.
 
 At each step, the endpoints are tested for **response time**, **status code** and JSON response **value to path parameter consistency**. 
 The CSVs in /file-data are fed as sources files for the various calls.
+
+#### Part of the output for reference:
+![image](https://user-images.githubusercontent.com/115061993/218283303-3b052ef8-d29b-42af-9c49-4d874f0b1f10.png)
