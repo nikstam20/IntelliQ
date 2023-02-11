@@ -3,13 +3,13 @@ values ('abaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (1, 5, 1, 'abaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (3, 5, 2, 'abaa');
+values (6, 5, 2, 'abaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 3, 'abaa');
+values (7, 5, 3, 'abaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 4, 'abaa');
+values (11, 5, 4, 'abaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (4, 5, 7, 'abaa');
+values (26, 5, 7, 'abaa');
 
 
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
@@ -17,64 +17,64 @@ values ('acaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (2, 5, 1, 'acaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (3, 5, 2, 'acaa');
+values (6, 5, 2, 'acaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 3, 'acaa');
+values (7, 5, 3, 'acaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 4, 'acaa');
+values (11, 5, 4, 'acaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 7, 'acaa');
+values (23, 5, 7, 'acaa');
 
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
 values ('adaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (2, 5, 1, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 2, 'adaa');
+values (5, 5, 2, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 3, 'adaa');
+values (8, 5, 3, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 4, 'adaa');
+values (12, 5, 4, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (5, 5, 5, 'adaa');
+values (18, 5, 5, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (4, 5, 6, 'adaa');
+values (22, 5, 6, 'adaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 7, 'adaa');
+values (24, 5, 7, 'adaa');
 
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
 values ('aeaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (1, 5, 1, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 2, 'aeaa');
+values (4, 5, 2, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (4, 5, 3, 'aeaa');
+values (10, 5, 3, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 4, 'aeaa');
+values (12, 5, 4, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (4, 5, 5, 'aeaa');
+values (17, 5, 5, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 6, 'aeaa');
+values (19, 5, 6, 'aeaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (1, 5, 7, 'acaa');
+values (23, 5, 7, 'acaa');
 
 INSERT INTO session(session_id, questionnaire_questionnaire_id)
 values ('afaa',5);
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
 values (3, 5, 1, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 2, 'afaa');
+values (5, 5, 2, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (3, 5, 3, 'afaa');
+values (9, 5, 3, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (3, 5, 4, 'afaa');
+values (13, 5, 4, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (4, 5, 5, 'afaa');
+values (17, 5, 5, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (2, 5, 6, 'afaa');
+values (20, 5, 6, 'afaa');
 insert into answer(Option_option_id, Option_questionnaire_id, Option_question_id, Session_session_id)
-values (3, 5, 7, 'afaa');
+values (25, 5, 7, 'afaa');
 
 
 
