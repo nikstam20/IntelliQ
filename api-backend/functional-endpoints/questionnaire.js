@@ -12,21 +12,22 @@ router.get('/:questionnaireID', function(req, res) {
 	
     const { questionnaireID } = req.params;
 
-	pool.getConnection(function(err, connection) {
+	pool.getConnection(function(err, connection) {                                                         //get a connection to the database from the pool
 		if(err) {
-			res.status(500).json({status:"failed", reason: "connection to database not established."});
+			res.status(500).json({status:"failed", reason: "connection to database not established."});  //if there is an error return status 500 (Internal Server Error)
 			console.log(err);
 		}
 		
 		else{
+			// query that selects the questionnaire with the specific ID
             q = `select Questionnaire.title, Keyword.keyword_text, Question.question_id, Question.question_text, Question.required, Question.type from Questionnaire inner join Keyword ON Questionnaire.questionnaire_id = Keyword.Questionnaire_questionnaire_id inner join  Question ON Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id where (Questionnaire.questionnaire_id= ${questionnaireID}) ORDER BY Question.question_id, keyword_text;`;		
             connection.query(q, function(err, result) {
 
-        	if(err) {
+        	if(err) {       //if there is a bad request return status 400
 				res.status(400).json({status:"failed", reason: "Error getting questionnaire information."});
                 console.log(err);
 			}
-			else if(result == 0) {
+			else if(result == 0) {          // if the query returns nothing (there is no questionnaire with the specific id) return status 204
 				//res.setHeader('Status-Message', 'Nodata' )
 				res.status(204);
                 console.log("questionnaire query no data");
@@ -52,7 +53,7 @@ router.get('/:questionnaireID', function(req, res) {
 					passed = true;
 				}
 				
-				if(req.query.format === "csv") {
+				if(req.query.format === "csv") {  //if we want to return a csv object
 					const csv_input = [];
 					for (const row of result) {
 						const inputty = {
@@ -73,7 +74,7 @@ router.get('/:questionnaireID', function(req, res) {
                     res.status(200).send(csvData);
                     console.log("Questionnaire info OK.");
 				}
-				else {
+				else {   //else if we not specify or request to return a json object
 					const input = {
 						"questionnaireID":questionnaireID.toString(),
 						"questionnaireTitle":title,
@@ -86,14 +87,14 @@ router.get('/:questionnaireID', function(req, res) {
                   ));
            
                     // JSON response: default if no query format specified.					
-					res.status(200).json(response);
+					res.status(200).json(response);          // and if everything worked correctly return status 200 OK
 					console.log("Questionnaire info OK.");
 				}
 
         	}	
    		});
 	}
-	connection.release();
+	connection.release();         //release the connection so someone else can use it
 	});
 
 });
