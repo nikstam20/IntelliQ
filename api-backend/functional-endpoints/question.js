@@ -3,6 +3,11 @@ const router = express.Router();
 const pool  = require('../connect');
 const { parse } = require('../node_modules/json2csv');
 
+
+router.get('/:questionnaireID', function(req, res) {  // if there is a bad request ( here less parameters than required ) return status 400
+	res.status(400).json({status:"failed", reason: "Missing required parameter."});
+});
+
 router.get('/:questionnaireID/:questionID', function(req, res) {
 	
     const { questionnaireID, questionID } = req.params;
