@@ -38,14 +38,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9103/inteliq_api/getsessionanswers/:questionnaire_id/:session_id",
+					"raw": "http://localhost:9103/intelliq_api/getsessionanswers/:questionnaire_id/:session_id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9103",
 					"path": [
-						"inteliq_api",
+						"intelliq_api",
 						"getsessionanswers",
 						":questionnaire_id",
 						":session_id"

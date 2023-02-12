@@ -52,14 +52,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9103/inteliq_api/question/:questionnaire_id/:question_id",
+					"raw": "http://localhost:9103/intelliq_api/question/:questionnaire_id/:question_id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9103",
 					"path": [
-						"inteliq_api",
+						"intelliq_api",
 						"question",
 						":questionnaire_id",
 						":question_id"

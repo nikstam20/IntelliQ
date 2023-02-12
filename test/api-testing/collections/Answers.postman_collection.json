@@ -30,14 +30,14 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9103/inteliq_api/doanswer/:questionnaireID/:questionID/:session/:optionID",
+					"raw": "http://localhost:9103/intelliq_api/doanswer/:questionnaireID/:questionID/:session/:optionID",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9103",
 					"path": [
-						"inteliq_api",
+						"intelliq_api",
 						"doanswer",
 						":questionnaireID",
 						":questionID",
