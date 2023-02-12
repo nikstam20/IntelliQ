@@ -27,7 +27,7 @@ program
     .command('healthcheck')
     .description('Test the connection to the database server')
     .action(function(){
-        let url='http://localhost:9103/inteliq_api/admin/healthcheck';
+        let url='http://localhost:9103/intelliq_api/admin/healthcheck';
         axios.get(url)  
         .then( res=>{
             console.log(res.data);
@@ -45,7 +45,7 @@ program
     .command('resetall')
     .description('Truncate all tables in the database')
     .action(function(){
-        let url='http://localhost:9103/inteliq_api/admin/resetall';
+        let url='http://localhost:9103/intelliq_api/admin/resetall';
         axios.post(url)  
         .then( res=>{
             console.log(res.data);
@@ -71,7 +71,7 @@ program // needs work
     .option('--users <username>', 'Display useser status')
     .action((options) => {
         if (options.users != undefined) {
-            let url=`http://localhost:9103/inteliq_api/admin/users/${options.users}`;
+            let url=`http://localhost:9103/intelliq_api/admin/users/${options.users}`;
             axios.get(url).then( res=>{
                 console.log(res.data);
             })
@@ -79,7 +79,7 @@ program // needs work
         else if(options.usermod != undefined)
             console.error('To create user/change password use: se2213 admin --usermod --username <username> --passw <password>');
         else if(options.passesupd == undefined  && options.username != undefined && options.passw != undefined);
-            let url=`http://localhost:9103/inteliq_api/admin/usermod/${options.username}/${options.passw}`;
+            let url=`http://localhost:9103/intelliq_api/admin/usermod/${options.username}/${options.passw}`;
             axios.post(url);
     });
 
@@ -101,7 +101,7 @@ program
             console.log('File not found!');
             return;
         }
-        let url=`http://localhost:9103/inteliq_api/admin/questionnaire_upd`;
+        let url=`http://localhost:9103/intelliq_api/admin/questionnaire_upd`;
 
         // console.log(form);
         axios.post(url, form, { headers: { "Content-Type": "multipart/form-data" } })
@@ -123,7 +123,7 @@ program
     .description('Delete all answers associated with a questionnaire')
     .requiredOption('--questionnaire_id <id>', 'Specify the questionnaire')
     .action((options) => {
-        let url=`http://localhost:9103/inteliq_api/admin/resetq/${options.questionnaire_id}`;
+        let url=`http://localhost:9103/intelliq_api/admin/resetq/${options.questionnaire_id}`;
         axios.post(url)  
         .then( res=>{
             console.log(res.data);
@@ -144,7 +144,7 @@ program
     .requiredOption('--format <format>', 'Choose between JSON and csv')
     .action((options) => {
         let id = options.questionnaire_id;
-        let url=`http://localhost:9103/inteliq_api/questionnaire/${options.questionnaire_id}?format=${options.format}`;
+        let url=`http://localhost:9103/intelliq_api/questionnaire/${options.questionnaire_id}?format=${options.format}`;
         axios.get(url)  
         .then( 
             res=>{
@@ -169,7 +169,7 @@ program
     .requiredOption('--question_id <question_id>', 'Specify the question')
     .requiredOption('--format <format>', 'Choose between JSON and csv')
     .action((options) => {
-        let url=`http://localhost:9103/inteliq_api/question/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
+        let url=`http://localhost:9103/intelliq_api/question/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
         axios.get(url)  
         .then( 
             res=>{
@@ -193,7 +193,7 @@ program
     .requiredOption('--session_id <session_id>', 'Specify the session')
     .requiredOption('--option_id <option_id>', 'The option chosen')
     .action((options) => {
-        let url=`http://localhost:9103/inteliq_api/doanswer/${options.questionnaire_id}/${options.question_id}/${options.session_id}/${options.option_id}`;
+        let url=`http://localhost:9103/intelliq_api/doanswer/${options.questionnaire_id}/${options.question_id}/${options.session_id}/${options.option_id}`;
         axios.post(url)  
         .then( res=>{
             console.log(res.data);
@@ -214,7 +214,7 @@ program
     .requiredOption('--session_id <session_id>')
     .requiredOption('--format <format>')
     .action((options) => {
-        let url=`http://localhost:9103/inteliq_api/getsessionanswers/${options.questionnaire_id}/${options.session_id}?format=${options.format}`;
+        let url=`http://localhost:9103/intelliq_api/getsessionanswers/${options.questionnaire_id}/${options.session_id}?format=${options.format}`;
         axios.get(url)  
         .then( 
             res=>{
@@ -238,7 +238,7 @@ program
     .requiredOption('--format [json|csv]', 'Choose between JSON and csv')
     .helpOption('-h, --help', 'Display help for command')
     .action((options) => {
-        let url=`http://localhost:9103/inteliq_api/getquestionanswers/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
+        let url=`http://localhost:9103/intelliq_api/getquestionanswers/${options.questionnaire_id}/${options.question_id}?format=${options.format}`;
         axios.get(url)  
         .then( 
             res=>{
