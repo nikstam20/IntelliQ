@@ -27,7 +27,7 @@ Simply run:
 This script performs a test on intelliQ's CLI calls. It performs them on a database of 5 questionnaires with ~10 questions and ~7 answer sessions each. You can find these in ~/SoftEng22-13/data/import_questionnaires along with the corresponding SQL scripts for sessions and answers. The following things are tested:
 1. (json & csv) exit code 0
 2. (json & csv) Return status: 'OK'
-3. (json) The return object has the correct keys (i.e. if it calls /questionnaire it checks whether it contains "questionnaireID" etc.)
+3. (json) The return object has the correct keys (i.e. if it calls /questionnaire it checks whether it contains "questionnaireID:" etc.)
 4. (json) The return object has data (i.e. if it calls /questionnaire it checks whether it contains questions, if it calls /question it checks whether it contains options etc.)
 5. (csv) The return object has the correct labels.
 
