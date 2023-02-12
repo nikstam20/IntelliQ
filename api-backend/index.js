@@ -10,7 +10,7 @@ const cors = require('cors');
 const fileupload = require("express-fileupload");
 
 const PORT = 9103;
-const baseurl = '/inteliq_api';
+const baseurl = '/intelliq_api';
 
 const server = https.createServer(/*{ key, cert },*/ app);
 const webserver = https.createServer(/*{ key, cert },*/ webapp);
@@ -18,11 +18,11 @@ const webserver = https.createServer(/*{ key, cert },*/ webapp);
 // API WEB SERVER
 
 app.listen(PORT, () => {								//rest api listening to port 9103 and
-	console.log(`app listening at: http://localhost:${PORT}${baseurl}`);		//creating url to access endpoints from
+	console.log(`App listening at: http://localhost:${PORT}${baseurl}`);		//creating url to access endpoints from
 });
 
 app.get(baseurl, function (req,res) {											
-	res.send("InteliQ IS UP!");
+	res.send('intelliQ IS UP!');
 });
 
 // MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // WEB SERVER (for frontend)
 webapp.listen(80, () => {								//create a web server listening to port 80
- 	console.log('Web-server is up and runing at: http://www.inteliQ.com');		//and link it to www.inteliQ.com
+ 	console.log('Web-server is up and runing at: http://www.intelliQ.com');		//and link it to www.inteliQ.com
  });
 
 webapp.get("/", function (req,res) {
