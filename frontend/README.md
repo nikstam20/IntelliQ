@@ -47,9 +47,9 @@ You can download the build directly from here or build the app yourself by going
   ```sh
   npm run build
   ```
-Once the build is deployed, the webserver will be up at localhost:80 and www.intelliQ.com while the 
+Once the build is deployed, the webserver will be up at localhost:80 and www.intelliq.com while the 
 program is running. You can then try:
 <pre>
-www.intelliQ.com/?QuestionnaireID=&ltinsert_id_here&gt or
-www.intelliQ.com/Graph?QuestionnaireID=&ltinsert_id_here&gt
+www.intelliq.com/?QuestionnaireID=&ltinsert_id_here&gt or
+www.intelliq.com/Graph?QuestionnaireID=&ltinsert_id_here&gt
 </pre>
