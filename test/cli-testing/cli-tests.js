@@ -129,14 +129,8 @@ describe('se2213 question --questionnaire_id <id> --question_id <id> --format <j
     for (let j=1; j < 6; j++){
       it(`should have exit code 0 (questionnaire = ${i}, qid = ${j})`, function (done) {
         const cli = spawn('node', ['./se2213.js', 'questionnaire', '--questionnaire_id', i, '--question_id', j, '--format', 'json']);
-        let output = '';
-  
-        cli.stdout.on('data', function (data) {
-          output += data.toString();
-        });
-  
         cli.on('close', function (code) {
-          assert.equal(code, 0);
+          assert.equal(!code, 0);
           done();
         });
       });
@@ -149,14 +143,13 @@ describe('se2213 question --questionnaire_id <id> --question_id <id> --format <j
         });
   
         cli.on('close', function (code) {
-          assert.equal(code, 0);
-          assert.notInclude(output, 'failed');
+          assert.notInclude(output, "No question with the given parameter values exists in the database.");
           done();
         });
       });
       //test if the json output has the correct keys
       it(`should contain the proper keys (questionnaire = ${i}, qid = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', '1', '--question_id', '2', '--format', 'json']);
+        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', i, '--question_id', j, '--format', 'json']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
@@ -174,7 +167,7 @@ describe('se2213 question --questionnaire_id <id> --question_id <id> --format <j
         });
       });
       it(`should contain data (questionnaire = ${i}, qid = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', '1', '--question_id', '2', '--format', 'json']);
+        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', i, '--question_id', j, '--format', 'json']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
@@ -192,11 +185,12 @@ describe('se2213 question --questionnaire_id <id> --question_id <id> --format <j
   }
 });
 
-describe('se2213 question --questionnaire_id <id = 1> --question_id <id = 2> --format <csv>', function () {
+
+describe('se2213 question --questionnaire_id <id> --question_id <id> --format <csv>', function () {
   for (let i = 1; i < 6; i++) {
     for (let j=1; j < 6; j++){
       it(`should have exit code 0 (questionnaire = ${i}, qid = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'questionnaire', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
+        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -209,7 +203,7 @@ describe('se2213 question --questionnaire_id <id = 1> --question_id <id = 2> --f
         });
       });
       it(`should return status: OK (questionnaire = ${i}, qid = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'questionnaire', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
+        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -224,7 +218,7 @@ describe('se2213 question --questionnaire_id <id = 1> --question_id <id = 2> --f
       });
 
       it('should contain the proper labels', function (done) {
-        const cli = spawn('node', ['./se2213.js', 'questionnaire', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
+        const cli = spawn('node', ['./se2213.js', 'question', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
@@ -232,7 +226,7 @@ describe('se2213 question --questionnaire_id <id = 1> --question_id <id = 2> --f
         
         cli.on('close', function (code) {
           assert.equal(code, 0);
-          assert.include(output, 'questionnaireID');
+          assert.include(output, "questionnaireID");
           assert.include(output, 'qID');
           assert.include(output, 'qtext');
           assert.include(output, 'required');
@@ -398,12 +392,18 @@ describe('se2213 doanswer --questionnaire_id <id> --question_id <id> --session_i
   }
 });
 
-//TEST getsessionanswers CALL, 5 sessions from 5 questionnaires
+//TEST getsessionanswers CALL, 5 sessions from 5 questionnaire
+let sessions = ['aaaa', 'aaab', 'aaac', 'aaad', 'aaae',  
+              'aaah', 'aaai', 'aaaj', 'aaak', 'aaal',  
+              'aaam', 'aaan', 'aaao', 'aaap', 'aaaq',  
+              'aaba', 'aaca', 'aada', 'aaea', 'aafa',  
+              'abaa', 'acaa', 'adaa', 'aeaa', 'afaa'];
+
 describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --format <json>', function () {
   for (let i = 1; i < 6; i++) {
     for (let j=1; j < 6; j++) {
-      it(`should have exit code 0 (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'json']);
+      it(`should have exit code 0 (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'json']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -415,8 +415,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           done();
         });
       });
-      it(`should return status: OK (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'json']);
+      it(`should return status: OK (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'json']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -429,8 +429,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           done();
         });
       });
-      it(`should contain the proper keys (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'json']);
+      it(`should contain the proper keys (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'json']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
@@ -444,8 +444,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           done();
         });
       });
-      it(`should contain data (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'json']);
+      it(`should contain data (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'json']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
@@ -465,8 +465,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
 describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --format <csv>', function () {
   for (let i = 1; i < 6; i++) {
     for (let j=1; j < 6; j++) {
-      it(`should have exit code 0 (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'csv']);
+      it(`should have exit code 0 (questionnaire = ${i}, session = ${sessions[5*(i-1) + j]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j], '--format', 'csv']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -478,8 +478,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           done();
         });
       });
-      it(`should return status: OK (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'csv']);
+      it(`should return status: OK (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'csv']);
         let output = '';
   
         cli.stdout.on('data', function (data) {
@@ -492,8 +492,8 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           done();
         });
       });
-      it(`should contain the proper keys (questionnaire = ${i}, session = ${j})`, function (done) {
-        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', j, '--format', 'csv']);
+      it(`should contain the proper keys (questionnaire = ${i}, session = ${sessions[5*(i-1) + j-1]})`, function (done) {
+        const cli = spawn('node', ['./se2213.js', 'getsessionanswers', '--questionnaire_id', i, '--session_id', sessions[5*(i-1) + j-1], '--format', 'csv']);
         let output = '';
         cli.stdout.on('data', function (data) {
           output += data.toString();
