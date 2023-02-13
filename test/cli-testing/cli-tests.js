@@ -527,7 +527,7 @@ describe('se2213 healthcheck', function () {
     cli.on('close', function (code) {
       assert.equal(code, 0);
       assert.match(output, /status: '(OK|failed)'/);
-      assert.include(output, 'dbconnection: \'mysql://root:password@localhost:port/intelliq\'');
+      assert.include(output, 'dbconnection: \'mysql://root:password@localhost:9103/intelliq\'');
       done();
     });
   });
