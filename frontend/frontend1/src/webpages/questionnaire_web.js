@@ -19,13 +19,10 @@ function Questionnaire() {
     setQuestionnaireID(parseInt(queryParameters.get("QuestionnaireID"), 10));
     const sessid = nanoid(4);
     setSessionID(sessid);
-    console.log(sessid);
   }, []);
 
   useEffect(() => {
     if(isMounted0.current){
-    console.log('QuestionnaireID is ', questionnaireID)
-    console.log('qstnre setting up');
     axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
@@ -46,11 +43,8 @@ function Questionnaire() {
   useEffect(() => {
 
     if(isMounted.current){
-      console.log('QIDS setting up');
-      console.log('qstnre has: ', qstnre);
       let newQids = [];
       {qstnre.questions?.map(q => newQids.push(q.qid))}
-      console.log("newQid = ", newQids[0]);
       setQids(newQids);}
     else isMounted.current=true;
   },[qstnre]);
@@ -62,12 +56,9 @@ function Questionnaire() {
   }, [qids]);
 
   useEffect(() => {
-
-  if(isMounted2.current) {
-      console.log('QUESTION setting up');
-      console.log('qstnre has: 2 ', qstnre);
-      console.log('currQuestindex is ', currentQuestionIndex)
-      let url=`http://localhost:9103/inteliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
+  if(isMounted2.current) {    
+    let url=`http://localhost:9103/inteliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
+    if(currentQuestionIndex != undefined){
       axios.get(url)
       .then(response => {
         setQstion(response.data);
@@ -75,7 +66,7 @@ function Questionnaire() {
       .catch(error => {
         console.log(error);
       });
-    }
+    }}
     else isMounted2.current=true;
 }, [currentQuestionIndex]);
 
@@ -130,7 +121,7 @@ function Questionnaire() {
     }, {}));
 }, []);
 
-  if(isNaN(questionnaireID)) return(<div>Welcome to intelliQ!</div>);
+  if(isNaN(questionnaireID)) return(<h1>Welcome to intelliQ!</h1>);
   else  if(currentQuestionIndex != null){
     return(       
       <div className="wrapper">
