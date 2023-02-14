@@ -9,19 +9,7 @@ const keypress = async () => {
   }
 
 async function presentation() {
-    exec("se2213 questionnaire_upd --source ./data/import_questionnaires/example_questionnaire_1.json", (error, stdout, stderr) => {
-        console.log("Uploading first questionnaire");
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log("Going to run Database Healthcheck");
-    });
+    console.log("Going to run Database healthcheck");
     await keypress();
     exec("se2213 healthcheck", (error, stdout, stderr) => {
         if (error) {
