@@ -14,7 +14,7 @@ Functional tests for all IntelliQ API endpoints.
     
 - On Windows, go to ~/SoftEng22-13/test/api-testing and run the batch script by simply typing:
 
-    ``` test-api ```
+    ``` test-api ``` or ``` .\test-api ``` 
     
 - On MacOS/Linux, go to ~/SoftEng22-13/test/api-testing and paste the following:
 
@@ -42,7 +42,7 @@ The order of calls aims to simulate normal operation.
 - Finally, */resetq* is used to delete the answers given in all questionnaires.
 
 At each step, the endpoints are tested for **response time**, **status code** and JSON response **value to path parameter consistency**. 
-The CSVs in /file-data are fed as sources files for the various calls.
+The CSVs in /file-data are fed as source files for the various calls.
 
 #### Part of the output for reference:
 ![image](https://user-images.githubusercontent.com/115061993/218283303-3b052ef8-d29b-42af-9c49-4d874f0b1f10.png)
