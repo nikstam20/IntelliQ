@@ -31,9 +31,22 @@ exec("npm install --prefix ./api-backend package.json", (error, stdout, stderr) 
                 return;
             }
             console.log(`stdout: ${stdout}`);
+            exec("npm install --prefix ./cli commander", (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+            });
         });
     });
 });
+
+
 
 
 
