@@ -19,12 +19,12 @@ router.get('/:questionnaireID/:questionID', function(req, res){
 		}
         else{
 		//query that returns the answers for a specific question
-            q = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id, Option.option_text 
-            from Option join Answer on (Option.option_id = Answer.Option_option_id)
-            join Question on (Option.Question_question_id = Question.question_id)
+            q = `select Questionnaire.title, Question.question_text, Session.session_id, Answer.answer_id
+            from Answer
+            join Question on (Answer.Option_question_id = Question.question_id)
             join Questionnaire on (Question.Questionnaire_questionnaire_id = Questionnaire.questionnaire_id)
             join Session on (Answer.Session_session_id = Session.session_id)
-            where (Questionnaire.questionnaire_id = ${questionnaireID} and Question.question_id = ${questionID} and Option.Question_Questionnaire_questionnaire_id = ${questionnaireID})
+            where (Questionnaire.questionnaire_id = ${questionnaireID} and Question.question_id = ${questionID})
             order by Answer.answer_id ASC;`;
             connection.query(q, function(err, result){
                 if(err) {  // if there is a bad request return status 400
@@ -89,3 +89,4 @@ router.get('/:questionnaireID/:questionID', function(req, res){
 });
 
 module.exports = router;
+
