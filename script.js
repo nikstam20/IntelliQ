@@ -37,7 +37,7 @@ async function presentation() {
         console.log("Going to answer the six questions (of the specific route of the questionnaire)");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 1 --session_id aaaa --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 1 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -50,7 +50,7 @@ async function presentation() {
         console.log("Answered Option 1, now going to nextquestion");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id aaaa --option_id 4", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -63,7 +63,7 @@ async function presentation() {
         console.log("Answered Option 4, now going to nextquestion");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id aaaa --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -76,7 +76,7 @@ async function presentation() {
         console.log("Answered Option 1, now going to nextquestion");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id aaaa --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -89,7 +89,7 @@ async function presentation() {
         console.log("Answered Option 1, now going to nextquestion");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id aaaa --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -102,7 +102,7 @@ async function presentation() {
         console.log("Answered Option 1, now going to nextquestion");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id aaaa --option_id 4", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
