@@ -44,7 +44,7 @@ export default function MyPieChart() {
   useEffect(() => {
     if(isMounted2.current){
       let newQids = [];
-      {qstnre.questions?.map(q => newQids.push(q.qid))}
+      {qstnre.questions?.map(q => newQids.push(q.qID))}
       setQids(newQids);}
     else isMounted2.current=true;
   },[qstnre]);
