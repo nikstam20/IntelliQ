@@ -40,7 +40,7 @@ router.get('/:questionnaireID', function(req, res) {
 				var passed = false;
     			for (const row of result) {
 					if(row.question_id != qid_last){
-      					const question = { qid: row.question_id, qtext: row.question_text, required: row.required, type: row.type };
+      					const question = { qID: row.question_id, qtext: row.question_text, required: row.required, type: row.type };
       					questions.push(question);
 						title = row.title;
 						qid_last=row.question_id;
@@ -60,7 +60,7 @@ router.get('/:questionnaireID', function(req, res) {
 							"questionnaireID":questionnaireID.toString(),
 							"questionnaireTitle":row.title.toString(),
 							"keywords":row.keyword_text,
-							"qid":row.question_id.toString(),
+							"qID":row.question_id.toString(),
 							"qtext":row.question_text,
 							"required":row.required,
 							"type":row.type

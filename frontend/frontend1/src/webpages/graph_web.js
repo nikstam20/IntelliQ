@@ -28,7 +28,7 @@ export default function MyPieChart() {
 
   useEffect(() => {
     if(isMounted0.current){
-    axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
+    axios.get(`http://localhost:9103/intelliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
     })
@@ -58,7 +58,7 @@ export default function MyPieChart() {
   useEffect(() => {
     if(isMounted.current){
       if(currentQuestionIndex != undefined){
-        let url=`http://localhost:9103/inteliq_api/getquestionanswersenhanced/${questionnaireID}/${currentQuestionIndex}`;
+        let url=`http://localhost:9103/intelliq_api/getquestionanswersenhanced/${questionnaireID}/${currentQuestionIndex}`;
         axios.get(url)
         .then(response => {
           setQstion(response.data);

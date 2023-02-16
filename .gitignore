@@ -1,4 +1,4 @@
 .gitignore
 
-api-backend/node_modules
-cli/node_modules
+node_modules
+/frontend/frontend1/build

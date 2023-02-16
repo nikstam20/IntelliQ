@@ -23,7 +23,7 @@ function Questionnaire() {
 
   useEffect(() => {
     if(isMounted0.current){
-    axios.get(`http://localhost:9103/inteliq_api/questionnaire/${questionnaireID}`)
+    axios.get(`http://localhost:9103/intelliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
     })
@@ -57,7 +57,7 @@ function Questionnaire() {
 
   useEffect(() => {
   if(isMounted2.current) {    
-    let url=`http://localhost:9103/inteliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
+    let url=`http://localhost:9103/intelliq_api/question/${questionnaireID}/${currentQuestionIndex}`;
     if(currentQuestionIndex != undefined){
       axios.get(url)
       .then(response => {
@@ -103,7 +103,7 @@ function Questionnaire() {
     if(hasClicked){
       const selectedOpt = Object.keys(options).find(key => options[key] === true);
       let selectedOptID = optids[selectedOpt];
-      let url=`http://localhost:9103/inteliq_api/doanswer/${questionnaireID}/${currentQuestionIndex}/${sessionID}/${selectedOptID}`;
+      let url=`http://localhost:9103/intelliq_api/doanswer/${questionnaireID}/${currentQuestionIndex}/${sessionID}/${selectedOptID}`;
       axios.post(url);
       selectedNextQID = optnexts[selectedOpt];
     }

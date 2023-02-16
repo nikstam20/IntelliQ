@@ -60,7 +60,7 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 4, now going to nextquestion");
+        console.log("Answered Option 4, now going to next question");
     });
     await keypress();
     exec("se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
@@ -164,9 +164,8 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("The End.");
+        console.log("The end :) Press ctrl + C to terminate.");
     });
 }
-
 
 presentation();

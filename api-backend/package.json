@@ -10,6 +10,7 @@
     "mysqli": "^3.1.4",
     "nodemon": "^2.0.20",
     "nunjucks": "^3.2.3",
-    "pg": "^8.8.0"
+    "package.json": "^2.0.1",
+    "pkg.json": "^2.0.8"
   }
 }

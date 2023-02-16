@@ -33,7 +33,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
 			else if (result) {
    				const answers = [];
     			for (const row of result) {
-      				const answer = { qid: row.Question_question_id, ans: row.answer_id };
+      				const answer = { qID: row.Question_question_id, ans: row.answer_id };
       				answers.push(answer);
     			}
 				console.log(answers);
@@ -44,7 +44,7 @@ router.get('/:questionnaireID/:session', function(req, res) {
 						const inputty = {
 							"questionnaireID":questionnaireID.toString(),
 							"session":session.toString(),
-							"qid":row.Question_question_id.toString(),
+							"qID":row.Question_question_id.toString(),
 							"ans":row.answer_id.toString(),
 					}
 					csv_input.push(inputty)
