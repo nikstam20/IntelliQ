@@ -19,7 +19,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
  editor and add the following code to the bottom of it:
  
  <pre>    &ltVirtualHost *:80&gt
-        ServerName inteliQ.com
+        ServerName intelliQ.com
         ServerAlias www.intelliQ.com
         ServerAdmin webmaster@intelliQ.com
         DocumentRoot "Path"              <---- replace Path here 
