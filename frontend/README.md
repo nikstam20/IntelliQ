@@ -39,8 +39,8 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
   2. Go to C:\Windows\System32\drivers\etc and open the file named 'hosts' in an editor (note: do not 
   confuse it with the file hosts.ics in the same folder). Go to the bottom of it and add:<br>
 <pre>    127.0.0.1 www.intelliQ.com </pre>
-![image](https://user-images.githubusercontent.com/115226054/217953612-a960806e-238f-41d1-b47d-0c716341659f.png)
-
+![image](https://user-images.githubusercontent.com/115226054/217953612-a960806e-238f-41d1-b47d-0c716341659f.png) <br>
+Make sure to restart XAMMP so the changes take effect!
 ### How to run
 
 You can download the build directly from here or build the app yourself by going to ~/SoftEng22-13/frontend/frontend1 and running:
