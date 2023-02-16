@@ -20,8 +20,8 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
  
  <pre>    &ltVirtualHost *:80&gt
         ServerName inteliQ.com
-        ServerAlias www.inteliQ.com
-        ServerAdmin webmaster@inteliQ.com
+        ServerAlias www.intelliQ.com
+        ServerAdmin webmaster@intelliQ.com
         DocumentRoot "Path"              <---- replace Path here 
          &ltDirectory Path&gt            <---- replace Path here 
             Options Indexes FollowSymLinks MultiViews
@@ -34,7 +34,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
 </pre>
 
     !!! Replace "Path" with your computer's path to ~/SoftEng22-13/frontend/frontend1/build
-![image](https://user-images.githubusercontent.com/115226054/217953370-026873e8-16d0-4190-9c33-53a42cd409ff.png)
+![image](https://user-images.githubusercontent.com/115226054/219376650-7f400422-7339-489d-9b7a-a60e5ceb596b.png)
 
   2. Go to C:\Windows\System32\drivers\etc and open the file named 'hosts' in an editor (note: do not 
   confuse it with the file hosts.ics in the same folder). Go to the bottom of it and add:<br>
