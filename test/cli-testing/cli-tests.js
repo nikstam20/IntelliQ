@@ -63,7 +63,7 @@ describe('se2213 questionnaire --questionnaire_id <id> --format <json>', functio
       cli.on('close', function (code) {
         assert.equal(code, 0);
         assert.include(output, 'keyword');
-        assert.include(output, 'qid');
+        assert.include(output, 'qID');
         assert.include(output, 'qtext');
         assert.include(output, 'required');
         done();
@@ -114,7 +114,7 @@ describe('se2213 questionnaire --questionnaire_id <id = 1> --format <csv>', func
         assert.include(output, 'questionnaireID');
         assert.include(output, 'questionnaireTitle');
         assert.include(output, 'keywords');
-        assert.include(output, 'qid');
+        assert.include(output, 'qID');
         assert.include(output, 'qtext');
         assert.include(output, 'required');
         assert.include(output, 'type');
@@ -338,7 +338,7 @@ describe('se2213 getquestionanswers --questionnaire_id <id> --question_id <id> -
           done();
         });
       });
-      it('should contain the proper labels (questionnaire = ${i}, qid = ${j})', function (done) {
+      it(`should contain the proper labels (questionnaire = ${i}, qid = ${j})`, function (done) {
         const cli = spawn('node', ['../../cli/se2213.js', 'getquestionanswers', '--questionnaire_id', i, '--question_id', j, '--format', 'csv']);
         let output = '';
         cli.stdout.on('data', function (data) {
@@ -455,7 +455,7 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
         
         cli.on('close', function (code) {
           assert.equal(code, 0);
-          assert.include(output, 'qid:');
+          assert.include(output, 'qID:');
           assert.include(output, 'ans:');
           done();
         });
@@ -505,7 +505,7 @@ describe('se2213 getsessionanswers --questionnaire_id <id> --session_id <id> --f
           assert.equal(code, 0);
           assert.include(output, 'questionnaireID');
           assert.include(output, 'session');
-          assert.include(output, 'qid');
+          assert.include(output, 'qID');
           assert.include(output, 'ans');
           done();
         });
