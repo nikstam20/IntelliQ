@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">SoftEng22-13 &nbsp;IntelliQ</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="item"><a href="Answer_Question.html">Answer Question</a></div>
+<div class="item"><a href="Healthcheck.html">Healthcheck</a></div>
+<div class="item"><a href="Question.html">Question</a></div>
+<div class="item"><a href="Question_Answers.html">Question Answers</a></div>
+<div class="item"><a href="Questionnaire.html">Questionnaire</a></div>
+<div class="item"><a href="Reset_All.html">Reset All</a></div>
+<div class="item"><a href="Reset_Question.html">Reset Question</a></div>
+<div class="item"><a href="Session_Answers.html">Session Answers</a></div>
+<div class="current item">Upload Questionnaire</div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Upload Questionnaire</header>
+				<div class="basic-info">
+										<div><span>
+&#916;&#953;&#945;&#967;&#949;&#953;&#961;&#953;&#963;&#964;&#953;&#954;&#972; endpoint &#960;&#959;&#965; &#949;&#960;&#953;&#964;&#961;&#941;&#960;&#949;&#953; &#964;&#959; &#945;&#957;&#941;&#946;&#945;&#963;&#956;&#945; (&#960;&#961;&#959;&#963;&#952;&#942;&#954;&#951;) &#948;&#949;&#948;&#959;&#956;&#941;&#957;&#969;&#957; &#957;&#941;&#959;&#965; 
+&#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#959;&#947;&#943;&#959;&#965; &#963;&#964;&#951;&#957; &#946;&#940;&#963;&#951;. &#932;&#959; &#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#972;&#947;&#953;&#959; &#956;&#949; &#964;&#945; &#960;&#955;&#942;&#961;&#951; &#963;&#964;&#959;&#953;&#967;&#949;&#943;&#945; &#964;&#959;&#965; &#948;&#943;&#957;&#949;&#964;&#945;&#953; 
+&#963;&#949; &#956;&#959;&#961;&#966;&#942; JSON object.</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>http://localhost:9103/intelliq_api/admin/questionnaire_upd</div>
+
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X POST
+												-d '{"questionnaireID":"1","questionnaireTitle":"Vacations &amp; Sports","keywords":["seasons","islands","mountains","sports"],"questions":[{"qID":"1","qtext":"What is your age?","required":"True","type":"profile","options":[{"opttxt":"&lt;30","nextqID":"2"},{"opttxt":"30-50","nextqID":"2"},{"opttxt":"50-70","nextqID":"2"},{"opttxt":"&gt;70","nextqID":"2"}]},{"qID":"2","qtext":"When do you prefer to go on vacation?","required":"True","type":"question","options":[{"opttxt":"Autumn","nextqID":"3"},{"opttxt":"Winter","nextqID":"3"},{"opttxt":"Spring","nextqID":"3"},{"opttxt":"Summer","nextqID":"3"}]},{"qID":"3","qtext":"Do you change your destinations depending on the season?","required":"True","type":"question","options":[{"opttxt":"Yes","nextqID":"4"},{"opttxt":"No","nextqID":"8"}]},{"qID":"4","qtext":"Do you prefer to visit islands in the summer and mountains in the winter periods?","required":"True","type":"question","options":[{"opttxt":"Yes","nextqID":"5"},{"opttxt":"No","nextqID":"8"}]},{"qID":"5","qtext":"Do you prefer water sports or winter sports","required":"True","type":"question","options":[{"opttxt":"Water Sports","nextqID":"6"},{"opttxt":"Winter Sports","nextqID":"7"}]},{"qID":"6","qtext":"What is your favorite water sport?","required":"True","type":"question","options":[{"opttxt":"Water Ski","nextqID":"null"},{"opttxt":"Surfing","nextqID":"null"},{"opttxt":"Diving","nextqID":"null"},{"opttxt":"None really I just like water","nextqID":"null"}]},{"qID":"7","qtext":"What is your favorite winter sport?","required":"True","type":"question","options":[{"opttxt":"Ski / Snowboard","nextqID":"null"},{"opttxt":"Ice skating","nextqID":"null"},{"opttxt":"None really I just like the cold","nextqID":"null"}]},{"qID":"8","qtext":"According to your previous answer have you:","required":"True","type":"question","options":[{"opttxt":"Gone to an island in the winter for vacations","nextqID":"9"},{"opttxt":"Gone to mountain in the summer for vacations","nextqID":"9"},{"opttxt":"None of the above","nextqID":"9"}]},{"qID":"9","qtext":"Which of these islands would you prefer to visit in the winter?","required":"True","type":"question","options":[{"opttxt":"Corfu","nextqID":"10"},{"opttxt":"Santorini","nextqID":"10"},{"opttxt":"Rhodes","nextqID":"10"}]},{"qID":"10","qtext":"Which of these mountains would you prefer to visit in the summer?","required":"True","type":"question","options":[{"opttxt":"Parnassos","nextqID":"null"},{"opttxt":"Alpes","nextqID":"null"},{"opttxt":"Pindos","nextqID":"null"}]}]}'
+												-H 'multipart/form-data' "http://localhost:9103/intelliq_api/admin/questionnaire_upd"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="description"></div>
+					<div class="image"><img src="img/Upload_Questionnaire_request.png"></div>
+																		<a name="questionnaire"></a>
+<div class="classname">
+	questionnaire
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>questionnaireID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>questionnaireTitle</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>keywords</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+																			<header class="section">Related classes</header>
+												<a name="q_question"></a>
+<div class="classname">
+	q_question
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>qID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>qtext</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>required</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>type</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+																		<a name="q_option"></a>
+<div class="classname">
+	q_option
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>optID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>opttxt</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>nextqID</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+															</div>
+
+				<div class="sidebar">
+										<div class="code-block">
+						<header>Request Header</header>
+						<a class="copy" href="javascript:copyToClipboard('request-header')"></a>
+						<code id='request-header' class="header">multipart/form-data</code>
+					</div>
+					
+										<div class="code-block">
+						<header>Request Body</header>
+						<a class="copy" href="javascript:copyToClipboard('request-body')"></a>
+						<code id='request-body' class="json">{
+  <span class="key">"questionnaireID"</span>: <span class="value">"1"</span>,
+  <span class="key">"questionnaireTitle"</span>: <span class="value">"Vacations &amp; Sports"</span>,
+  <span class="key">"keywords"</span>: [
+    <span class="value">"seasons"</span>,
+    <span class="value">"islands"</span>,
+    <span class="value">"mountains"</span>,
+    <span class="value">"sports"</span>
+  ],
+  <span class="key">"questions"</span>: [
+    {
+      <span class="key">"qID"</span>: <span class="value">"1"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"What is your age?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"profile"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"&lt;30"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"2"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"30-50"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"2"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"50-70"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"2"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"&gt;70"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"2"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"2"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"When do you prefer to go on vacation?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Autumn"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"3"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Winter"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"3"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Spring"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"3"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Summer"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"3"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"3"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"Do you change your destinations depending on the season?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Yes"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"4"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"No"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"8"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"4"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"Do you prefer to visit islands in the summer and mountains in the winter periods?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Yes"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"5"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"No"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"8"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"5"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"Do you prefer water sports or winter sports"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Water Sports"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"6"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Winter Sports"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"7"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"6"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"What is your favorite water sport?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Water Ski"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Surfing"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Diving"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"None really I just like water"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"7"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"What is your favorite winter sport?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Ski / Snowboard"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Ice skating"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"None really I just like the cold"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"8"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"According to your previous answer have you:"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Gone to an island in the winter for vacations"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"9"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Gone to mountain in the summer for vacations"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"9"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"None of the above"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"9"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"9"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"Which of these islands would you prefer to visit in the winter?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Corfu"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"10"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Santorini"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"10"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Rhodes"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"10"</span>
+        }
+      ]
+    },
+    {
+      <span class="key">"qID"</span>: <span class="value">"10"</span>,
+      <span class="key">"qtext"</span>: <span class="value">"Which of these mountains would you prefer to visit in the summer?"</span>,
+      <span class="key">"required"</span>: <span class="value">"True"</span>,
+      <span class="key">"type"</span>: <span class="value">"question"</span>,
+      <span class="key">"options"</span>: [
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Parnassos"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Alpes"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        },
+        {
+          <span class="key">"opttxt"</span>: <span class="value">"Pindos"</span>,
+          <span class="key">"nextqID"</span>: <span class="value">"null"</span>
+        }
+      ]
+    }
+  ]
+}</code>
+					</div>
+									</div>
+
+				<div class="content">
+																<header class="section">Response
+- Status 400
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Upload_Questionnaire_400_response.png"></div>
+			<a name="UpdBadRequest"></a>
+<div class="classname">
+	UpdBadRequest
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 500
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Upload_Questionnaire_500_response.png"></div>
+			<a name="UpdInternalError"></a>
+<div class="classname">
+	UpdInternalError
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 200
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Upload_Questionnaire_200_response.png"></div>
+			<a name="QuestionnaireUploaded"></a>
+<div class="classname">
+	QuestionnaireUploaded
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+										</div>
+
+				<div class="sidebar">
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json">{
+  status: <span class="value">"OK"</span>
+}</code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Upload_Questionnaire.xml" target="_blank">Upload_Questionnaire.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,623 @@
+openapi: 3.0.3
+info:
+  title: IntelliQ API
+  version: 1.0.0
+servers:
+- url: http://localhost:9103/intelliq_api
+paths:
+  /admin/healthcheck:
+    get:
+      summary: Συνδεση με την βάση
+      description: Διαχειριστικό endpoint που επιβεβαιώνει τη συνδεσιμότητα (end-to-end
+        connectivity) μεταξύ του χρήστη της εφαρμογής και της βάσης δεδομένων.
+      operationId: healthcheck
+      responses:
+        200:
+          description: Σε περίπτωση επικοινωνίας μεταξύ χρήστη και βάσης δεδομένων
+            επιστρέφεται JSON με την επιβεβαίωση και περιγραφή (connection string)
+            της σύνδεσης.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/healthcheck'
+              example: "{\r\n   \"status\" : \"OK\",\r\n   \"dbconnection\" : \"mysql://root:password@localhost:9103/intelliq\"\
+                \r\n}"
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorDescription'
+  /admin/questionnaire_upd:
+    post:
+      summary: Ανέβασμα δεδομένων ερωτηματολογίου
+      description: Διαχειριστικό endpoint που επιτρέπει το ανέβασμα (προσθήκη) δεδομένων
+        νέου ερωτηματολογίου στην βάση. Το ερωτηματολόγιο με τα πλήρη στοιχεία του
+        δίνεται σε μορφή JSON object.
+      operationId: upload_Questionnaire
+      x-codegen-request-body-name: questionnaire
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/questionnaire'
+            example: "{\r\n    \"questionnaireID\": \"1\",\r\n    \"questionnaireTitle\"\
+              : \"Vacations & Sports\",\r\n    \"keywords\": [\r\n        \"seasons\"\
+              ,\r\n        \"islands\",\r\n        \"mountains\",\r\n        \"sports\"\
+              \r\n    ],\r\n    \"questions\": [\r\n        {\r\n            \"qID\"\
+              : \"1\",\r\n            \"qtext\": \"What is your age?\",\r\n      \
+              \      \"required\": \"True\",\r\n            \"type\": \"profile\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"<30\",\r\n                    \"nextqID\": \"\
+              2\"\r\n                },\r\n                {\r\n                 \
+              \   \"opttxt\": \"30-50\",\r\n                    \"nextqID\": \"2\"\
+              \r\n                },\r\n                {\r\n                    \"\
+              opttxt\": \"50-70\",\r\n                    \"nextqID\": \"2\"\r\n \
+              \               },\r\n                {\r\n                    \"opttxt\"\
+              : \">70\",\r\n                    \"nextqID\": \"2\"\r\n           \
+              \     }\r\n            ]\r\n        },\r\n        {\r\n            \"\
+              qID\": \"2\",\r\n            \"qtext\": \"When do you prefer to go on\
+              \ vacation?\",\r\n            \"required\": \"True\",\r\n          \
+              \  \"type\": \"question\",\r\n            \"options\": [\r\n       \
+              \         {\r\n                    \"opttxt\": \"Autumn\",\r\n     \
+              \               \"nextqID\": \"3\"\r\n                },\r\n       \
+              \         {\r\n                    \"opttxt\":\"Winter\",\r\n      \
+              \              \"nextqID\": \"3\"\r\n                },\r\n        \
+              \        {\r\n                    \"opttxt\": \"Spring\",\r\n      \
+              \              \"nextqID\": \"3\"\r\n                },\r\n        \
+              \        {\r\n                    \"opttxt\": \"Summer\",\r\n      \
+              \              \"nextqID\": \"3\"\r\n                }\r\n         \
+              \   ]\r\n        },\r\n        {\r\n            \"qID\": \"3\",\r\n\
+              \            \"qtext\": \"Do you change your destinations depending\
+              \ on the season?\",\r\n            \"required\": \"True\",\r\n     \
+              \       \"type\": \"question\",\r\n            \"options\": [\r\n  \
+              \              {\r\n                    \"opttxt\": \"Yes\",\r\n   \
+              \                 \"nextqID\": \"4\"\r\n                },\r\n     \
+              \           {\r\n                    \"opttxt\": \"No\",\r\n       \
+              \             \"nextqID\": \"8\" \r\n                }\r\n         \
+              \   ]\r\n        },\r\n        {\r\n            \"qID\": \"4\",\r\n\
+              \            \"qtext\": \"Do you prefer to visit islands in the summer\
+              \ and mountains in the winter periods?\",\r\n            \"required\"\
+              : \"True\",\r\n            \"type\": \"question\",\r\n            \"\
+              options\": [\r\n                {\r\n                    \"opttxt\"\
+              : \"Yes\",\r\n                    \"nextqID\": \"5\"\r\n           \
+              \     },\r\n                {\r\n                    \"opttxt\": \"\
+              No\",\r\n                    \"nextqID\": \"8\" \r\n               \
+              \ }\r\n            ]\r\n        },\r\n        {\r\n            \"qID\"\
+              : \"5\",\r\n            \"qtext\": \"Do you prefer water sports or winter\
+              \ sports\",\r\n            \"required\": \"True\",\r\n            \"\
+              type\": \"question\",\r\n            \"options\": [\r\n            \
+              \    {\r\n                    \"opttxt\": \"Water Sports\",\r\n    \
+              \                \"nextqID\": \"6\"\r\n                },\r\n      \
+              \          {\r\n                    \"opttxt\": \"Winter Sports\",\r\
+              \n                    \"nextqID\": \"7\"\r\n                }\r\n  \
+              \          ]\r\n        },\r\n        {\r\n            \"qID\": \"6\"\
+              ,\r\n            \"qtext\": \"What is your favorite water sport?\",\r\
+              \n            \"required\": \"True\",\r\n            \"type\": \"question\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"Water Ski\",\r\n                    \"nextqID\"\
+              : \"null\"\r\n                },\r\n                {\r\n          \
+              \          \"opttxt\": \"Surfing\",\r\n                    \"nextqID\"\
+              : \"null\"\r\n                },\r\n                {\r\n          \
+              \          \"opttxt\": \"Diving\",\r\n                    \"nextqID\"\
+              : \"null\"\r\n                },\r\n                {\r\n          \
+              \          \"opttxt\": \"None really I just like water\",\r\n      \
+              \              \"nextqID\": \"null\"\r\n                }\r\n      \
+              \      ]\r\n        },\r\n        {\r\n            \"qID\": \"7\",\r\
+              \n            \"qtext\": \"What is your favorite winter sport?\",\r\n\
+              \            \"required\": \"True\",\r\n            \"type\": \"question\"\
+              ,\r\n            \"options\": [\r\n                {\r\n           \
+              \         \"opttxt\": \"Ski / Snowboard\",\r\n                    \"\
+              nextqID\": \"null\"\r\n                },\r\n                {\r\n \
+              \                   \"opttxt\": \"Ice skating\",\r\n               \
+              \     \"nextqID\": \"null\"\r\n                },\r\n              \
+              \  {\r\n                    \"opttxt\": \"None really I just like the\
+              \ cold\",\r\n                    \"nextqID\": \"null\"\r\n         \
+              \       }\r\n            ]\r\n        },\r\n        {\r\n          \
+              \  \"qID\": \"8\",\r\n            \"qtext\": \"According to your previous\
+              \ answer have you:\",\r\n            \"required\": \"True\",\r\n   \
+              \         \"type\": \"question\",\r\n            \"options\": [\r\n\
+              \                {\r\n                    \"opttxt\": \"Gone to an island\
+              \ in the winter for vacations\",\r\n                    \"nextqID\"\
+              : \"9\"\r\n                },\r\n                {\r\n             \
+              \       \"opttxt\": \"Gone to mountain in the summer for vacations\"\
+              ,\r\n                    \"nextqID\": \"9\"\r\n                },\r\n\
+              \                {\r\n                    \"opttxt\": \"None of the\
+              \ above\",\r\n                    \"nextqID\": \"9\"\r\n           \
+              \     }\r\n            ]\r\n        },\r\n        {\r\n            \"\
+              qID\": \"9\",\r\n            \"qtext\": \"Which of these islands would\
+              \ you prefer to visit in the winter?\",\r\n            \"required\"\
+              : \"True\",\r\n            \"type\": \"question\",\r\n            \"\
+              options\": [\r\n                {\r\n                    \"opttxt\"\
+              : \"Corfu\",\r\n                    \"nextqID\": \"10\"\r\n        \
+              \        },\r\n                {\r\n                    \"opttxt\":\
+              \ \"Santorini\",\r\n                    \"nextqID\": \"10\"\r\n    \
+              \            },\r\n                {\r\n                    \"opttxt\"\
+              : \"Rhodes\",\r\n                    \"nextqID\": \"10\"\r\n       \
+              \         }\r\n            ]\r\n        },\r\n        {\r\n        \
+              \    \"qID\": \"10\",\r\n            \"qtext\": \"Which of these mountains\
+              \ would you prefer to visit in the summer?\",\r\n            \"required\"\
+              : \"True\",\r\n            \"type\": \"question\",\r\n            \"\
+              options\": [\r\n                {\r\n                    \"opttxt\"\
+              : \"Parnassos\",\r\n                    \"nextqID\": \"null\"\r\n  \
+              \              },\r\n                {\r\n                    \"opttxt\"\
+              : \"Alpes\",\r\n                    \"nextqID\": \"null\"\r\n      \
+              \          },\r\n                {\r\n                    \"opttxt\"\
+              : \"Pindos\",\r\n                    \"nextqID\": \"null\"\r\n     \
+              \           }\r\n            ]\r\n        }\r\n    ]\r\n}\r\n"
+        required: false
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuestionnaireUploaded'
+              example: '{status:"OK"}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdBadRequest'
+              example: '{status:"failed", reason: "Error when executing query. Could
+                be duplicate"}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpdInternalError'
+              example: '{status:"failed", reason: "connection to database"}'
+  /admin/resetall:
+    post:
+      summary: Διαγραφή όλων των δεδομένων της βάσης.
+      description: Διαχειριστικό endpoint που υποστηρίζει την διαγραφή όλων των ερωτηματολογίων,
+        απαντήσεων και χρηστών από τη βάση.
+      operationId: reset_All
+      responses:
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Reset_AllBad'
+              example: '{status:"failed", reason: "Table Answer not truncated"}'
+        500:
+          description: Σε περίπτωση αποτυχίας αδειάσματος της βάσης επιστρέφεται JSON
+            object με status failed και την αιτία αποτυχίας.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Reset_AllError'
+              example: "{\r\n\t\"status\":\"failed\", \r\n\t\"reason\":\"internal\
+                \ server error\"\r\n}"
+  /admin/resetq/{questionnaireID}:
+    post:
+      summary: Διαγραφή απαντήσεων σε ερώτηση
+      description: Διαχειριστικό endpoint για την διαγραφή όλων των καταγεγραμμένων
+        απαντήσεων  στις ερωτήσεις του ερωτηματολογίου με αναγνωριστικό questionnaireID.
+      operationId: reset_Question
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου προς διαγραφή.
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 203
+      responses:
+        200:
+          description: Σε περίπτωση επιτυχίας της διαγραφής των απαντήσεων επιστρέφεται  το
+            JSON του παραδείγματος.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResetResponse'
+              example: "{ \r\n\t\"status\" : \"OK\"\r\n}"
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResetQBad'
+              example: '{status:"failed", reason: "Couldn''t delete answers"}'
+        500:
+          description: |-
+            Σε περίπτωση επιτυχίας της διαγραφής των απαντήσεων επιστρέφεται JSON
+
+             με την αιτία αποτυχίας.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: "{ \r\n\t\"status\" : \"failed\",\r\n\t\"reason\" : \"connection\
+                \ to database\"\r\n}"
+  /doanswer/{questionnaireIID/{questionID}/{session}/{optionID}:
+    post:
+      summary: Καταχώρηση απάντησης σε ερώτηση.
+      description: Endpoint για την καταχώρηση της επιλογής απάντησης με αναγνωριστικό
+        optionID κατά το γεγονός απάντησης με αναγνωριστικό session στην ερώτηση questionID
+        για το ερωτηματολόγιο questionnaireID.
+      operationId: answer_Question
+      parameters:
+      - name: questionnaireID
+        in: query
+        description: Το αναγνωριστικό του ερωτηματολογίου.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: questionID
+        in: query
+        description: Το αναγνωριστικό της ερώτησης.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: session
+        in: query
+        description: Τέσσερις τυχαίοι λατινικοί χαρακτήρες που αναγνωρίζουν μοναδικά
+          ένα γεγονός απάντησης.
+        required: true
+        schema:
+          type: char
+          format: 4
+        example: XVBI
+      - name: optionID
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Answer_QuestionResponse'
+              example: '{status:"OK"}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed"}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database"}'
+  /getquestionanswers/{questionnaireID}/{questionID}:
+    get:
+      summary: Όλες οι απαντήσεις για μία ερώτηση
+      description: Επιστρέφει JSON object με όλες τις απαντήσεις από όλα τα γεγονότα
+        απάντησης (sessions) που δότηκαν στην ερώτηση με αναγνωριστικό questionID
+        στο ερωτηματολόγιο questionnaireID, ταξινομημένες ως προς τη χρονική σειρά
+        με την οποία δόθηκαν.
+      operationId: question_Answers
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: string
+      - name: questionID
+        in: path
+        description: Το αναγνωριστικό της ερώτησης
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Question_AnswersResponse'
+              example: "{\r\n    \"questionnaireID\": \"1\",\r\n    \"questionID\"\
+                : \"3\",\r\n    \"answers\": [\r\n        {\r\n            \"session\"\
+                : \"aaaa\",\r\n            \"ans\": \"3\"\r\n        },\r\n      \
+                \  {\r\n            \"session\": \"aaab\",\r\n            \"ans\"\
+                : \"9\"\r\n        },\r\n        {\r\n            \"session\": \"\
+                aaac\",\r\n            \"ans\": \"15\"\r\n        },\r\n        {\r\
+                \n            \"session\": \"aaad\",\r\n            \"ans\": \"21\"\
+                \r\n        },\r\n        {\r\n            \"session\": \"aaae\",\r\
+                \n            \"ans\": \"27\"\r\n        },\r\n        {\r\n     \
+                \       \"session\": \"aaaf\",\r\n            \"ans\": \"33\"\r\n\
+                \        },\r\n        {\r\n            \"session\": \"aaag\",\r\n\
+                \            \"ans\": \"39\"\r\n        }\r\n    ]\r\n}\r\n"
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting question information."}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /getsessionanswers/{questionnaireID}/{session}:
+    get:
+      summary: Απαντήσεις που δόθηκαν κάτα ένα γεγονός απάντησης
+      description: Επιστρέφει τις απαντήσεις που δόθηκαν σε όλες τις ερωτήσεις του
+        ερωτηματολογίου με αναγνωριστικό questionnaireID κατά το γεγονός απάντησης
+        session, ταξθνομημένες ως προς το αναγνωριστικό της ερώτησης (qID).
+      operationId: session_Answers
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: session
+        in: path
+        description: Το αναγνωριστικό του γεγονότος απάντησης
+        required: true
+        schema:
+          type: char
+          format: XXXX
+        example: AKDV
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/sessionanswers'
+              example: "{\r\n    \"questionnaireID\": \"1\",\r\n    \"session\": \"\
+                aaab\",\r\n    \"answers\": [\r\n        {\r\n            \"qID\"\
+                : \"1\",\r\n            \"ans\": \"7\"\r\n        },\r\n        {\r\
+                \n            \"qID\": \"2\",\r\n            \"ans\": \"8\"\r\n  \
+                \      },\r\n        {\r\n            \"qID\": \"3\",\r\n        \
+                \    \"ans\": \"9\"\r\n        },\r\n        {\r\n            \"qID\"\
+                : \"4\",\r\n            \"ans\": \"10\"\r\n        },\r\n        {\r\
+                \n            \"qID\": \"5\",\r\n            \"ans\": \"11\"\r\n \
+                \       },\r\n        {\r\n            \"qID\": \"6\",\r\n       \
+                \     \"ans\": \"12\"\r\n        }\r\n    ]\r\n}"
+        204:
+          description: No Content
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SessionNoData'
+              example: '{status:"failed", reason: "This session does not exist."}'
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /question/{questionnaireID}/{questionID}:
+    get:
+      summary: Πλήρη στοιχεία ερώτησης
+      description: Επιστρέφει τα πλήρη στοιχεία της ερώτησης questionID που ανήκει
+        στο ερωτηματολόγιο questionnaireID. Οι επιλογές-απαντήσεις της ερώτησης ταξινομούνται
+        ως προς το αναγνωριστικό της απάντησης.
+      operationId: question
+      parameters:
+      - name: questionnaireID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 345
+      - name: questionID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 4
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+              example: "{\r\n    \"questionnaireID\": \"1\",\r\n    \"qID\": \"3\"\
+                ,\r\n    \"qtext\": \"Do you change your destinations depending on\
+                \ the season?\",\r\n    \"required\": \"True\",\r\n    \"type\": \"\
+                question\",\r\n    \"options\": [\r\n        {\r\n            \"optID\"\
+                : \"9\",\r\n            \"opttxt\": \"Yes\",\r\n            \"nextqID\"\
+                : \"4\"\r\n        },\r\n        {\r\n            \"optID\": \"10\"\
+                ,\r\n            \"opttxt\": \"No\",\r\n            \"nextqID\": \"\
+                8\"\r\n        }\r\n    ]\r\n}"
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting question information."'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+  /questionnaire/{questionnaireID}:
+    get:
+      summary: Γενικά στοιχεία ερωτηματολογίου
+      description: Endpoint που επιστρέφει ένα αντικείμενο τύπου JSON με τα γεινκά
+        χαρακτηριστικά του ερωτηματολογίου με αναγνωριστικό questionnaireID.
+      operationId: questionnaire
+      parameters:
+      - name: questionnaireID
+        in: path
+        description: Το αναγνωριστικό του ερωτηματολογίου
+        required: true
+        schema:
+          type: integer
+          format: int32
+        example: 3524
+      responses:
+        200:
+          description: OK
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "Error getting questionnaire information."}'
+        500:
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/errorStatus'
+              example: '{status:"failed", reason: "connection to database not established."}'
+components:
+  schemas:
+    QuestionResponse:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        qID:
+          type: string
+        qtext:
+          type: string
+        required:
+          type: string
+        type:
+          type: string
+    Reset_AllBad:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    Question_AnswersResponse:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionID:
+          type: string
+    UpdBadRequest:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    SessionNoData:
+      type: object
+    errorDescription:
+      type: object
+      properties:
+        status:
+          type: string
+        dbconnection:
+          type: string
+    Answer_QuestionResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    questionnaire:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionnaireTitle:
+          type: string
+        keywords:
+          type: string
+    errorStatus:
+      type: object
+      properties:
+        attribute:
+          type: string
+        status:
+          type: string
+        reason:
+          type: string
+    ResetResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    ResetQBad:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    sessionanswers:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        session:
+          type: string
+    UpdInternalError:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    QuestionnaireUploaded:
+      type: object
+      properties:
+        status:
+          type: string
+    QuestionnaireResponse:
+      type: object
+      properties:
+        questionnaireID:
+          type: string
+        questionnaireTitle:
+          type: string
+    Reset_AllError:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
+    healthcheck:
+      type: object
+      properties:
+        status:
+          type: string
+        dbconnection:
+          type: string

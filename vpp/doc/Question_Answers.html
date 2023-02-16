@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">SoftEng22-13 &nbsp;IntelliQ</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="item"><a href="Answer_Question.html">Answer Question</a></div>
+<div class="item"><a href="Healthcheck.html">Healthcheck</a></div>
+<div class="item"><a href="Question.html">Question</a></div>
+<div class="current item">Question Answers</div>
+<div class="item"><a href="Questionnaire.html">Questionnaire</a></div>
+<div class="item"><a href="Reset_All.html">Reset All</a></div>
+<div class="item"><a href="Reset_Question.html">Reset Question</a></div>
+<div class="item"><a href="Session_Answers.html">Session Answers</a></div>
+<div class="item"><a href="Upload_Questionnaire.html">Upload Questionnaire</a></div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Question Answers</header>
+				<div class="basic-info">
+										<div><span>
+&#917;&#960;&#953;&#963;&#964;&#961;&#941;&#966;&#949;&#953; JSON object &#956;&#949; &#972;&#955;&#949;&#962; &#964;&#953;&#962; &#945;&#960;&#945;&#957;&#964;&#942;&#963;&#949;&#953;&#962; &#945;&#960;&#972; &#972;&#955;&#945; &#964;&#945; &#947;&#949;&#947;&#959;&#957;&#972;&#964;&#945; &#945;&#960;&#940;&#957;&#964;&#951;&#963;&#951;&#962; 
+(sessions) &#960;&#959;&#965; &#948;&#972;&#964;&#951;&#954;&#945;&#957; &#963;&#964;&#951;&#957; &#949;&#961;&#974;&#964;&#951;&#963;&#951; &#956;&#949; &#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; questionID &#963;&#964;&#959; 
+&#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#972;&#947;&#953;&#959; questionnaireID, &#964;&#945;&#958;&#953;&#957;&#959;&#956;&#951;&#956;&#941;&#957;&#949;&#962; &#969;&#962; &#960;&#961;&#959;&#962; &#964;&#951; &#967;&#961;&#959;&#957;&#953;&#954;&#942; &#963;&#949;&#953;&#961;&#940; &#956;&#949; &#964;&#951;&#957; 
+&#959;&#960;&#959;&#943;&#945; &#948;&#972;&#952;&#951;&#954;&#945;&#957;.</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>http://localhost:9103/intelliq_api/getquestionanswers/{questionnaireID}/{questionID}</div>
+
+										<div class="title">Parameters</div>
+					<table class="parameters">
+												<tr>
+						<td><div class="name">questionnaireID (Path)</div><div>
+												required
+												</div>
+						</td><td><div class="description"><span>
+<span dir="ltr" role="presentation" style="font-size:18.4px;font-family:sans-serif;"><font face="sans-serif" size="18.4px" style="font-size:18.4px;">&#932;&#959; 
+&#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; &#964;&#959;&#965;</font></span><font face="sans-serif" size="18.4px" style="font-size:18.4px;"><span dir="ltr" role="presentation" style="font-size:18.4px;font-family:sans-serif;">&nbsp;</span><span dir="ltr" role="presentation" style="font-size:18.4px;font-family:sans-serif;">&#949;&#961;&#969;&#964;&#951;&#956;&#945;&#964;&#959;&#955;&#959;&#947;&#943;&#959;&#965;</span></font></span>
+</div>
+												<div><span class="example-title">Type: </span><span class="example-value">string</span></div>
+																		</td>
+						</tr>
+												<tr>
+						<td><div class="name">questionID (Path)</div><div>
+												required
+												</div>
+						</td><td><div class="description"><span>
+<span dir="ltr" role="presentation" style="font-size:18.4px;font-family:sans-serif;"><font face="sans-serif" size="18.4px" style="font-size:18.4px;">&#932;&#959; 
+&#945;&#957;&#945;&#947;&#957;&#969;&#961;&#953;&#963;&#964;&#953;&#954;&#972; &#964;&#951;&#962; &#949;&#961;&#974;&#964;&#951;&#963;&#951;&#962;</font></span></span>
+</div>
+												<div><span class="example-title">Type: </span><span class="example-value">int</span></div>
+																		</td>
+						</tr>
+											</table>
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X GET
+												"http://localhost:9103/intelliq_api/getquestionanswers/{questionnaireID}/{questionID}"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="empty-section">No Request Defined</div>
+									</div>
+
+				<div class="sidebar">
+					
+									</div>
+
+				<div class="content">
+																<header class="section">Response
+- Status 400
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_Answers_400_response.png"></div>
+			<a name="errorStatus"></a>
+<div class="classname">
+	errorStatus
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>attribute</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 500
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_Answers_500_response.png"></div>
+			<a name="errorStatus"></a>
+<div class="classname">
+	errorStatus
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>attribute</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>reason</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+												<header class="section">Response
+- Status 200
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Question_Answers_200_response.png"></div>
+			<a name="Question AnswersResponse"></a>
+<div class="classname">
+	Question AnswersResponse
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>questionnaireID</td><td>
+				String
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>questionID</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+				<header class="section">Related classes</header>
+		<a name="question_answer"></a>
+<div class="classname">
+	question_answer
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>session</td><td>
+				STring
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>ans</td><td>
+				String
+				</td><td></td>
+		</tr>
+			</table>
+</div>
+										</div>
+
+				<div class="sidebar">
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json"></code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Question_Answers.xml" target="_blank">Question_Answers.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>
