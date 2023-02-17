@@ -22,7 +22,7 @@ function Questionnaire() {
   }, []);
 
   useEffect(() => {
-    if(isMounted0.current){
+    if(isMounted0.current && !isNaN(questionnaireID)){
     axios.get(`http://localhost:9103/intelliq_api/questionnaire/${questionnaireID}`)
     .then(response => {
       setQstnre(response.data);
@@ -156,7 +156,7 @@ function Questionnaire() {
       </div>
       );}
   else
-    return(<div>Thank you for submitting!</div>)
+    return(<div>Thank you for submitting! Your sessionID was: {sessionID}</div>)
   }
 
 export default Questionnaire;
