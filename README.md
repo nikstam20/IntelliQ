@@ -15,7 +15,7 @@ The use cases "Answer Questionnaire" and "View Questionnaire Response Data with 
 ### Prerequisites
 * Have Node installed. Visit:
   https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-* Apache & MySQL (preffered XAMP)
+* Apache & MySQL (preffered XAMPP)
 
 ### How to run
 1. Set up the database
