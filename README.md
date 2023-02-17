@@ -19,7 +19,7 @@ The use cases "Answer Questionnaire" and "View Questionnaire Response Data with 
 
 ### How to run
 1. Set up the database
-2. Open the shell, connect to the database with mysql -u root -p and the run database dump to fill in the database.
+2. Open the shell, connect to the database with mysql -u root -p and run the database dump to fill the database.
 3. Run intelliQ.exe found in ~/SoftEng22-13/api-backend 
 4. Run the installer.js:
   ```sh
