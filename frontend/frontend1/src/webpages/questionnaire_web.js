@@ -127,7 +127,7 @@ function Questionnaire() {
       <div className="wrapper">
         <h1 key={qstnre.questionnaireTitle}><strong>{qstnre.questionnaireTitle}</strong>
         </h1>
-        <h3><strong>Keywords: </strong>{opts.map((opt, idx) => (keywrds[idx]))} </h3>
+        <h3><strong>Keywords: </strong>{keywrds.map((kwd, idx) => (keywrds[idx]))} </h3>
 
         <form>
           <fieldset>
