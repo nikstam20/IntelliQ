@@ -47,10 +47,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 8\n");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 8", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -60,10 +60,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 4, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 1\n");
+        console.log("Answered Option 4, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 9\n");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 3 --session_id bbbb --option_id 9", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -73,10 +73,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 11\n");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 11", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -86,10 +86,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 13\n");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 13", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -99,10 +99,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to next question\n Execute se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4\n");
+        console.log("Answered Option 1, now going to next question\n Execute se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 18\n");
     });
     await keypress();
-    exec("se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
+    exec("se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 18", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -138,10 +138,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Going to upload new questionnaire\n Executing se2213 questionnaire_upd --source ./data/import_questionnaires/example2_questionnaire.json\n");
+        console.log("Going to upload new questionnaire\n Executing se2213 questionnaire_upd --source ./data/import_questionnaires/example_questionnaire_1.json\n");
     });
     await keypress();
-    exec("se2213 questionnaire_upd --source ./data/import_questionnaires/example2_questionnaire.json", (error, stdout, stderr) => {
+    exec("se2213 questionnaire_upd --source ./data/import_questionnaires/example_questionnaire_1.json", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -151,10 +151,10 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Going to present new questionnaire\n Executing se2213 questionnaire --questionnaire_id 2 --format JSON\n");
+        console.log("Going to present new questionnaire\n Executing se2213 questionnaire --questionnaire_id 1 --format JSON\n");
     });
     await keypress();
-    exec("se2213 questionnaire --questionnaire_id 2 --format JSON", (error, stdout, stderr) => {
+    exec("se2213 questionnaire --questionnaire_id 1 --format JSON", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
