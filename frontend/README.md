@@ -43,7 +43,7 @@ Front-end for use-cases "Answer Questionnaire" and "View Questionnaire Response 
 Make sure to restart XAMMP so the changes take effect!
 ### How to run
 
-You can download the build directly from here or build the app yourself by going to ~/SoftEng22-13/frontend/frontend1 and running:
+You can download the build directly from here or build the app yourself <b>(highly recommended)</b> by going to ~/SoftEng22-13/frontend/frontend1 and running:
   ```sh
   npm run build
   ```
