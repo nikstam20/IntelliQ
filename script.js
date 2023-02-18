@@ -47,7 +47,7 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to nextquestion\n Executing se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4\n");
     });
     await keypress();
     exec("se2213 doanswer --questionnaire_id 1 --question_id 2 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
@@ -73,7 +73,7 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to nextquestion\n Executing se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1\n");
     });
     await keypress();
     exec("se2213 doanswer --questionnaire_id 1 --question_id 4 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
@@ -86,7 +86,7 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to nextquestion\n Executing se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1\n");
+        console.log("Answered Option 1, now going to next question\n Executing se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1\n");
     });
     await keypress();
     exec("se2213 doanswer --questionnaire_id 1 --question_id 5 --session_id bbbb --option_id 1", (error, stdout, stderr) => {
@@ -99,7 +99,7 @@ async function presentation() {
             return;
         }
         console.log(`stdout: ${stdout}`);
-        console.log("Answered Option 1, now going to nextquestion\n Execute se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4\n");
+        console.log("Answered Option 1, now going to next question\n Execute se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4\n");
     });
     await keypress();
     exec("se2213 doanswer --questionnaire_id 1 --question_id 6 --session_id bbbb --option_id 4", (error, stdout, stderr) => {
